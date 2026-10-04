@@ -10,9 +10,10 @@ import styles from "./HeroProfiles.module.css";
 export function HeroProfiles({ profiles }: { profiles: HeroProfile[] }) {
   return (
     <>
-      <svg className={styles.orbit} viewBox="0 0 820 680" aria-hidden="true" focusable="false">
-        <ellipse cx="340" cy="320" rx="420" ry="300" transform="rotate(-12 340 320)" fill="none" stroke="#71c0fd" strokeOpacity=".3" strokeDasharray="2 7" strokeLinecap="round" />
-        <ellipse cx="340" cy="320" rx="320" ry="215" transform="rotate(-12 340 320)" fill="none" stroke="#cbe4ee" strokeOpacity=".1" />
+      {/* Orbit fitted through the four satellite icons (portrait coords, 1000 × 984). */}
+      <svg className={styles.orbit} viewBox="0 0 1000 984" aria-hidden="true" focusable="false">
+        <ellipse cx="510" cy="510" rx="510" ry="430" transform="rotate(-50 510 510)" fill="none" stroke="#71c0fd" strokeOpacity=".45" strokeWidth="1.5" strokeDasharray="2 8" strokeLinecap="round" vectorEffect="non-scaling-stroke" />
+        <ellipse cx="510" cy="510" rx="420" ry="350" transform="rotate(-50 510 510)" fill="none" stroke="#cbe4ee" strokeOpacity=".12" vectorEffect="non-scaling-stroke" />
       </svg>
       <ul className={styles.list} aria-label="Facetas profesionales">
         {profiles.map((p, i) => (
