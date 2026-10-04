@@ -10,7 +10,13 @@ import styles from "./GlobalImpact.module.css";
 
 export function GlobalImpact() {
   const map = getWorldMap();
-  const placed: PlacedLocation[] = impactLocations.map((loc) => ({ ...loc, ...projectToPercent(loc.coordinates) }));
+  // One pin per city: entries sharing city + country are grouped (the card pages through them).
+  const placed: PlacedLocation[] = [];
+  for (const loc of impactLocations) {
+    const same = placed.find((p) => p.city === loc.city && p.country === loc.country);
+    if (same) same.entries.push(loc);
+    else placed.push({ ...loc, entries: [loc], ...projectToPercent(loc.coordinates) });
+  }
 
   // Dashed arcs connecting consecutive points (decorative, as in the Figma).
   const arcs = placed.slice(1).map((p, i) => {

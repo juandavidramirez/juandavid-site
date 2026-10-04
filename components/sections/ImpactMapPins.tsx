@@ -5,8 +5,8 @@ import type { ImpactLocation } from "@/content/types";
 import { ImpactLocationCard } from "./ImpactLocationCard";
 import styles from "./ImpactMapPins.module.css";
 
-/** x/y: position on the unzoomed map, in % of the map box. */
-export type PlacedLocation = ImpactLocation & { x: number; y: number };
+/** A pin: x/y on the unzoomed map (% of the box); `entries` = every story at this city. */
+export type PlacedLocation = ImpactLocation & { x: number; y: number; entries: ImpactLocation[] };
 
 /** Current zoom: scale plus translation in % of the map box. */
 export type MapView = { scale: number; x: number; y: number };
@@ -78,7 +78,7 @@ export function ImpactMapPins({ locations, view, label, closeLabel, onSelect, on
               // Off-view pins stay focusable (Tab pans the map to them) but invisible.
               ...(isVisible(pos) ? {} : { opacity: 0, pointerEvents: "none" as const }),
             }}
-            aria-label={[loc.city, loc.country].filter(Boolean).join(", ")}
+            aria-label={[loc.city, loc.country].filter(Boolean).join(", ") + (loc.entries.length > 1 ? ` (${loc.entries.length})` : "")}
             aria-expanded={active === i}
             aria-controls="impact-map-card"
             onClick={() => {
@@ -106,7 +106,7 @@ export function ImpactMapPins({ locations, view, label, closeLabel, onSelect, on
           data-vert={currentPos.y < 25 ? "down" : currentPos.y > 75 ? "up" : "center"}
           style={{ left: `${currentPos.x}%`, top: `${currentPos.y}%` }}
         >
-          <ImpactLocationCard location={current} closeLabel={closeLabel} onClose={close} />
+          <ImpactLocationCard key={active} entries={current.entries} closeLabel={closeLabel} onClose={close} />
         </div>
       )}
     </div>

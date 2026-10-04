@@ -85,7 +85,7 @@
     background: linear-gradient(160deg, rgba(25, 53, 83, 0.92), rgba(1, 17, 40, 0.94));
   }
   .media {
-    grid-row: 1 / span 3;
+    grid-row: 1 / span 4;
     aspect-ratio: 4 / 3;
     border-radius: 12px;
   }
@@ -105,5 +105,45 @@
     margin: 6px 0 0;
     font-size: 14px;
     line-height: 1.4;
+  }
+}
+
+/* ‹ 1 / 3 › when several stories share a city */
+.pager {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 12px 6px 0;
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  color: var(--color-blue-light);
+}
+.pager button {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(203, 228, 238, 0.35);
+  background: rgba(1, 17, 40, 0.5);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: border-color 0.2s var(--ease);
+}
+.pager button:hover {
+  border-color: var(--color-yellow);
+}
+.prev {
+  transform: rotate(180deg);
+}
+@media (max-width: 640px) {
+  .pager {
+    grid-column: 2;
+    margin: 6px 0 0;
+  }
+  .pager button {
+    width: 28px;
+    height: 28px;
   }
 }
