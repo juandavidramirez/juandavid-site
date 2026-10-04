@@ -33,7 +33,7 @@ export function Navbar() {
   return (
     <header className={styles.header}>
       <div className={`container ${styles.bar}`}>
-        <Link href="/" className={styles.brand} aria-label={`${site.name} — inicio`} onClick={close}>
+        <Link href={navigation.home} className={styles.brand} aria-label={`${site.name} — inicio`} onClick={close}>
           <Wordmark primary={site.brand.primary} secondary={site.brand.secondary} />
         </Link>
 

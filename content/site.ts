@@ -1,12 +1,10 @@
 import type { NavItem, SocialLink, CTA } from "./types";
+import { externalLinks, internalLinks } from "./links";
 
 /**
  * Global, cross-page content: brand, navigation, socials, footer, SEO.
  * Edit freely — no component changes required.
  */
-
-// TODO(Juan David): confirma estas URLs públicas.
-export const SUBSTACK_URL = "https://juandavidramirez.substack.com";
 
 export const site = {
   /**
@@ -30,20 +28,23 @@ export const site = {
 };
 
 export const navigation: {
+  /** Destination of the wordmark (navbar and footer). */
+  home: string;
   items: NavItem[];
   cta: CTA;
   languages: { label: string; href?: string; active?: boolean }[];
   menuLabel: string;
   closeLabel: string;
 } = {
+  home: internalLinks.home,
   items: [
-    { label: "Sobre mí", href: "/#proposito" },
-    { label: "Mi impacto", href: "/#impacto" },
-    { label: "Mi trabajo", href: "/#areas" },
-    { label: "Blog", href: "/#blog" },
-    { label: "Contacto", href: "/#contacto" },
+    { label: "Sobre mí", href: internalLinks.sections.purpose },
+    { label: "Mi impacto", href: internalLinks.sections.impact },
+    { label: "Mi trabajo", href: internalLinks.sections.areas },
+    { label: "Blog", href: internalLinks.sections.blog },
+    { label: "Contacto", href: internalLinks.sections.contact },
   ],
-  cta: { label: "Hablemos", href: "/contact", variant: "primary" },
+  cta: { label: "Hablemos", href: internalLinks.contactForm, variant: "primary" },
   // Without an `href` a language is rendered as unavailable (no broken link).
   languages: [
     { label: "Es", active: true },
@@ -54,10 +55,9 @@ export const navigation: {
 };
 
 export const social: SocialLink[] = [
-  // TODO(Juan David): reemplaza por tus perfiles reales.
-  { network: "linkedin", label: "LinkedIn", href: "https://www.linkedin.com/in/juandavidramirez" },
-  { network: "instagram", label: "Instagram", href: "https://www.instagram.com/juandavidramirez" },
-  { network: "substack", label: "Substack", href: SUBSTACK_URL },
+  { network: "linkedin", label: "LinkedIn", href: externalLinks.linkedin },
+  { network: "instagram", label: "Instagram", href: externalLinks.instagram },
+  { network: "substack", label: "Substack", href: externalLinks.substackProfile },
 ];
 
 export const footer = {

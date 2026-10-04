@@ -41,7 +41,8 @@ Todo el texto, cifras, links e imágenes viven en `content/` — no hace falta t
 
 | Archivo | Contenido |
 |---|---|
-| `content/site.ts` | Nombre/wordmark, SEO, navegación, idiomas, redes sociales, footer, URL de Substack |
+| `content/links.ts` | **Todos los destinos de enlaces**: redes, Substack, artículos (fuente: página de Notion "Links Sitio web") y rutas internas |
+| `content/site.ts` | Nombre/wordmark, SEO, navegación, idiomas, redes sociales, footer |
 | `content/home.ts` | Hero, Propósito, Impacto global, cifras, ubicaciones del mapa, áreas, blog, CTA de contacto |
 | `content/contact.ts` | Textos de la página y el formulario de contacto |
 | `content/types.ts` | Forma de los datos (TypeScript avisa si falta algo) |
@@ -69,8 +70,11 @@ Para usar tu propia imagen o SVG, ponla en `public/images/icons/` y escribe:
 { title: "…", description: "…", icon: "/images/icons/ai-strategy.svg", iconType: "image" }
 ```
 
+### Cambiar un link
+Todos los destinos viven en `content/links.ts` (`externalLinks` e `internalLinks`); el resto del contenido solo los referencia. Un CTA sin `href` se muestra como botón pero sin navegación, útil mientras su página no exista.
+
 ### Agregar un artículo del blog
-En `content/home.ts → blog.posts` añade:
+Agrega su URL en `content/links.ts → externalLinks.articles` y luego, en `content/home.ts → blog.posts`:
 
 ```ts
 {
@@ -78,7 +82,7 @@ En `content/home.ts → blog.posts` añade:
   category: "Trabajo",
   date: "2025-06-01",            // ISO; se muestra como "1 JUN, 2025"
   readingTime: "4 min de lectura",
-  url: "https://tu.substack.com/p/slug",
+  url: externalLinks.articles.miArticulo,
   image: { src: "/images/blog/slug.webp", alt: "…", width: 900, height: 600 },
 }
 ```
@@ -136,6 +140,6 @@ La opción más simple es [Vercel](https://vercel.com): importa el repositorio, 
 
 ## Pendientes de contenido
 Marcados con `TODO(Juan David)` en `content/`:
-- URLs reales de LinkedIn, Instagram y Substack (y el link de cada artículo).
+- Destinos sin definir en Notion (hoy sin navegación): "Conoce más de mí" y "Leer más" (ver comentario al final de `content/links.ts`).
 - Ciudades/descripciones reales de los puntos del mapa (las actuales son provisionales a partir de los 6 países de las cifras).
 - La versión en inglés: el selector "En" está visible pero deshabilitado hasta que exista.

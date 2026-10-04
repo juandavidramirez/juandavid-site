@@ -7,7 +7,7 @@ import type {
   ImpactStat,
   RichText,
 } from "./types";
-import { SUBSTACK_URL } from "./site";
+import { externalLinks, internalLinks } from "./links";
 
 /**
  * Home page content. Every text, number, link and image on the Home lives here.
@@ -26,8 +26,8 @@ export const hero: {
   description:
     "Diseño estrategias de IA, lidero procesos de innovación y formo equipos, para que empresas y personas adopten la tecnología con criterio y la usen a su favor.",
   ctas: [
-    { label: "Hablemos", href: "/contact", variant: "primary" },
-    { label: "Conoce mi trabajo", href: "/#areas", variant: "outline" },
+    { label: "Hablemos", href: internalLinks.contactForm, variant: "primary" },
+    { label: "Conoce mi trabajo", href: internalLinks.sections.areas, variant: "outline" },
   ],
   image: {
     src: "/images/hero-portrait.webp",
@@ -200,17 +200,15 @@ export const blog: {
     { text: "Algunas de las\nideas que he\n" },
     { text: "construído", accent: "yellow" },
   ],
-  // Agrega `href` (y `external: true`) cuando esté definido el link al blog.
-  cta: { label: "Todos los artículos", variant: "outline" },
+  cta: { label: "Todos los artículos", href: externalLinks.blog, external: true, variant: "outline" },
   readLabel: "Leer en Substack",
-  // TODO(Juan David): reemplaza `url` por el link exacto de cada artículo.
   posts: [
     {
       title: "The efficiency Trap",
       category: "Trabajo",
       date: "2025-05-11",
       readingTime: "5 min de lectura",
-      url: SUBSTACK_URL,
+      url: externalLinks.articles.efficiencyTrap,
       image: {
         src: "/images/blog/efficiency-trap.webp",
         alt: "Persona relajada frente a un escritorio con laptop mirando un atardecer sobre la ciudad",
@@ -223,7 +221,7 @@ export const blog: {
       category: "Balance",
       date: "2025-05-21",
       readingTime: "2 min de lectura",
-      url: SUBSTACK_URL,
+      url: externalLinks.articles.rebeldiaSilenciosa,
       image: {
         src: "/images/blog/rebeldia-silenciosa.webp",
         alt: "Hombre armando un rompecabezas en la sala mientras la televisión está encendida",
@@ -236,7 +234,7 @@ export const blog: {
       category: "Productividad",
       date: "2025-05-13",
       readingTime: "3 min de lectura",
-      url: SUBSTACK_URL,
+      url: externalLinks.articles.guiltOfNotMovingForward,
       image: {
         src: "/images/blog/guilt-of-not-moving-forward.webp",
         alt: "Cuaderno abierto con la nota 'Progress isn't always visible' junto a una taza de café y una laptop",
@@ -260,6 +258,6 @@ export const contact: {
   title: [{ text: "¿Cómo podemos\ntrabajar juntos?" }],
   description:
     "Si estás explorando una idea, necesitas apoyo en una estrategia de IA, o quieres fortalecer el impacto de tu organización, conversemos.",
-  cta: { label: "Hablemos", href: "/contact", variant: "primary" },
+  cta: { label: "Hablemos", href: internalLinks.contactForm, variant: "primary" },
   handwritten: "Ideas de hoy para un mañana más humano...",
 };

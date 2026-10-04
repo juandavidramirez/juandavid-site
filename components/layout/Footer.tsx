@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { footer, social } from "@/content/site";
+import { footer, navigation, social } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
 import { Wordmark } from "@/components/ui/Wordmark";
 import styles from "./Footer.module.css";
@@ -9,7 +9,7 @@ export function Footer() {
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
         <div className={styles.brand}>
-          <Link href="/" aria-label="Inicio">
+          <Link href={navigation.home} aria-label="Inicio">
             <Wordmark primary={footer.brand.primary} secondary={footer.brand.secondary} />
           </Link>
           <p className={styles.descriptor}>{footer.descriptor}</p>
