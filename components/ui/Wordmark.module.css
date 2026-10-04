@@ -1,0 +1,13 @@
+.wordmark {
+  font-family: var(--font-brand);
+  font-size: 24px;
+  line-height: 1;
+  color: var(--color-white);
+  white-space: nowrap;
+}
+.primary {
+  font-weight: 600;
+}
+.secondary {
+  font-weight: 300;
+}

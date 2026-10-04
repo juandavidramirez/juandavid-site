@@ -1,0 +1,141 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  min-height: 855px;
+  padding-top: 80px; /* navbar */
+  background:
+    radial-gradient(44% 40% at 0% 0%, rgba(74, 122, 245, 0.95), rgba(3, 85, 226, 0.35) 55%, transparent 100%),
+    radial-gradient(40% 60% at 100% 20%, rgba(3, 85, 226, 0.35), transparent 70%),
+    var(--color-bg);
+}
+
+.glow {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(30% 35% at 18% 8%, rgba(113, 192, 253, 0.25), transparent 70%);
+}
+
+.inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 560px) 1fr;
+  min-height: 775px;
+}
+
+.copy {
+  position: relative;
+  z-index: 3;
+  padding-top: 120px;
+}
+
+.eyebrow {
+  display: flex;
+  flex-wrap: wrap;
+}
+.dot {
+  margin-inline: 1.1em;
+}
+
+.title {
+  margin-top: 56px;
+  font-size: var(--fs-hero);
+  line-height: var(--lh-hero);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  white-space: pre-line;
+}
+
+.description {
+  margin-top: 24px;
+  max-width: 532px;
+  font-size: var(--fs-body);
+  color: var(--color-text);
+}
+
+.ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  margin-top: 52px;
+}
+
+.portrait {
+  position: absolute;
+  z-index: 1;
+  left: calc(483 / 1440 * 100%);
+  bottom: 53px;
+  width: min(612px, 42.5%);
+}
+.portrait img {
+  width: 100%;
+  height: auto;
+}
+
+.wave {
+  position: absolute;
+  z-index: 2;
+  left: -24%;
+  top: 360px;
+  width: 150%;
+  max-width: none;
+  height: auto;
+  opacity: 0.42;
+  pointer-events: none;
+}
+
+@media (max-width: 1100px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .copy {
+    max-width: 560px;
+  }
+  .portrait {
+    left: auto;
+    right: 0;
+    width: 46%;
+  }
+  .wave {
+    top: 420px;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero {
+    min-height: 0;
+    padding-top: 72px;
+  }
+  .inner {
+    min-height: 0;
+  }
+  .copy {
+    padding-top: 56px;
+  }
+  .title {
+    margin-top: 32px;
+  }
+  .ctas {
+    margin-top: 36px;
+  }
+  .portrait {
+    position: relative;
+    inset: auto;
+    width: min(100%, 460px);
+    margin: 40px auto 0;
+  }
+  .wave {
+    top: auto;
+    bottom: -40px;
+    width: 260%;
+    left: -80%;
+  }
+}
+
+@media (max-width: 480px) {
+  .ctas > * {
+    flex: 1 1 100%;
+  }
+}

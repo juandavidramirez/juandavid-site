@@ -1,0 +1,102 @@
+.form {
+  display: grid;
+  gap: 24px;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+.field {
+  display: grid;
+  gap: 10px;
+}
+
+.label {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.input {
+  width: 100%;
+  min-height: 52px;
+  padding: 14px 18px;
+  border-radius: 16px;
+  border: 1px solid rgba(203, 228, 238, 0.28);
+  background: rgba(25, 53, 83, 0.55);
+  color: var(--color-white);
+  font-size: 17px;
+  transition: border-color 0.2s var(--ease), background-color 0.2s var(--ease);
+}
+textarea.input {
+  resize: vertical;
+  min-height: 160px;
+  line-height: 1.5;
+}
+.input::placeholder {
+  color: rgba(203, 228, 238, 0.55);
+}
+.input:hover {
+  border-color: rgba(203, 228, 238, 0.5);
+}
+.input:focus-visible {
+  outline: none;
+  border-color: var(--color-yellow);
+  background: rgba(25, 53, 83, 0.8);
+  box-shadow: 0 0 0 3px rgba(255, 189, 66, 0.25);
+}
+.input[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+
+.error,
+.serverError {
+  font-size: 15px;
+  color: var(--color-error);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 24px;
+  margin-top: 8px;
+}
+
+.hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.success {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  padding: 40px;
+  border-radius: var(--radius-card);
+  background: rgba(25, 53, 83, 0.6);
+  border: 1px solid rgba(113, 192, 253, 0.3);
+}
+.success:focus {
+  outline: none;
+}
+.successTitle {
+  font-size: var(--fs-h3);
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+@media (max-width: 640px) {
+  .row {
+    grid-template-columns: 1fr;
+  }
+  .success {
+    padding: 28px 24px;
+  }
+}

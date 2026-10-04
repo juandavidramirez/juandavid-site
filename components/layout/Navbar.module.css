@@ -1,0 +1,164 @@
+.header {
+  position: absolute;
+  inset: 0 0 auto;
+  z-index: 50;
+}
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  height: 80px;
+}
+
+.brand {
+  flex-shrink: 0;
+  margin-right: 40px;
+}
+
+.nav {
+  flex: 1;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.link,
+.disabled {
+  font-size: 16px;
+  color: var(--color-white);
+  padding-block: 8px;
+  position: relative;
+}
+.link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.25s var(--ease);
+}
+.link:hover::after {
+  transform: scaleX(1);
+}
+.disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
+.menuCta {
+  display: none;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 56px;
+}
+
+.cta {
+  min-height: 48px;
+  padding-inline: 30px;
+}
+
+.langs {
+  font-size: 16px;
+  color: var(--color-white);
+  white-space: nowrap;
+}
+.langOff {
+  opacity: 0.6;
+}
+
+.toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 24px;
+  border: 1px solid rgba(203, 228, 238, 0.3);
+  background: rgba(1, 17, 40, 0.6);
+  color: var(--color-white);
+  cursor: pointer;
+}
+
+@media (max-width: 1100px) {
+  .links {
+    gap: 28px;
+  }
+  .actions {
+    gap: 28px;
+  }
+  .brand {
+    margin-right: 8px;
+  }
+}
+
+@media (max-width: 900px) {
+  .bar {
+    height: 72px;
+  }
+  .cta {
+    display: none;
+  }
+  .toggle {
+    display: inline-flex;
+  }
+  .actions {
+    gap: 16px;
+    margin-left: auto;
+  }
+  .links {
+    position: fixed;
+    inset: 72px 0 0;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+    padding: 24px var(--gutter) 40px;
+    background: rgba(1, 17, 40, 0.97);
+    backdrop-filter: blur(12px);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity 0.2s var(--ease),
+      transform 0.2s var(--ease),
+      visibility 0.2s;
+  }
+  .links.open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+  .link,
+  .disabled {
+    display: block;
+    font-size: 22px;
+    padding: 18px 0;
+    border-bottom: 1px solid rgba(203, 228, 238, 0.12);
+  }
+  .link::after {
+    display: none;
+  }
+  .menuCta {
+    display: block;
+    margin-top: 32px;
+  }
+}
+
+@media (max-width: 420px) {
+  .brand :global(*) {
+    font-size: 20px;
+  }
+}

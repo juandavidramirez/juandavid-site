@@ -1,0 +1,170 @@
+/* Design tokens — values from the Figma (Desktop 1440). */
+:root {
+  --color-bg: #011128;
+  --color-text: #cbe4ee;
+  --color-white: #ffffff;
+  --color-yellow: #ffbd42;
+  --color-blue-light: #71c0fd;
+  --color-blue-muted: #193553;
+  --color-blue-1: #4a7af5;
+  --color-blue-2: #0355e2;
+  --color-blue-3: #007efb;
+  --color-card: rgba(203, 228, 238, 0.12);
+  --color-on-yellow: #011128;
+  --color-error: #ff9b8a;
+
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-brand: var(--font-montserrat), var(--font-sans);
+  --font-hand: var(--font-caveat), cursive;
+
+  --container: 1240px;
+  --gutter: clamp(20px, 6.95vw, 100px);
+  --section-y: clamp(64px, 7vw, 100px);
+  --gap-lg: clamp(40px, 4.5vw, 64px);
+  --gap: 24px;
+
+  /* Fluid type: exact Figma sizes at ≥1440px. */
+  --fs-hero: clamp(44px, 3.2rem + 2.6vw, 76px);
+  --lh-hero: 1.13;
+  --fs-h2: clamp(32px, 1.5rem + 1.8vw, 48px); /* Figma variant A: 48/52 */
+  --lh-h2: 1.083;
+  --fs-h2-lg: clamp(34px, 1.6rem + 2vw, 52px); /* Figma variant B: 52/60 */
+  --lh-h2-lg: 1.154;
+  --fs-h3: clamp(20px, 1rem + 0.6vw, 24px);
+  --fs-body: clamp(17px, 0.9rem + 0.45vw, 20px);
+  --fs-eyebrow: clamp(13px, 0.6rem + 0.45vw, 16px);
+  --fs-stat: clamp(40px, 2rem + 1.6vw, 52px);
+
+  --radius-pill: 24px;
+  --radius-card: 24px;
+  --radius-image: 32px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  line-height: 1.35; /* 20/27 */
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-yellow);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+[id] {
+  scroll-margin-top: 96px;
+}
+
+.container {
+  width: 100%;
+  max-width: calc(var(--container) + 2 * var(--gutter));
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -100px;
+  z-index: 100;
+  padding: 12px 20px;
+  border-radius: var(--radius-pill);
+  background: var(--color-yellow);
+  color: var(--color-on-yellow);
+  font-weight: 600;
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* Headings */
+.h2 {
+  font-size: var(--fs-h2);
+  line-height: var(--lh-h2);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--color-text);
+  white-space: pre-line;
+}
+.h2-lg {
+  font-size: var(--fs-h2-lg);
+  line-height: var(--lh-h2-lg);
+}
+
+.accent-yellow {
+  color: var(--color-yellow);
+}
+.accent-blue {
+  color: var(--color-blue-light);
+}
+.accent-white {
+  color: var(--color-white);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

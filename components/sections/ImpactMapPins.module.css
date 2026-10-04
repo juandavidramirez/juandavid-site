@@ -1,0 +1,164 @@
+.layer {
+  position: absolute;
+  inset: 0;
+}
+
+/* 44px touch target around a 14px glowing dot */
+.pin {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  margin: -22px 0 0 -22px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  z-index: 2;
+}
+
+.dot {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #eaf6ff;
+  box-shadow:
+    0 0 0 3px rgba(113, 192, 253, 0.55),
+    0 0 14px 4px rgba(113, 192, 253, 0.9),
+    0 0 36px 10px rgba(0, 126, 251, 0.6);
+  transition: transform 0.25s var(--ease), background-color 0.25s var(--ease);
+}
+.dot::after {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid rgba(113, 192, 253, 0.6);
+  animation: pulse 2.4s var(--ease) infinite;
+}
+
+.pin:hover .dot,
+.pin:focus-visible .dot {
+  transform: scale(1.25);
+}
+.active .dot {
+  background: var(--color-yellow);
+  box-shadow:
+    0 0 0 3px rgba(255, 189, 66, 0.45),
+    0 0 18px 6px rgba(255, 189, 66, 0.7);
+  transform: scale(1.25);
+}
+.active .dot::after {
+  border-color: rgba(255, 189, 66, 0.7);
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.card {
+  position: absolute;
+  z-index: 5;
+  width: min(280px, 70vw);
+  padding: 20px 44px 20px 20px;
+  border-radius: 20px;
+  background: rgba(1, 17, 40, 0.92);
+  border: 1px solid rgba(113, 192, 253, 0.35);
+  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px -10px rgba(0, 126, 251, 0.6);
+  backdrop-filter: blur(10px);
+  font-size: 15px;
+  line-height: 1.45;
+  animation: cardIn 0.2s var(--ease);
+  --dx: 20px;
+  --dy: -20px;
+  transform: translate(var(--dx), var(--dy));
+}
+.card[data-side="left"] {
+  --dx: calc(-100% - 20px);
+}
+.card[data-vert="up"] {
+  --dy: calc(-100% + 10px);
+}
+
+@keyframes cardIn {
+  from {
+    opacity: 0;
+    transform: translate(var(--dx), calc(var(--dy) + 6px));
+  }
+}
+
+.close {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+.close:hover {
+  background: rgba(203, 228, 238, 0.12);
+}
+
+.category {
+  font-size: 12px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-blue-light);
+}
+.place {
+  margin-top: 6px;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--color-white);
+}
+.place span {
+  font-weight: 400;
+  color: var(--color-text);
+}
+.cardTitle {
+  margin-top: 4px;
+  font-weight: 600;
+}
+.description {
+  margin-top: 8px;
+  color: var(--color-text);
+}
+.year {
+  margin-top: 8px;
+  color: var(--color-yellow);
+  font-size: 14px;
+}
+
+@media (max-width: 640px) {
+  .dot {
+    width: 11px;
+    height: 11px;
+  }
+  /* On phones the card docks under the map instead of floating over it. */
+  .card {
+    position: fixed;
+    left: 16px !important;
+    right: 16px;
+    top: auto !important;
+    bottom: 16px;
+    width: auto;
+    transform: none;
+    animation: none;
+  }
+}

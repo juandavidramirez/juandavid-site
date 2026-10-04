@@ -1,0 +1,118 @@
+# Juan David Ramírez — sitio personal
+
+Next.js 16 (App Router) + TypeScript + CSS Modules. Sin librerías de UI; el mapa se dibuja como SVG en el servidor (d3-geo) y solo los puntos interactivos usan JavaScript en el navegador.
+
+## Ejecutar localmente
+
+```bash
+npm install
+cp .env.example .env.local   # completa las variables
+npm run dev                  # http://localhost:3000
+```
+
+Producción:
+
+```bash
+npm run build
+npm start
+```
+
+`npm run lint` revisa el código.
+
+## Variables de entorno
+
+| Variable | Para qué |
+|---|---|
+| `NEXT_PUBLIC_SITE_URL` | URL pública (canonical, sitemap, Open Graph). Ej. `https://www.tudominio.com` |
+| `RESEND_API_KEY` | API key de [Resend](https://resend.com). Solo servidor. |
+| `CONTACT_TO_EMAIL` | Correo donde llegan los mensajes (varios separados por coma). |
+| `CONTACT_FROM_EMAIL` | Remitente, de un dominio verificado en Resend. Para pruebas: `onboarding@resend.dev` (solo entrega al correo de tu cuenta Resend). |
+
+### Configurar el email
+1. Crea una cuenta en Resend y verifica tu dominio (Domains → Add domain → registros DNS).
+2. Crea una API key y ponla en `RESEND_API_KEY`.
+3. Define `CONTACT_TO_EMAIL` y `CONTACT_FROM_EMAIL`.
+
+El formulario (`/contact`) valida en cliente y servidor (`lib/contact.ts`), evita doble envío, y tiene protección anti-spam básica: campo trampa oculto, tiempo mínimo de llenado y límite de 5 envíos / 10 min por IP. El endpoint es `app/api/contact/route.ts`.
+
+## Dónde está el contenido
+
+Todo el texto, cifras, links e imágenes viven en `content/` — no hace falta tocar componentes:
+
+| Archivo | Contenido |
+|---|---|
+| `content/site.ts` | Nombre/wordmark, SEO, navegación, idiomas, redes sociales, footer, URL de Substack |
+| `content/home.ts` | Hero, Propósito, Impacto global, cifras, ubicaciones del mapa, áreas, blog, CTA de contacto |
+| `content/contact.ts` | Textos de la página y el formulario de contacto |
+| `content/types.ts` | Forma de los datos (TypeScript avisa si falta algo) |
+
+### Títulos con palabras resaltadas
+Los títulos son listas de segmentos; `accent` puede ser `"yellow"`, `"blue"` o `"white"`. `\n` crea salto de línea:
+
+```ts
+title: [
+  { text: "Creo en la tecnología como " },
+  { text: "un puente", accent: "yellow" },
+  { text: ", no como fin" },
+]
+```
+
+### Cambiar imágenes
+Pon el archivo en `public/images/` (WebP recomendado) y actualiza `src`, `alt`, `width` y `height` en `content/home.ts`. `width/height` son las dimensiones reales del archivo (evitan saltos de layout). Next/Image genera versiones AVIF/WebP optimizadas.
+
+### Agregar un artículo del blog
+En `content/home.ts → blog.posts` añade:
+
+```ts
+{
+  title: "Título",
+  category: "Trabajo",
+  date: "2025-06-01",            // ISO; se muestra como "1 JUN, 2025"
+  readingTime: "4 min de lectura",
+  url: "https://tu.substack.com/p/slug",
+  image: { src: "/images/blog/slug.webp", alt: "…", width: 900, height: 600 },
+}
+```
+
+El componente `BlogPreview` solo recibe esta lista, así que más adelante puede venir del RSS de Substack sin rediseñarlo.
+
+### Ubicaciones del mapa
+En `content/home.ts → impactLocations`. `coordinates` es `[longitud, latitud]`:
+
+```ts
+{ city: "Bogotá", country: "Colombia", coordinates: [-74.07, 4.71], title: "…", description: "…", category: "…", year: "2024" }
+```
+
+Los puntos se proyectan solos y las líneas punteadas los unen en el orden de la lista. Las cifras (`impactStats`) están en el mismo archivo; su posición sobre el mapa en desktop está en `components/sections/GlobalImpact.module.css`.
+
+## Estructura
+
+```
+app/                 rutas (/, /contact, /api/contact), metadata, sitemap, robots, OG image, icono
+components/layout/   Navbar, Footer
+components/sections/ Hero, Purpose, GlobalImpact (+ ImpactMapPins, ImpactStats), ImpactAreas, BlogPreview, ContactCTA
+components/ui/       Button, Eyebrow, RichText, Icon, Wordmark
+components/contact/  ContactForm
+content/             contenido editable
+lib/                 mapa (proyección), validación de contacto, formato de fechas
+public/images/       assets locales (fotos, ondas, flecha)
+```
+
+Los tokens de diseño (colores, tipografías, espaciados, tamaños fluidos con `clamp()`) están al inicio de `app/globals.css`.
+
+## Agregar una página nueva
+1. Crea `app/about/page.tsx` (exporta `metadata` con título y descripción).
+2. Si necesita contenido, crea `content/about.ts`.
+3. Cambia el link en `content/site.ts → navigation.items` (p. ej. `"/#proposito"` → `"/about"`).
+4. Añade la ruta a `app/sitemap.ts`.
+
+Un ítem de navegación sin página puede marcarse `disabled: true` y se muestra deshabilitado sin link roto.
+
+## Desplegar
+La opción más simple es [Vercel](https://vercel.com): importa el repositorio, configura las variables de entorno y despliega. Cualquier host compatible con Next.js (Node 20+) funciona con `npm run build && npm start`.
+
+## Pendientes de contenido
+Marcados con `TODO(Juan David)` en `content/`:
+- URLs reales de LinkedIn, Instagram y Substack (y el link de cada artículo).
+- Ciudades/descripciones reales de los puntos del mapa (las actuales son provisionales a partir de los 6 países de las cifras).
+- La versión en inglés: el selector "En" está visible pero deshabilitado hasta que exista.
