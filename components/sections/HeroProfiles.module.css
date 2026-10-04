@@ -33,10 +33,10 @@
 
 /* 1 Estratega de IA — top right, grows down/right */
 .sat[data-orbit="1"] { left: 73.3%; top: 8%; --dur: 9s; --delay: -3s; }
-.sat[data-orbit="1"] .float { left: 0; top: -26px; } /* grows down: never under the navbar */
+.sat[data-orbit="1"] .float { left: 0; top: calc(-1 * clamp(21px, 4.6cqw, 26px)); } /* grows down: never under the navbar */
 /* 2 Investigador — right, grows down/right */
 .sat[data-orbit="2"] { left: 82.5%; top: 45%; --dur: 9.5s; --delay: -4s; }
-.sat[data-orbit="2"] .float { left: 0; top: -26px; }
+.sat[data-orbit="2"] .float { left: 0; top: calc(-1 * clamp(21px, 4.6cqw, 26px)); }
 /* 3 Emprendedor social — bottom right, grows down/right */
 .sat[data-orbit="3"] { left: 76.7%; top: 77%; --dur: 7.5s; --delay: -5s; }
 .sat[data-orbit="3"] .float { left: 0; top: 0; }
@@ -49,7 +49,7 @@
   display: block;
   width: max-content;
   max-width: 300px;
-  padding: 8px 20px 8px 8px;
+  padding: clamp(6px, 1.43cqw, 8px) clamp(14px, 3.6cqw, 20px) clamp(6px, 1.43cqw, 8px) clamp(6px, 1.43cqw, 8px);
   border-radius: 30px;
   color: var(--color-text);
   background: linear-gradient(160deg, rgba(74, 122, 245, 0.3), rgba(3, 85, 226, 0.16) 55%, rgba(1, 17, 40, 0.55));
@@ -60,12 +60,12 @@
   cursor: default;
   transition: border-radius 0.5s var(--ease), padding 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
 }
-.head { display: flex; align-items: center; gap: 12px; }
+.head { display: flex; align-items: center; gap: clamp(8px, 2.1cqw, 12px); }
 .icon {
-  display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center; flex-shrink: 0; width: clamp(30px, 7.14cqw, 40px); height: clamp(30px, 7.14cqw, 40px); border-radius: 50%;
   background: rgba(25, 53, 83, 0.9); color: var(--color-text); box-shadow: inset 0 0 0 1px rgba(113, 192, 253, 0.25);
 }
-.title { font-size: 16px; font-weight: 700; color: var(--color-white); white-space: nowrap; }
+.title { font-size: clamp(12.5px, 2.86cqw, 16px); font-weight: 700; color: var(--color-white); white-space: nowrap; }
 
 .more {
   display: grid;
@@ -77,9 +77,9 @@
 .description {
   display: block;
   overflow: hidden;
-  width: 248px;
-  padding: 0 4px 0 52px;
-  font-size: 14px;
+  width: clamp(190px, 44.3cqw, 248px);
+  padding: 0 4px 0 clamp(38px, 9.3cqw, 52px);
+  font-size: clamp(12px, 2.5cqw, 14px);
   line-height: 1.45;
 }
 
@@ -87,17 +87,17 @@
 .sat:hover .float, .sat:focus-within .float { animation-play-state: paused; }
 .sat:hover .body, .sat:focus-within .body {
   border-radius: 22px;
-  padding: 12px 18px 16px 12px;
+  padding: clamp(9px, 2.1cqw, 12px) clamp(13px, 3.2cqw, 18px) clamp(12px, 2.9cqw, 16px) clamp(9px, 2.1cqw, 12px);
   border-color: rgba(113, 192, 253, 0.7);
   box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 50px -10px rgba(0, 126, 251, 0.75), inset 0 1px 0 rgba(203, 228, 238, 0.18);
 }
-.sat:hover .more, .sat:focus-within .more { grid-template-rows: 1fr; width: 248px; opacity: 1; }
+.sat:hover .more, .sat:focus-within .more { grid-template-rows: 1fr; width: clamp(190px, 44.3cqw, 248px); opacity: 1; }
 .sat:hover .description, .sat:focus-within .description { padding-top: 6px; }
 .body:focus-visible { outline: 2px solid var(--color-yellow); outline-offset: 4px; }
 
-/* Below 1400px the orbit has no room: the facets become a vertical accordion under
-   the photo. Opening one only grows downwards, so nothing shifts under the pointer. */
-@media (max-width: 1399px) {
+/* State B (photo below the text, see Hero.module.css): vertical accordion under the
+   photo. Opening one only grows downwards, so nothing shifts under the pointer. */
+@media (max-width: 1250px) {
   .orbit { display: none; }
   .list {
     position: relative;
@@ -111,7 +111,9 @@
   .sat[data-orbit="4"] .body { transform: none; }
   .body { width: 100%; max-width: none; border-radius: 22px; cursor: pointer; }
   .more, .sat:hover .more, .sat:focus-within .more { width: auto; }
-  .description { width: auto; }
+  .description { width: auto; padding-left: 52px; font-size: 14px; }
+  .title { font-size: 16px; }
+  .icon { width: 40px; height: 40px; }
   /* Touch: open on tap (focus) only, so a tap never toggles twice. */
   @media (hover: none) {
     .sat:hover:not(:focus-within) .more { grid-template-rows: 0fr; opacity: 0; }
