@@ -23,7 +23,7 @@ npm start
 
 | Variable | Para qué |
 |---|---|
-| `NEXT_PUBLIC_SITE_URL` | URL pública (canonical, sitemap, Open Graph). Ej. `https://www.tudominio.com` |
+| `NEXT_PUBLIC_SITE_URL` | URL pública (canonical, sitemap, Open Graph). Ej. `https://www.tudominio.com`. Opcional en Vercel hasta que conectes dominio propio: si falta, se usa la URL de producción de Vercel. |
 | `RESEND_API_KEY` | API key de [Resend](https://resend.com). Solo servidor. |
 | `CONTACT_TO_EMAIL` | Correo donde llegan los mensajes (varios separados por coma). |
 | `CONTACT_FROM_EMAIL` | Remitente, de un dominio verificado en Resend. Para pruebas: `onboarding@resend.dev` (solo entrega al correo de tu cuenta Resend). |

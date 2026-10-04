@@ -9,8 +9,15 @@ import type { NavItem, SocialLink, CTA } from "./types";
 export const SUBSTACK_URL = "https://juandavidramirez.substack.com";
 
 export const site = {
-  /** Used for canonical URLs, sitemap and Open Graph. Set NEXT_PUBLIC_SITE_URL in production. */
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  /**
+   * Used for canonical URLs, sitemap and Open Graph.
+   * Priority: NEXT_PUBLIC_SITE_URL (custom domain) → Vercel production URL → localhost.
+   */
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    (process.env.VERCEL_PROJECT_PRODUCTION_URL
+      ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+      : "http://localhost:3000"),
   locale: "es_CO",
   lang: "es",
   name: "Juan David Ramírez",
