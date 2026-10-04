@@ -317,8 +317,8 @@ export const blog: {
   id: "blog",
   eyebrow: "Blog",
   title: [
-    { text: "Algunas de las\nideas que he\n" },
-    { text: "construído", accent: "yellow" },
+    { text: "Ideas para un\nfuturo más\n" },
+    { text: "humano", accent: "yellow" },
   ],
   cta: { label: "Todos los artículos", href: externalLinks.blog, external: true, variant: "outline" },
   readLabel: "Leer en Substack",
@@ -379,5 +379,5 @@ export const contact: {
   description:
     "Si estás explorando una idea, necesitas apoyo en una estrategia de IA, o quieres fortalecer el impacto de tu organización, conversemos.",
   cta: { label: "Hablemos", href: internalLinks.contactForm, variant: "primary" },
-  handwritten: "Ideas de hoy para un mañana más humano...",
+  handwritten: "Más ideas.\nMás conexiones.\nMejores oportunidades.",
 };
