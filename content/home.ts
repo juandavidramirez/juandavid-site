@@ -162,8 +162,8 @@ export const impactAreas: {
     { text: "acción", accent: "yellow" },
     { text: " real" },
   ],
-  // Sin href hasta que exista la subpágina correspondiente.
-  cta: { label: "Leer más", variant: "primary" },
+  // Temporal: LinkedIn hasta que exista la subpágina de portafolio.
+  cta: { label: "Conoce más", href: externalLinks.linkedin, external: true, variant: "primary" },
   items: [
     {
       icon: "brain-circuit",

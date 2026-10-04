@@ -36,9 +36,10 @@ export const internalLinks = {
 } as const;
 
 /*
+ * Temporary: "Conoce más" (Áreas de impacto) → LinkedIn until the portfolio page exists.
+ *
  * No destination defined in Notion yet — these CTAs render without navigation
  * (see `href` left out in content/home.ts):
  * - "Conoce más de mí" (Mi propósito)  → future "Sobre mí" page
- * - "Leer más" (Áreas de impacto)       → future work/services page
  * - "En" language switch                → future English version
  */

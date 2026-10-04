@@ -140,6 +140,7 @@ La opción más simple es [Vercel](https://vercel.com): importa el repositorio, 
 
 ## Pendientes de contenido
 Marcados con `TODO(Juan David)` en `content/`:
-- Destinos sin definir en Notion (hoy sin navegación): "Conoce más de mí" y "Leer más" (ver comentario al final de `content/links.ts`).
+- Destino sin definir en Notion (hoy sin navegación): "Conoce más de mí" (ver comentario al final de `content/links.ts`).
+- "Conoce más" (Áreas de impacto) apunta temporalmente a LinkedIn; cambiar cuando exista la subpágina de portafolio.
 - Ciudades/descripciones reales de los puntos del mapa (las actuales son provisionales a partir de los 6 países de las cifras).
 - La versión en inglés: el selector "En" está visible pero deshabilitado hasta que exista.
