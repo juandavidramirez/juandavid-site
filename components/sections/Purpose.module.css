@@ -1,7 +1,7 @@
 .section {
   position: relative;
   padding-block: 100px var(--section-y);
-  background: radial-gradient(45% 60% at 100% 45%, rgba(3, 85, 226, 0.55), transparent 75%);
+  /* Background comes from ContinuousSurface (no per-section gradients = no seams). */
 }
 
 .grid {

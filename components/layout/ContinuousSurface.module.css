@@ -1,0 +1,12 @@
+.surface {
+  position: relative;
+  isolation: isolate; /* blend context for the ribbons (mix-blend-mode: hard-light) */
+  overflow-x: clip; /* ribbons are wider than the viewport; no horizontal scroll */
+  /* Every glow fades out completely before the surface edges, so nothing is cut. */
+  background:
+    /* Right glow behind "Mi propósito" */
+    radial-gradient(42% 22% at 100% 16%, rgba(3, 85, 226, 0.5), transparent 75%),
+    /* Left glow running from Global Impact into Areas (Figma) */
+    radial-gradient(32% 38% at 0% 58%, rgba(74, 122, 245, 0.55), rgba(3, 85, 226, 0.18) 60%, transparent 100%),
+    var(--color-bg);
+}

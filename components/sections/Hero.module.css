@@ -4,7 +4,7 @@
   overflow: clip;
   /* Tall enough for the wave to finish inside the hero (its top + its height),
      so it never ends in a hard line against the next section. */
-  min-height: calc(92px + 55.1vw - 60px); /* the asset ends in ~60px of transparency */
+  min-height: calc(92px + 55.1vw);
   padding-top: 80px; /* navbar */
   background:
     radial-gradient(44% 40% at 0% 0%, rgba(74, 122, 245, 0.95), rgba(3, 85, 226, 0.35) 55%, transparent 100%),
@@ -69,10 +69,13 @@
   margin-top: 40px;
 }
 
+/* Pulled toward the centre (Figma has it at ~55% of the frame) while staying clear
+   of the text column and leaving room on the right for future hero elements. */
 .portrait {
   position: relative;
   z-index: 1;
-  justify-self: center;
+  justify-self: start;
+  margin-left: calc(-1 * clamp(0px, 5.3vw, 76px));
   width: min(560px, 100%);
 }
 .portrait img {
@@ -110,8 +113,9 @@
     padding-block: 40px 0;
   }
   .portrait {
+    justify-self: center;
     width: min(100%, 440px);
-    margin-top: 40px;
+    margin: 40px 0 0;
   }
   .wave {
     top: auto;

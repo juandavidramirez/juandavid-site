@@ -1,7 +1,7 @@
 .section {
   position: relative;
   padding-block: clamp(72px, 8vw, 120px);
-  background: radial-gradient(30% 75% at 0% 30%, rgba(74, 122, 245, 0.55), rgba(3, 85, 226, 0.18) 60%, transparent 100%);
+  /* Background comes from ContinuousSurface (no per-section gradients = no seams). */
 }
 
 .head {

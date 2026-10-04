@@ -1,3 +1,4 @@
+import { ContinuousSurface } from "@/components/layout/ContinuousSurface";
 import { Hero } from "@/components/sections/Hero";
 import { Purpose } from "@/components/sections/Purpose";
 import { GlobalImpact } from "@/components/sections/GlobalImpact";
@@ -9,9 +10,11 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <Purpose />
-      <GlobalImpact />
-      <ImpactAreas />
+      <ContinuousSurface>
+        <Purpose />
+        <GlobalImpact />
+        <ImpactAreas />
+      </ContinuousSurface>
       <BlogPreview />
       <ContactCTA />
     </>
