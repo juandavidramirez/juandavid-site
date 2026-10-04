@@ -48,12 +48,12 @@ export const purpose: {
   id: "proposito",
   eyebrow: "Sobre mí",
   title: [
-    { text: "Creo en la tecnología como " },
+    { text: "Creo que la tecnología es un " },
     { text: "puente", accent: "yellow" },
-    { text: ", no como fin" },
+    { text: ", no un fin" },
   ],
   description:
-    "Soy ingeniero humanista, con un máster en Ciencias de la Computación de Suecia. Durante más de 8 años he liderado tecnología e IA en organizaciones de impacto, y formado a personas y equipos en América Latina y Europa, dejando huella en miles de vidas y cientos de organizaciones.",
+    "Soy ingeniero humanista, con un máster en Tecnología e Innovación Social de Suecia. Por más de 8 años he liderado tecnología e IA en organizaciones de impacto, y formado personas en América Latina y Europa.",
   // Sin href hasta que exista la página "Sobre mí".
   cta: { label: "Conoce más de mí", variant: "primary" },
   image: {
