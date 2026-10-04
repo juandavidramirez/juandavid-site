@@ -118,6 +118,9 @@
 
 /* Phones: the map takes the full width; the ribbon runs behind it, smaller and softer. */
 @media (max-width: 760px) {
+  .map {
+    margin-bottom: 54px; /* room for the zoom controls below the map */
+  }
   .ribbonMain {
     width: 240%;
     left: -70%;

@@ -1,0 +1,95 @@
+.root {
+  position: absolute;
+  inset: 0;
+}
+
+/* Clips the zoomed map to its box. At 1× a small margin keeps the land glow intact. */
+.clip {
+  position: absolute;
+  inset: 0;
+  overflow: clip;
+  overflow-clip-margin: 24px;
+  touch-action: pan-y; /* 1×: one finger scrolls the page; two fingers pinch */
+}
+.root[data-zoomed] .clip {
+  overflow-clip-margin: 0px;
+  touch-action: none; /* zoomed: the finger pans the map */
+  cursor: grab;
+  /* Soft edges so the zoomed map melts into the background instead of a hard box. */
+  -webkit-mask-image:
+    linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
+    linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent, #000 7%, #000 93%, transparent),
+    linear-gradient(to bottom, transparent, #000 9%, #000 91%, transparent);
+  mask-composite: intersect;
+}
+.root[data-gesture] .clip {
+  cursor: grabbing;
+}
+
+.stage {
+  position: absolute;
+  inset: 0;
+  transform-origin: 0 0;
+  transition: transform 0.35s var(--ease);
+}
+.root[data-gesture] .stage {
+  transition: none;
+  will-change: transform; /* only while interacting: re-rasterizes crisp afterwards */
+}
+
+.controls {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.controls button {
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border-radius: 50%;
+  border: 1px solid rgba(203, 228, 238, 0.28);
+  background: rgba(1, 17, 40, 0.78);
+  color: var(--color-text);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  transition:
+    border-color 0.2s var(--ease),
+    color 0.2s var(--ease),
+    opacity 0.2s var(--ease);
+}
+.controls button:hover:not(:disabled) {
+  border-color: var(--color-yellow);
+  color: var(--color-yellow);
+}
+.controls button:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (pointer: coarse) {
+  .controls button {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* Narrow screens: the map is short, so the controls sit in a row just below it. */
+@media (max-width: 760px) {
+  .controls {
+    top: calc(100% + 10px);
+    bottom: auto;
+    right: 0;
+    flex-direction: row;
+  }
+}

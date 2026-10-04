@@ -92,7 +92,9 @@ En `content/home.ts → impactLocations`. `coordinates` es `[longitud, latitud]`
 { city: "Bogotá", country: "Colombia", coordinates: [-74.07, 4.71], title: "…", description: "…", category: "…", year: "2024" }
 ```
 
-Los puntos se proyectan solos y las líneas punteadas los unen en el orden de la lista. Las cifras (`impactStats`) están en el mismo archivo; su posición sobre el mapa en desktop está en `components/sections/GlobalImpact.module.css`.
+Los puntos se proyectan solos y las líneas punteadas los unen en el orden de la lista.
+
+**Zoom del mapa** (`components/sections/ZoomableMap.tsx`): rango 1×–3× con botones `+ / − / restablecer`, pellizco en pantallas táctiles y arrastre solo cuando hay zoom (sin zoom con la rueda del mouse, para no atrapar el scroll de la página). Al abrir un punto, el mapa se acerca a él. Los límites (`MIN`, `MAX`, `STEP`, `FOCUS_SCALE`) están al inicio de ese archivo; los textos accesibles de los botones, en `globalImpact` de `content/home.ts`. Las cifras (`impactStats`) están en el mismo archivo; su posición sobre el mapa en desktop está en `components/sections/GlobalImpact.module.css`.
 
 ## Trabajar con el proyecto dentro de Google Drive
 Para que Drive no sincronice miles de archivos, `node_modules` y `.next` son enlaces simbólicos a `~/Documents/juandavid-site-deps/`. Si clonas el repo en otra máquina no aplica: `npm install` crea `node_modules` normal. Si el enlace se rompe, recréalo:

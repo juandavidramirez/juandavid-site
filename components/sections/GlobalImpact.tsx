@@ -3,7 +3,8 @@ import { globalImpact, impactLocations, impactStats } from "@/content/home";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RichText } from "@/components/ui/RichText";
 import { getWorldMap, projectToPercent } from "@/lib/world-map";
-import { ImpactMapPins, type PlacedLocation } from "./ImpactMapPins";
+import type { PlacedLocation } from "./ImpactMapPins";
+import { ZoomableMap } from "./ZoomableMap";
 import { ImpactStats } from "./ImpactStats";
 import styles from "./GlobalImpact.module.css";
 
@@ -43,42 +44,65 @@ export function GlobalImpact() {
           </div>
 
           <div className={styles.map} style={{ aspectRatio: `${map.width} / ${map.height}` }}>
-            <svg
-              className={styles.svg}
-              viewBox={`0 0 ${map.width} ${map.height}`}
-              preserveAspectRatio="xMidYMid meet"
-              aria-hidden="true"
-              focusable="false"
+            <ZoomableMap
+              locations={placed}
+              labels={{
+                map: globalImpact.mapLabel,
+                close: globalImpact.closeLabel,
+                zoomIn: globalImpact.zoomInLabel,
+                zoomOut: globalImpact.zoomOutLabel,
+                reset: globalImpact.zoomResetLabel,
+              }}
             >
-              <defs>
-                <linearGradient id="land-fill" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stopColor="#0b3fb0" />
-                  <stop offset="0.5" stopColor="#072a78" />
-                  <stop offset="1" stopColor="#0a46c4" />
-                </linearGradient>
-                <pattern id="land-dots" width="4" height="4" patternUnits="userSpaceOnUse">
-                  <circle cx="1" cy="1" r="0.6" fill="#71c0fd" opacity="0.45" />
-                </pattern>
-                <filter id="land-glow" x="-10%" y="-10%" width="120%" height="120%">
-                  <feGaussianBlur stdDeviation="5" result="b" />
-                  <feMerge>
-                    <feMergeNode in="b" />
-                    <feMergeNode in="SourceGraphic" />
-                  </feMerge>
-                </filter>
-              </defs>
-              <g filter="url(#land-glow)">
-                <path d={map.land} fill="url(#land-fill)" opacity="0.9" />
-              </g>
-              <path d={map.land} fill="url(#land-dots)" />
-              <path d={map.borders} fill="none" stroke="#71c0fd" strokeOpacity="0.45" strokeWidth="0.6" />
-              <g fill="none" stroke="#cbe4ee" strokeOpacity="0.55" strokeWidth="1" strokeDasharray="3 4">
-                {arcs.map((d, i) => (
-                  <path key={i} d={d} />
-                ))}
-              </g>
-            </svg>
-            <ImpactMapPins locations={placed} label={globalImpact.mapLabel} closeLabel={globalImpact.closeLabel} />
+              <svg
+                className={styles.svg}
+                viewBox={`0 0 ${map.width} ${map.height}`}
+                preserveAspectRatio="xMidYMid meet"
+                aria-hidden="true"
+                focusable="false"
+              >
+                <defs>
+                  <linearGradient id="land-fill" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stopColor="#0b3fb0" />
+                    <stop offset="0.5" stopColor="#072a78" />
+                    <stop offset="1" stopColor="#0a46c4" />
+                  </linearGradient>
+                  <pattern id="land-dots" width="4" height="4" patternUnits="userSpaceOnUse">
+                    <circle cx="1" cy="1" r="0.6" fill="#71c0fd" opacity="0.45" />
+                  </pattern>
+                  <filter id="land-glow" x="-10%" y="-10%" width="120%" height="120%">
+                    <feGaussianBlur stdDeviation="5" result="b" />
+                    <feMerge>
+                      <feMergeNode in="b" />
+                      <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                  </filter>
+                </defs>
+                <g filter="url(#land-glow)">
+                  <path d={map.land} fill="url(#land-fill)" opacity="0.9" />
+                </g>
+                <path d={map.land} fill="url(#land-dots)" />
+                <path
+                  d={map.borders}
+                  fill="none"
+                  stroke="#71c0fd"
+                  strokeOpacity="0.45"
+                  strokeWidth="0.6"
+                  vectorEffect="non-scaling-stroke"
+                />
+                <g
+                  fill="none"
+                  stroke="#cbe4ee"
+                  strokeOpacity="0.55"
+                  strokeWidth="1"
+                  strokeDasharray="3 4"
+                >
+                  {arcs.map((d, i) => (
+                    <path key={i} d={d} vectorEffect="non-scaling-stroke" />
+                  ))}
+                </g>
+              </svg>
+            </ZoomableMap>
           </div>
         </div>
 

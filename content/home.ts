@@ -70,6 +70,9 @@ export const globalImpact: {
   title: RichText;
   mapLabel: string;
   closeLabel: string;
+  zoomInLabel: string;
+  zoomOutLabel: string;
+  zoomResetLabel: string;
 } = {
   id: "impacto",
   eyebrow: "Impacto global",
@@ -77,6 +80,9 @@ export const globalImpact: {
   title: [{ text: "Impacto en\nnúmeros" }],
   mapLabel: "Mapa de lugares donde he trabajado. Selecciona un punto para ver el detalle.",
   closeLabel: "Cerrar",
+  zoomInLabel: "Acercar el mapa",
+  zoomOutLabel: "Alejar el mapa",
+  zoomResetLabel: "Restablecer la vista del mapa",
 };
 
 /** Figures shown over the map, in reading order. */

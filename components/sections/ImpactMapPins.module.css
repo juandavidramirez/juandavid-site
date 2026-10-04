@@ -1,6 +1,24 @@
+/* Lets drags reach the map underneath; only pins and the card are interactive. */
 .layer {
   position: absolute;
   inset: 0;
+  pointer-events: none;
+}
+.pin,
+.card {
+  pointer-events: auto;
+}
+
+/* Pins follow the map smoothly on button/selection zoom, instantly while dragging. */
+.pin,
+.card {
+  transition:
+    left 0.35s var(--ease),
+    top 0.35s var(--ease);
+}
+:global([data-gesture]) .pin,
+:global([data-gesture]) .card {
+  transition: none;
 }
 
 /* 44px touch target around a 14px glowing dot */
