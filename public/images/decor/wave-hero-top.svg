@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMin slice">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#9fd3ff" stop-opacity="0"/><stop offset=".25" stop-color="#9fd3ff"/><stop offset="1" stop-color="#cbe4ee"/></linearGradient>
+<filter id="glow" x="-10%" y="-10%" width="120%" height="120%"><feGaussianBlur stdDeviation="38"/></filter>
+<filter id="soft"><feGaussianBlur stdDeviation="0.9"/></filter>
+</defs>
+<g fill="none" stroke="#4a7af5" stroke-width="150" stroke-opacity=".22" filter="url(#glow)">
+<path d="M420 420 C520 40 900 -60 1460 210"/><path d="M860 -20 C1040 210 1300 330 1470 470"/>
+</g>
+<g fill="none" stroke="url(#g)" stroke-width="1.2" filter="url(#soft)">
+<path d="M420 394 C469 125 951 -111 1460 176" stroke-opacity="0.38"/>
+<path d="M420 397 C474 116 946 -106 1460 180" stroke-opacity="0.38"/>
+<path d="M420 400 C480 107 940 -100 1460 183" stroke-opacity="0.12"/>
+<path d="M420 403 C485 98 935 -95 1460 187" stroke-opacity="0.12"/>
+<path d="M420 405 C490 89 930 -90 1460 190" stroke-opacity="0.12"/>
+<path d="M420 408 C496 80 924 -84 1460 194" stroke-opacity="0.12"/>
+<path d="M420 411 C501 71 919 -79 1460 197" stroke-opacity="0.12"/>
+<path d="M420 413 C507 62 913 -73 1460 201" stroke-opacity="0.12"/>
+<path d="M420 416 C512 53 908 -68 1460 205" stroke-opacity="0.12"/>
+<path d="M420 419 C517 44 903 -63 1460 208" stroke-opacity="0.12"/>
+<path d="M420 421 C523 36 897 -57 1460 212" stroke-opacity="0.12"/>
+<path d="M420 424 C528 27 892 -52 1460 215" stroke-opacity="0.12"/>
+<path d="M420 427 C533 18 887 -47 1460 219" stroke-opacity="0.12"/>
+<path d="M420 429 C539 9 881 -41 1460 223" stroke-opacity="0.12"/>
+<path d="M420 432 C544 -0 876 -36 1460 226" stroke-opacity="0.12"/>
+<path d="M420 435 C550 -9 870 -30 1460 230" stroke-opacity="0.12"/>
+<path d="M420 437 C555 -18 865 -25 1460 233" stroke-opacity="0.12"/>
+<path d="M420 440 C560 -27 860 -20 1460 237" stroke-opacity="0.12"/>
+<path d="M420 443 C566 -36 854 -14 1460 240" stroke-opacity="0.38"/>
+<path d="M420 446 C571 -45 849 -9 1460 244" stroke-opacity="0.38"/>
+<path d="M860 -42 C1078 285 1262 285 1470 440" stroke-opacity="0.38"/>
+<path d="M860 -40 C1073 276 1267 290 1470 444" stroke-opacity="0.38"/>
+<path d="M860 -37 C1069 267 1271 296 1470 447" stroke-opacity="0.11"/>
+<path d="M860 -35 C1064 259 1276 301 1470 451" stroke-opacity="0.11"/>
+<path d="M860 -32 C1060 250 1280 306 1470 454" stroke-opacity="0.11"/>
+<path d="M860 -29 C1055 241 1285 311 1470 458" stroke-opacity="0.11"/>
+<path d="M860 -27 C1051 232 1289 317 1470 461" stroke-opacity="0.11"/>
+<path d="M860 -24 C1047 223 1293 322 1470 465" stroke-opacity="0.11"/>
+<path d="M860 -21 C1042 214 1298 327 1470 468" stroke-opacity="0.11"/>
+<path d="M860 -19 C1038 206 1302 333 1470 472" stroke-opacity="0.11"/>
+<path d="M860 -16 C1033 197 1307 338 1470 475" stroke-opacity="0.11"/>
+<path d="M860 -13 C1029 188 1311 343 1470 479" stroke-opacity="0.11"/>
+<path d="M860 -11 C1025 179 1315 349 1470 482" stroke-opacity="0.11"/>
+<path d="M860 -8 C1020 170 1320 354 1470 486" stroke-opacity="0.11"/>
+<path d="M860 -5 C1016 161 1324 359 1470 489" stroke-opacity="0.11"/>
+<path d="M860 -3 C1011 153 1329 364 1470 493" stroke-opacity="0.11"/>
+<path d="M860 -0 C1007 144 1333 370 1470 496" stroke-opacity="0.38"/>
+<path d="M860 2 C1002 135 1338 375 1470 500" stroke-opacity="0.38"/>
+<path d="M600 -52 C804 160 1176 16 1460 -46" stroke-opacity="0.38"/>
+<path d="M600 -49 C808 151 1172 21 1460 -42" stroke-opacity="0.08"/>
+<path d="M600 -47 C811 142 1169 27 1460 -39" stroke-opacity="0.08"/>
+<path d="M600 -44 C815 133 1165 32 1460 -35" stroke-opacity="0.08"/>
+<path d="M600 -41 C818 124 1162 37 1460 -32" stroke-opacity="0.08"/>
+<path d="M600 -39 C822 116 1158 43 1460 -28" stroke-opacity="0.08"/>
+<path d="M600 -36 C825 107 1155 48 1460 -25" stroke-opacity="0.08"/>
+<path d="M600 -33 C829 98 1151 53 1460 -21" stroke-opacity="0.08"/>
+<path d="M600 -31 C832 89 1148 59 1460 -18" stroke-opacity="0.08"/>
+<path d="M600 -28 C836 80 1144 64 1460 -14" stroke-opacity="0.38"/>
+</g>
+</svg>

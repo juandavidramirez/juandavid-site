@@ -89,23 +89,31 @@
   mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
 }
 
-/* Upper ribbons: mirrored copy of the lower ones, entering from the top-right and
-   flowing behind the portrait. Softer so the headline stays clean. */
+/* Desktop composition from the Figma (1440 frame): larger portrait, further left and
+   lower, with the profile cards around it; the lower cards sit near the fold so the
+   visitor is invited to scroll. Positions in % of the content box. */
+@media (min-width: 1341px) {
+  .portrait {
+    position: absolute;
+    left: 33%;
+    top: 125px;
+    width: min(610px, 49%);
+    margin: 0;
+  }
+  .inner {
+    min-height: 760px;
+  }
+}
+
+/* Upper silky ribbons: behind the portrait, never over the face or the cards. */
 .waveTop {
   position: absolute;
   z-index: 0;
-  right: -12%;
-  top: -14%;
+  inset: 0 0 auto 0;
   width: 100%;
+  height: 900px;
   max-width: none;
-  height: auto;
-  opacity: 0.75;
-  mix-blend-mode: hard-light;
-  transform: scale(-1, -1) rotate(-4deg);
   pointer-events: none;
-  /* fades out towards the text column */
-  -webkit-mask-image: linear-gradient(to left, #000 45%, transparent 85%);
-  mask-image: linear-gradient(to left, #000 45%, transparent 85%);
 }
 
 /* Figma: image 740 at x -141, y 162, 1586×793 on a 1440 frame, hard-light 80%.
@@ -142,9 +150,7 @@
     margin: 40px 0 0;
   }
   .waveTop {
-    width: 200%;
-    right: -60%;
-    top: -6%;
+    opacity: 0.6;
   }
   .wave {
     top: auto;

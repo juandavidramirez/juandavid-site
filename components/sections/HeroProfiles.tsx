@@ -17,7 +17,7 @@ export function HeroProfiles({ profiles }: { profiles: HeroProfile[] }) {
             <div className={styles.card}>
               <span className={styles.head}>
                 <span className={styles.icon}>
-                  <AreaIcon icon={p.icon} size={16} />
+                  <AreaIcon icon={p.icon} size={20} />
                 </span>
                 <span className={styles.title}>{p.title}</span>
               </span>
