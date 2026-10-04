@@ -54,7 +54,8 @@ export const purpose: {
   ],
   description:
     "Usar la tecnología y la innovación para generar oportunidades, fortalecer capacidades y acompañar a personas y organizaciones que trabajen por un impacto real.",
-  cta: { label: "Conoce más de mí", href: "/#areas", variant: "primary" },
+  // Sin href hasta que exista la página "Sobre mí".
+  cta: { label: "Conoce más de mí", variant: "primary" },
   image: {
     src: "/images/purpose.webp",
     alt: "Juan David Ramírez conversando con un grupo de estudiantes sentados en círculo en un aula",
@@ -155,7 +156,8 @@ export const impactAreas: {
     { text: "acción", accent: "yellow" },
     { text: " real" },
   ],
-  cta: { label: "Leer más", href: "/contact", variant: "primary" },
+  // Sin href hasta que exista la subpágina correspondiente.
+  cta: { label: "Leer más", variant: "primary" },
   items: [
     {
       icon: "brain-circuit",
@@ -192,7 +194,8 @@ export const blog: {
     { text: "Algunas de las\nideas que he\n" },
     { text: "construído", accent: "yellow" },
   ],
-  cta: { label: "Ir a todos los artículos", href: SUBSTACK_URL, external: true, variant: "outline" },
+  // Agrega `href` (y `external: true`) cuando esté definido el link al blog.
+  cta: { label: "Todos los artículos", variant: "outline" },
   readLabel: "Leer en Substack",
   // TODO(Juan David): reemplaza `url` por el link exacto de cada artículo.
   posts: [

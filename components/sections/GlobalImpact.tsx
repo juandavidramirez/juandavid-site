@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { globalImpact, impactLocations, impactStats } from "@/content/home";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RichText } from "@/components/ui/RichText";
@@ -21,7 +22,27 @@ export function GlobalImpact() {
 
   return (
     <section id={globalImpact.id} className={styles.section} aria-labelledby="impact-title">
-      <div className="container">
+      {/* Decorative atmosphere (waves + halos). Never intercepts input. */}
+      <div className={styles.atmosphere} aria-hidden="true">
+        <span className={styles.halo} />
+        <Image
+          className={`${styles.wave} ${styles.waveA}`}
+          src="/images/decor/wave-hero.webp"
+          alt=""
+          width={2172}
+          height={724}
+          sizes="130vw"
+        />
+        <Image
+          className={`${styles.wave} ${styles.waveB}`}
+          src="/images/decor/wave-hero.webp"
+          alt=""
+          width={2172}
+          height={724}
+          sizes="110vw"
+        />
+      </div>
+      <div className={`container ${styles.content}`}>
         <div className={styles.heading}>
           <Eyebrow>{globalImpact.eyebrow}</Eyebrow>
           <h2 id="impact-title" className={`h2 h2-lg ${styles.title}`}>

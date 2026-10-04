@@ -57,3 +57,21 @@
 .button:hover .arrow {
   transform: translateX(3px);
 }
+
+/* CTA without a destination yet: looks like a button, does nothing. */
+.inert {
+  cursor: default;
+}
+.inert:hover {
+  transform: none;
+  box-shadow: none;
+}
+.primary.inert:hover {
+  background: var(--color-yellow);
+}
+.outline.inert:hover {
+  background: transparent;
+}
+.inert:hover .arrow {
+  transform: none;
+}

@@ -16,7 +16,11 @@ export type Link = {
   external?: boolean;
 };
 
-export type CTA = Link & { variant?: "primary" | "outline" };
+/**
+ * Call to action. Leave `href` out while the destination doesn't exist yet:
+ * the button keeps its look but renders without navigation (no 404s, no "#").
+ */
+export type CTA = Omit<Link, "href"> & { href?: string; variant?: "primary" | "outline" };
 
 export type ImageAsset = {
   src: string;

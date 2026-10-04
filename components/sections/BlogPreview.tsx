@@ -12,12 +12,10 @@ export function BlogPreview() {
     <section id={blog.id} className={styles.section} aria-labelledby="blog-title">
       <div className={`container ${styles.grid}`}>
         <div className={styles.intro}>
-          <div>
-            <Eyebrow>{blog.eyebrow}</Eyebrow>
-            <h2 id="blog-title" className={`h2 ${styles.title}`}>
-              <RichText value={blog.title} />
-            </h2>
-          </div>
+          <Eyebrow>{blog.eyebrow}</Eyebrow>
+          <h2 id="blog-title" className={`h2 ${styles.title}`}>
+            <RichText value={blog.title} />
+          </h2>
           <ButtonLink cta={blog.cta} className={styles.cta} />
         </div>
 
@@ -31,7 +29,7 @@ export function BlogPreview() {
                     alt={post.image.alt}
                     width={post.image.width}
                     height={post.image.height}
-                    sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 400px"
+                    sizes="(max-width: 440px) 92vw, 240px"
                   />
                 </div>
                 <div className={styles.body}>

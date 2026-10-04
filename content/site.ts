@@ -37,10 +37,11 @@ export const navigation: {
   closeLabel: string;
 } = {
   items: [
-    { label: "Sobre mi", href: "/#proposito" },
+    { label: "Sobre mí", href: "/#proposito" },
+    { label: "Mi impacto", href: "/#impacto" },
     { label: "Mi trabajo", href: "/#areas" },
     { label: "Blog", href: "/#blog" },
-    { label: "Contacto", href: "/contact" },
+    { label: "Contacto", href: "/#contacto" },
   ],
   cta: { label: "Hablemos", href: "/contact", variant: "primary" },
   // Without an `href` a language is rendered as unavailable (no broken link).

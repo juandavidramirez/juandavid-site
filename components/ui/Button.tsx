@@ -21,6 +21,10 @@ export function ButtonLink({ cta, arrow = true, className }: Props) {
       {arrow && <Icon name="arrow" size={16} className={styles.arrow} />}
     </>
   );
+  if (!cta.href) {
+    // No destination yet: same look, no navigation and not focusable.
+    return <span className={`${cls} ${styles.inert}`}>{content}</span>;
+  }
   if (cta.external) {
     return (
       <a href={cta.href} className={cls} target="_blank" rel="noopener noreferrer">
