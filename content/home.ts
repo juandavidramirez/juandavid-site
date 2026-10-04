@@ -79,8 +79,8 @@ export const purpose: {
   ],
   description:
     "Soy ingeniero humanista, con un máster en Tecnología e Innovación Social de Suecia. Por más de 8 años he liderado tecnología e IA en organizaciones de impacto, y formado personas en América Latina y Europa.",
-  // Sin href hasta que exista la página "Sobre mí".
-  cta: { label: "Conoce más de mí", variant: "primary" },
+  // Temporal: LinkedIn hasta que exista la página "Sobre mí".
+  cta: { label: "Conoce más de mí", href: externalLinks.linkedin, external: true, variant: "primary" },
   image: {
     src: "/images/purpose.webp",
     alt: "Juan David Ramírez conversando con un grupo de estudiantes sentados en círculo en un aula",
