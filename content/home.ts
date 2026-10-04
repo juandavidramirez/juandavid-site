@@ -95,56 +95,70 @@ export const impactStats: ImpactStat[] = [
 
 /**
  * Map points. coordinates = [longitude, latitude].
- * TODO(Juan David): ajusta ciudades, títulos y descripciones reales.
+ * `card` is the mini-card shown on selection. Images in /public/images/map/ are
+ * temporary map crops: replace `card.image.src` with the real photo (any size).
+ * TODO(Juan David): ajusta ciudades, textos e imágenes reales.
  */
 export const impactLocations: ImpactLocation[] = [
   {
     city: "Medellín",
     country: "Colombia",
     coordinates: [-75.57, 6.24],
-    title: "Colombia",
-    description: "Estrategia digital, innovación y formación en organizaciones de educación e impacto social.",
-    category: "Educación",
+    card: {
+      title: "Colombia",
+      description: "Estrategia digital e innovación en organizaciones de educación e impacto social.",
+      image: { src: "/images/map/medellin.webp", alt: "Mapa de Colombia con Medellín destacada" },
+    },
   },
   {
     city: "Ciudad de México",
     country: "México",
     coordinates: [-99.13, 19.43],
-    title: "México",
-    description: "Programas y proyectos de tecnología con impacto social.",
-    category: "Innovación",
+    card: {
+      title: "México",
+      description: "Programas y proyectos de tecnología con impacto social.",
+      image: { src: "/images/map/ciudad-de-mexico.webp", alt: "Mapa de México con Ciudad de México destacada" },
+    },
   },
   {
     city: "Nueva York",
     country: "Estados Unidos",
     coordinates: [-74.0, 40.71],
-    title: "Estados Unidos",
-    description: "Colaboración con organizaciones de educación y tecnología.",
-    category: "Tecnología",
+    card: {
+      title: "Estados Unidos",
+      description: "Colaboración con organizaciones de educación y tecnología.",
+      image: { src: "/images/map/nueva-york.webp", alt: "Mapa del noreste de Estados Unidos con Nueva York destacada" },
+    },
   },
   {
     city: "Buenos Aires",
     country: "Argentina",
     coordinates: [-58.38, -34.6],
-    title: "Argentina",
-    description: "Acompañamiento a equipos y organizaciones sociales.",
-    category: "Talento",
+    card: {
+      title: "Argentina",
+      description: "Acompañamiento a equipos y organizaciones sociales.",
+      image: { src: "/images/map/buenos-aires.webp", alt: "Mapa de Argentina con Buenos Aires destacada" },
+    },
   },
   {
     city: "Madrid",
     country: "España",
     coordinates: [-3.7, 40.42],
-    title: "España",
-    description: "Proyectos de innovación y desarrollo de capacidades.",
-    category: "Innovación",
+    card: {
+      title: "España",
+      description: "Proyectos de innovación y desarrollo de capacidades.",
+      image: { src: "/images/map/madrid.webp", alt: "Mapa de España con Madrid destacada" },
+    },
   },
   {
     city: "Estocolmo",
     country: "Suecia",
     coordinates: [18.07, 59.33],
-    title: "Suecia",
-    description: "Formación e intercambio sobre liderazgo e impacto.",
-    category: "Liderazgo",
+    card: {
+      title: "Suecia",
+      description: "Máster en Tecnología e Innovación Social; formación sobre liderazgo e impacto.",
+      image: { src: "/images/map/estocolmo.webp", alt: "Mapa de Suecia con Estocolmo destacada" },
+    },
   },
 ];
 

@@ -84,28 +84,51 @@
   }
 }
 
+/* Positions the mini-card next to its pin (content lives in ImpactLocationCard).
+   Anchored in map coordinates, so it follows zoom and pan. */
 .card {
   position: absolute;
   z-index: 5;
-  width: min(280px, 70vw);
-  padding: 20px 44px 20px 20px;
-  border-radius: 20px;
-  background: rgba(1, 17, 40, 0.92);
-  border: 1px solid rgba(113, 192, 253, 0.35);
-  box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px -10px rgba(0, 126, 251, 0.6);
-  backdrop-filter: blur(10px);
-  font-size: 15px;
-  line-height: 1.45;
-  animation: cardIn 0.2s var(--ease);
-  --dx: 20px;
-  --dy: -20px;
+  width: min(300px, 70vw);
+  --gap: 22px; /* horizontal distance from the pin */
+  --anchor: 28px; /* pin height inside the card */
+  --dx: var(--gap);
+  --dy: calc(-1 * var(--anchor));
   transform: translate(var(--dx), var(--dy));
+  animation: cardIn 0.22s var(--ease);
 }
 .card[data-side="left"] {
-  --dx: calc(-100% - 20px);
+  --dx: calc(-100% - var(--gap));
 }
 .card[data-vert="up"] {
-  --dy: calc(-100% + 10px);
+  --dy: calc(-100% + var(--anchor));
+}
+/* Default when the pin is mid-map (selection centres it): card centred on the pin,
+   so it stays within the map instead of spilling over the metrics. */
+.card[data-vert="center"] {
+  --dy: -50%;
+}
+
+/* Short connector from the pin to the card edge. */
+.card::before {
+  content: "";
+  position: absolute;
+  top: var(--anchor);
+  left: calc(-1 * var(--gap));
+  width: var(--gap);
+  height: 1px;
+  background: linear-gradient(to right, rgba(255, 189, 66, 0.9), rgba(113, 192, 253, 0.5));
+}
+.card[data-side="left"]::before {
+  left: 100%;
+  background: linear-gradient(to left, rgba(255, 189, 66, 0.9), rgba(113, 192, 253, 0.5));
+}
+.card[data-vert="up"]::before {
+  top: auto;
+  bottom: var(--anchor);
+}
+.card[data-vert="center"]::before {
+  top: 50%;
 }
 
 @keyframes cardIn {
@@ -115,68 +138,26 @@
   }
 }
 
-.close {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 32px;
-  height: 32px;
-  display: grid;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  background: transparent;
-  color: var(--color-text);
-  cursor: pointer;
-}
-.close:hover {
-  background: rgba(203, 228, 238, 0.12);
-}
-
-.category {
-  font-size: 12px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-blue-light);
-}
-.place {
-  margin-top: 6px;
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--color-white);
-}
-.place span {
-  font-weight: 400;
-  color: var(--color-text);
-}
-.cardTitle {
-  margin-top: 4px;
-  font-weight: 600;
-}
-.description {
-  margin-top: 8px;
-  color: var(--color-text);
-}
-.year {
-  margin-top: 8px;
-  color: var(--color-yellow);
-  font-size: 14px;
-}
-
 @media (max-width: 640px) {
   .dot {
     width: 11px;
     height: 11px;
   }
-  /* On phones the card docks under the map instead of floating over it. */
+  /* Phones: the card docks at the bottom of the screen in a compact horizontal
+     layout, so it never runs off-screen nor covers the map (which zooms to the pin). */
   .card {
     position: fixed;
-    left: 16px !important;
-    right: 16px;
+    left: 12px !important;
+    right: 12px;
     top: auto !important;
-    bottom: 16px;
+    bottom: 12px;
     width: auto;
+    max-width: 480px;
+    margin-inline: auto;
     transform: none;
     animation: none;
+  }
+  .card::before {
+    display: none;
   }
 }

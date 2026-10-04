@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { ImpactLocation } from "@/content/types";
-import { Icon } from "@/components/ui/Icon";
+import { ImpactLocationCard } from "./ImpactLocationCard";
 import styles from "./ImpactMapPins.module.css";
 
 /** x/y: position on the unzoomed map, in % of the map box. */
@@ -54,13 +54,19 @@ export function ImpactMapPins({ locations, view, label, closeLabel, onSelect, on
   const current = active !== null ? locations[active] : null;
   const currentPos = current ? toScreen(current, view) : null;
 
+  /** Closes the card and returns keyboard focus to its pin. */
+  const close = () => {
+    if (active !== null) pinRefs.current[active]?.focus();
+    setActive(null);
+  };
+
   return (
     <div ref={rootRef} className={styles.layer} role="group" aria-label={label}>
       {locations.map((loc, i) => {
         const pos = toScreen(loc, view);
         return (
           <button
-            key={`${loc.city}-${loc.country}`}
+            key={`${loc.country}-${loc.city ?? ""}`}
             ref={(el) => {
               pinRefs.current[i] = el;
             }}
@@ -72,7 +78,7 @@ export function ImpactMapPins({ locations, view, label, closeLabel, onSelect, on
               // Off-view pins stay focusable (Tab pans the map to them) but invisible.
               ...(isVisible(pos) ? {} : { opacity: 0, pointerEvents: "none" as const }),
             }}
-            aria-label={`${loc.city}, ${loc.country}`}
+            aria-label={[loc.city, loc.country].filter(Boolean).join(", ")}
             aria-expanded={active === i}
             aria-controls="impact-map-card"
             onClick={() => {
@@ -93,23 +99,14 @@ export function ImpactMapPins({ locations, view, label, closeLabel, onSelect, on
         <div
           id="impact-map-card"
           role="dialog"
-          aria-label={`${current.city}, ${current.country}`}
+          aria-label={[current.city, current.country].filter(Boolean).join(", ")}
           className={styles.card}
-          data-side={currentPos.x > 60 ? "left" : "right"}
-          data-vert={currentPos.y > 60 ? "up" : "down"}
+          // Opens away from the zoom controls (bottom-right); a selected pin is centred, so usually left.
+          data-side={currentPos.x > 40 ? "left" : "right"}
+          data-vert={currentPos.y < 25 ? "down" : currentPos.y > 75 ? "up" : "center"}
           style={{ left: `${currentPos.x}%`, top: `${currentPos.y}%` }}
         >
-          <button type="button" className={styles.close} onClick={() => setActive(null)} aria-label={closeLabel}>
-            <Icon name="close" size={16} />
-          </button>
-          {current.category && <p className={styles.category}>{current.category}</p>}
-          <p className={styles.place}>
-            {current.city}
-            <span>, {current.country}</span>
-          </p>
-          {current.title && current.title !== current.country && <p className={styles.cardTitle}>{current.title}</p>}
-          {current.description && <p className={styles.description}>{current.description}</p>}
-          {current.year && <p className={styles.year}>{current.year}</p>}
+          <ImpactLocationCard location={current} closeLabel={closeLabel} onClose={close} />
         </div>
       )}
     </div>

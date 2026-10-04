@@ -93,8 +93,19 @@ El componente `BlogPreview` solo recibe esta lista, así que más adelante puede
 En `content/home.ts → impactLocations`. `coordinates` es `[longitud, latitud]`:
 
 ```ts
-{ city: "Bogotá", country: "Colombia", coordinates: [-74.07, 4.71], title: "…", description: "…", category: "…", year: "2024" }
+{
+  city: "Bogotá",                // opcional; se muestra bajo el título
+  country: "Colombia",
+  coordinates: [-74.07, 4.71],
+  card: {
+    title: "Colombia",
+    description: "Una o dos líneas: qué pasó allí.",
+    image: { src: "/images/map/bogota.webp", alt: "Descripción de la imagen" },
+  },
+}
 ```
+
+Al seleccionar un punto aparece su **mini-card** (imagen + título + ciudad + descripción). La imagen puede tener cualquier tamaño: se recorta a 16:9 con `object-fit: cover`. Las imágenes actuales en `public/images/map/` son temporales (recortes del mapa); reemplázalas por fotos reales cambiando `card.image.src`. `category` y `year` existen en el tipo pero aún no se muestran (reservados para una futura vista ampliada). La card es `components/sections/ImpactLocationCard.tsx`; su posición junto al punto la maneja `ImpactMapPins.tsx`.
 
 Los puntos se proyectan solos y las líneas punteadas los unen en el orden de la lista.
 
@@ -142,5 +153,5 @@ La opción más simple es [Vercel](https://vercel.com): importa el repositorio, 
 Marcados con `TODO(Juan David)` en `content/`:
 - Destino sin definir en Notion (hoy sin navegación): "Conoce más de mí" (ver comentario al final de `content/links.ts`).
 - "Conoce más" (Áreas de impacto) apunta temporalmente a LinkedIn; cambiar cuando exista la subpágina de portafolio.
-- Ciudades/descripciones reales de los puntos del mapa (las actuales son provisionales a partir de los 6 países de las cifras).
+- Ciudades, descripciones e imágenes reales de los puntos del mapa (las actuales son provisionales).
 - La versión en inglés: el selector "En" está visible pero deshabilitado hasta que exista.

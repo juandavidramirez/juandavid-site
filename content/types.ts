@@ -37,13 +37,24 @@ export type NavItem = Link & {
 export type SocialNetwork = "linkedin" | "instagram" | "substack" | "x" | "youtube";
 export type SocialLink = { network: SocialNetwork; label: string; href: string };
 
+/** Mini-card shown when a map point is selected. */
+export type ImpactLocationCard = {
+  /** Heading; usually the country. */
+  title: string;
+  /** One or two short lines: what happened there. */
+  description: string;
+  /** Any aspect ratio works: it is cropped to 16:9 with object-fit: cover. */
+  image: { src: string; alt: string };
+};
+
 export type ImpactLocation = {
-  city: string;
+  /** Shown under the title when present. */
+  city?: string;
   country: string;
   /** [longitude, latitude] */
   coordinates: [number, number];
-  title?: string;
-  description?: string;
+  card: ImpactLocationCard;
+  /** Not shown yet; reserved for a future detailed view. */
   category?: string;
   year?: string;
 };
