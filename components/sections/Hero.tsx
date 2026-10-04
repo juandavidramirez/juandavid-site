@@ -43,13 +43,14 @@ export function Hero() {
           />
         </div>
       </div>
+      {/* Figma "image 740": light ribbons crossing the hero, behind the portrait. */}
       <Image
         className={styles.wave}
-        src="/images/decor/wave-hero.webp"
+        src="/images/decor/wave-hero-lines.webp"
         alt=""
-        width={2172}
-        height={724}
-        sizes="140vw"
+        width={1774}
+        height={887}
+        sizes="(max-width: 900px) 220vw, 110vw"
         aria-hidden="true"
       />
     </section>

@@ -1,7 +1,10 @@
 .hero {
   position: relative;
   isolation: isolate;
-  overflow-x: clip;
+  overflow: clip;
+  /* Tall enough for the wave to finish inside the hero (its top + its height),
+     so it never ends in a hard line against the next section. */
+  min-height: calc(92px + 55.1vw - 60px); /* the asset ends in ~60px of transparency */
   padding-top: 80px; /* navbar */
   background:
     radial-gradient(44% 40% at 0% 0%, rgba(74, 122, 245, 0.95), rgba(3, 85, 226, 0.35) 55%, transparent 100%),
@@ -75,24 +78,29 @@
 .portrait img {
   width: 100%;
   height: auto;
+  /* The source photo ends in a straight edge; fade it so the wave reads through. */
+  -webkit-mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 82%, transparent 100%);
 }
 
-/* Ambient wave: low-contrast and desaturated so it stays in the background. */
+/* Figma: image 740 at x -141, y 162, 1586×793 on a 1440 frame, hard-light 80%.
+   Layer order: background → wave → portrait → text. */
 .wave {
   position: absolute;
-  z-index: 2;
-  left: -20%;
-  bottom: -18%;
-  width: 140%;
+  z-index: 0;
+  left: -9.8%;
+  top: 92px; /* Figma 162px, minus the ~70px we raised the hero content */
+  width: 110.2%;
   max-width: none;
   height: auto;
-  opacity: 0.2;
-  filter: saturate(0.55) contrast(0.85) blur(1.5px);
+  opacity: 0.8;
+  mix-blend-mode: hard-light;
   pointer-events: none;
 }
 
 @media (max-width: 900px) {
   .hero {
+    min-height: 0;
     padding-top: 72px;
   }
   .inner {
@@ -106,9 +114,10 @@
     margin-top: 40px;
   }
   .wave {
-    width: 240%;
-    left: -70%;
-    bottom: -6%;
+    top: auto;
+    bottom: 4%;
+    width: 220%;
+    left: -60%;
   }
 }
 

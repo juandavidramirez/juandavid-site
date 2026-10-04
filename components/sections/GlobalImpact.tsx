@@ -22,24 +22,23 @@ export function GlobalImpact() {
 
   return (
     <section id={globalImpact.id} className={styles.section} aria-labelledby="impact-title">
-      {/* Decorative atmosphere (waves + halos). Never intercepts input. */}
+      {/* Decorative ribbons from the Figma (image 739 + masked image 742). Never intercept input. */}
       <div className={styles.atmosphere} aria-hidden="true">
-        <span className={styles.halo} />
         <Image
-          className={`${styles.wave} ${styles.waveA}`}
-          src="/images/decor/wave-hero.webp"
+          className={`${styles.ribbon} ${styles.ribbonMain}`}
+          src="/images/decor/wave-hero-lines.webp"
           alt=""
-          width={2172}
-          height={724}
-          sizes="130vw"
+          width={1774}
+          height={887}
+          sizes="(max-width: 760px) 240vw, 115vw"
         />
         <Image
-          className={`${styles.wave} ${styles.waveB}`}
+          className={`${styles.ribbon} ${styles.ribbonCorner}`}
           src="/images/decor/wave-hero.webp"
           alt=""
           width={2172}
           height={724}
-          sizes="110vw"
+          sizes="91vw"
         />
       </div>
       <div className={`container ${styles.content}`}>

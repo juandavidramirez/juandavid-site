@@ -1,50 +1,57 @@
 .section {
   position: relative;
+  isolation: isolate; /* keeps the ribbons' blend inside this section */
   overflow: hidden;
   padding-block: clamp(72px, 8vw, 120px) clamp(56px, 6vw, 96px);
-  background: radial-gradient(30% 60% at 0% 60%, rgba(74, 122, 245, 0.6), rgba(3, 85, 226, 0.2) 60%, transparent 100%);
+  background:
+    radial-gradient(30% 60% at 0% 60%, rgba(74, 122, 245, 0.6), rgba(3, 85, 226, 0.2) 60%, transparent 100%),
+    var(--color-bg); /* opaque base so the ribbons' hard-light has something to blend with */
 }
 
+/* No z-index here: a stacking context would isolate the ribbons' blend mode
+   from the section background (they'd render washed-out white). */
 .atmosphere {
   position: absolute;
   inset: 0;
-  z-index: 0;
   pointer-events: none;
 }
 
-/* Soft glow behind the map, echoing the land light. */
-.halo {
-  position: absolute;
-  left: 50%;
-  top: 52%;
-  width: min(1100px, 95%);
-  aspect-ratio: 2 / 1;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: radial-gradient(closest-side, rgba(0, 126, 251, 0.22), rgba(3, 85, 226, 0.08) 60%, transparent);
-  filter: blur(20px);
-}
-
-/* Same wave as the Hero, very low contrast: interconnection / movement. */
-.wave {
+/* Same ribbon asset and blend as the Figma: hard-light at 80%. */
+.ribbon {
   position: absolute;
   max-width: none;
   height: auto;
-  filter: saturate(0.5) contrast(0.8) blur(3px);
+  opacity: 0.8;
+  mix-blend-mode: hard-light;
 }
-.waveA {
-  width: 130%;
-  left: -18%;
+
+/* Figma image 739: same line language as the Hero. Enters from the left behind
+   the lower half of the map and crosses right under the metrics. */
+.ribbonMain {
+  width: 115%;
+  left: -12%;
   top: 34%;
-  opacity: 0.11;
-  transform: rotate(-6deg);
 }
-.waveB {
-  width: 110%;
-  right: -30%;
-  top: 8%;
-  opacity: 0.07;
-  transform: scaleX(-1) rotate(-10deg);
+
+/* Fades the ribbons into the background at the bottom edge (no hard cut).
+   Painted above the ribbons, below the content. */
+.atmosphere::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 160px;
+  background: linear-gradient(to bottom, transparent, var(--color-bg));
+}
+
+/* Figma image 742: rotated -6.55°, faded in from the right (mask image 741). */
+.ribbonCorner {
+  width: 91%;
+  left: 9%;
+  top: -12%;
+  transform: rotate(-6.55deg);
+  opacity: 0.55;
+  -webkit-mask-image: linear-gradient(to right, transparent 50%, #000 100%);
+  mask-image: linear-gradient(to right, transparent 50%, #000 100%);
 }
 
 .content {
@@ -107,13 +114,22 @@
   }
 }
 
-@media (max-width: 760px) {
-  .waveA {
-    width: 260%;
-    left: -80%;
-    top: 30%;
+@media (max-width: 960px) {
+  /* Metrics stack taller here: run the ribbon behind the map instead of the labels. */
+  .ribbonMain {
+    top: 24%;
   }
-  .waveB {
-    display: none;
+}
+
+@media (max-width: 760px) {
+  .ribbonMain {
+    width: 240%;
+    left: -70%;
+    top: -8%;
+  }
+  .ribbonCorner {
+    width: 180%;
+    left: -20%;
+    top: -4%;
   }
 }

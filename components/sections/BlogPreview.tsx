@@ -29,7 +29,7 @@ export function BlogPreview() {
                     alt={post.image.alt}
                     width={post.image.width}
                     height={post.image.height}
-                    sizes="(max-width: 440px) 92vw, 240px"
+                    sizes="(max-width: 640px) 92vw, (max-width: 1100px) 46vw, 280px"
                   />
                 </div>
                 <div className={styles.body}>
