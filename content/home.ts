@@ -21,7 +21,7 @@ export const hero: {
   description: string;
   ctas: CTA[];
   image: ImageAsset;
-  /** Facets orbiting the portrait (order = position: top-right, right, bottom-right, bottom). */
+  /** Facets around the portrait (order = position: top-right, right, lower-right, lower-middle). */
   profiles: HeroProfile[];
 } = {
   eyebrow: ["Tecnología", "Innovación", "Impacto humano"],
@@ -52,12 +52,12 @@ export const hero: {
     {
       icon: "rocket",
       title: "Emprendedor social",
-      description: "Construyo desde cero programas y soluciones que abren oportunidades para quienes menos las tienen.",
+      description: "Construyo soluciones a problemáticas sociales.",
     },
     {
       icon: "graduation-cap",
       title: "Educador",
-      description: "Formo personas y equipos para que lideren su propio cambio, no solo ejecuten el de otros.",
+      description: "Formo a personas y equipos para que sean parte del cambio.",
     },
   ],
 };

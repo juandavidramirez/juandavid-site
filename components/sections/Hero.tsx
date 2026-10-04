@@ -45,6 +45,16 @@ export function Hero() {
           <HeroProfiles profiles={hero.profiles} />
         </div>
       </div>
+      {/* Upper ribbons (updated Figma): the same asset mirrored across the top, behind the portrait. */}
+      <Image
+        className={styles.waveTop}
+        src="/images/decor/wave-hero-lines.webp"
+        alt=""
+        width={1774}
+        height={887}
+        sizes="(max-width: 900px) 220vw, 110vw"
+        aria-hidden="true"
+      />
       {/* Figma "image 740": light ribbons crossing the hero, behind the portrait. */}
       <Image
         className={styles.wave}

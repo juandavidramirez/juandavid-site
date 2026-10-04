@@ -79,11 +79,11 @@ export type ImpactArea = {
   href?: string;
 };
 
-/** A professional facet orbiting the hero portrait. Icon: a name from components/ui/AreaIcon.tsx. */
+/** A professional facet around the hero portrait. Icon: a name from components/ui/AreaIcon.tsx. */
 export type HeroProfile = {
   icon: string;
   title: string;
-  /** Revealed on hover / focus / tap. */
+  /** Always visible; keep it to one short sentence. */
   description: string;
 };
 
