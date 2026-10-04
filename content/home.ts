@@ -46,14 +46,14 @@ export const purpose: {
   image: ImageAsset;
 } = {
   id: "proposito",
-  eyebrow: "Mi propósito",
+  eyebrow: "Sobre mí",
   title: [
     { text: "Creo en la tecnología como " },
-    { text: "un puente", accent: "yellow" },
+    { text: "puente", accent: "yellow" },
     { text: ", no como fin" },
   ],
   description:
-    "Usar la tecnología y la innovación para generar oportunidades, fortalecer capacidades y acompañar a personas y organizaciones que trabajen por un impacto real.",
+    "Soy ingeniero humanista, con un máster en Ciencias de la Computación de Suecia. Durante más de 8 años he liderado tecnología e IA en organizaciones de impacto, y formado a personas y equipos en América Latina y Europa, dejando huella en miles de vidas y cientos de organizaciones.",
   // Sin href hasta que exista la página "Sobre mí".
   cta: { label: "Conoce más de mí", variant: "primary" },
   image: {
