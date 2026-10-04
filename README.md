@@ -60,6 +60,15 @@ title: [
 ### Cambiar imágenes
 Pon el archivo en `public/images/` (WebP recomendado) y actualiza `src`, `alt`, `width` y `height` en `content/home.ts`. `width/height` son las dimensiones reales del archivo (evitan saltos de layout). Next/Image genera versiones AVIF/WebP optimizadas.
 
+### Íconos de las áreas de impacto
+En `content/home.ts → impactAreas.items`, cada área tiene `icon`. Por defecto es el nombre de un ícono de [Lucide](https://lucide.dev/icons); los disponibles están registrados en `components/ui/AreaIcon.tsx` (`brain-circuit`, `brain`, `network`, `cpu`, `lightbulb`, `target`, `rocket`, `users`, `graduation-cap`, `user-round-check`, …). Para usar otro ícono de Lucide, impórtalo y agrégalo a ese registro (así solo se incluyen los que usas).
+
+Para usar tu propia imagen o SVG, ponla en `public/images/icons/` y escribe:
+
+```ts
+{ title: "…", description: "…", icon: "/images/icons/ai-strategy.svg", iconType: "image" }
+```
+
 ### Agregar un artículo del blog
 En `content/home.ts → blog.posts` añade:
 
@@ -85,13 +94,25 @@ En `content/home.ts → impactLocations`. `coordinates` es `[longitud, latitud]`
 
 Los puntos se proyectan solos y las líneas punteadas los unen en el orden de la lista. Las cifras (`impactStats`) están en el mismo archivo; su posición sobre el mapa en desktop está en `components/sections/GlobalImpact.module.css`.
 
+## Trabajar con el proyecto dentro de Google Drive
+Para que Drive no sincronice miles de archivos, `node_modules` y `.next` son enlaces simbólicos a `~/Documents/juandavid-site-deps/`. Si clonas el repo en otra máquina no aplica: `npm install` crea `node_modules` normal. Si el enlace se rompe, recréalo:
+
+```bash
+mkdir -p ~/Documents/juandavid-site-deps/node_modules ~/Documents/juandavid-site-deps/next-cache
+ln -s ~/Documents/juandavid-site-deps/node_modules node_modules
+ln -s ~/Documents/juandavid-site-deps/next-cache .next
+npm install
+```
+
+`next.config.ts` ajusta solo la raíz de Turbopack cuando detecta ese enlace; en Vercel no tiene efecto.
+
 ## Estructura
 
 ```
 app/                 rutas (/, /contact, /api/contact), metadata, sitemap, robots, OG image, icono
 components/layout/   Navbar, Footer
 components/sections/ Hero, Purpose, GlobalImpact (+ ImpactMapPins, ImpactStats), ImpactAreas, BlogPreview, ContactCTA
-components/ui/       Button, Eyebrow, RichText, Icon, Wordmark
+components/ui/       Button, Eyebrow, RichText, Icon, AreaIcon, Wordmark
 components/contact/  ContactForm
 content/             contenido editable
 lib/                 mapa (proyección), validación de contacto, formato de fechas

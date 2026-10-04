@@ -21,7 +21,7 @@ export function GlobalImpact() {
 
   return (
     <section id={globalImpact.id} className={styles.section} aria-labelledby="impact-title">
-      <div className={`container ${styles.stage}`}>
+      <div className="container">
         <div className={styles.heading}>
           <Eyebrow>{globalImpact.eyebrow}</Eyebrow>
           <h2 id="impact-title" className={`h2 h2-lg ${styles.title}`}>

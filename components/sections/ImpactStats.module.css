@@ -4,25 +4,25 @@
 
 .stat {
   display: flex;
-  flex-direction: column-reverse; /* value visually above its label, label first in DOM for <dl> semantics */
+  flex-direction: column;
+  justify-content: flex-start; /* values share one top line regardless of label length */
   align-items: center;
   gap: 12px;
   text-align: center;
 }
 
 .value {
+  order: -1; /* value above its label; label stays first in the DOM for <dl> semantics */
   margin: 0;
   font-size: var(--fs-stat);
-  line-height: 60px;
+  line-height: 1.15;
   font-weight: 700;
   letter-spacing: 0.01em;
-  text-shadow: 0 0 24px rgba(1, 17, 40, 0.9);
 }
 
 .label {
   max-width: 260px;
+  line-height: 1.45;
   font-size: var(--fs-body);
-  line-height: 27px;
   color: var(--color-text);
-  text-shadow: 0 0 12px rgba(1, 17, 40, 0.95);
 }

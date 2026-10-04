@@ -158,9 +158,22 @@ export const impactAreas: {
   cta: { label: "Leer más", href: "/contact", variant: "primary" },
   items: [
     {
-      icon: "gear",
+      icon: "brain-circuit",
       title: "Estrategia de IA",
-      description: "Personas impactadas directamente",
+      description:
+        "Diseño e implemento estrategias de inteligencia artificial realistas y sostenibles — alineadas al propósito y la capacidad real de cada organización, no a la moda del momento.",
+    },
+    {
+      icon: "lightbulb",
+      title: "Innovación para impacto",
+      description:
+        "Impulso procesos de innovación que resuelven problemas reales de organizaciones y comunidades, conectando tecnología con propósito social.",
+    },
+    {
+      icon: "users",
+      title: "Desarrollo de talento y liderazgo",
+      description:
+        "Formo y acompaño a personas y equipos para que puedan liderar el cambio digital — no solo ejecutarlo.",
     },
   ],
 };

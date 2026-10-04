@@ -36,7 +36,7 @@ export function Hero() {
             alt={hero.image.alt}
             width={hero.image.width}
             height={hero.image.height}
-            sizes="(max-width: 900px) 90vw, 612px"
+            sizes="(max-width: 900px) 90vw, 560px"
             preload
             fetchPriority="high"
             quality={80}

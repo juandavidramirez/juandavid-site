@@ -2,7 +2,6 @@
   position: relative;
   isolation: isolate;
   overflow-x: clip;
-  min-height: 855px;
   padding-top: 80px; /* navbar */
   background:
     radial-gradient(44% 40% at 0% 0%, rgba(74, 122, 245, 0.95), rgba(3, 85, 226, 0.35) 55%, transparent 100%),
@@ -17,29 +16,33 @@
   background: radial-gradient(30% 35% at 18% 8%, rgba(113, 192, 253, 0.25), transparent 70%);
 }
 
+/* Text and portrait live in separate columns, so they can never overlap. */
 .inner {
   position: relative;
   display: grid;
-  grid-template-columns: minmax(0, 560px) 1fr;
-  min-height: 775px;
+  grid-template-columns: minmax(0, 560px) minmax(0, 1fr);
+  column-gap: clamp(32px, 4vw, 64px);
+  align-items: end;
 }
 
 .copy {
   position: relative;
   z-index: 3;
-  padding-top: 120px;
+  align-self: start;
+  padding-block: clamp(32px, 4.4vw, 64px) clamp(48px, 6vw, 96px);
 }
 
 .eyebrow {
   display: flex;
   flex-wrap: wrap;
+  row-gap: 6px;
 }
 .dot {
   margin-inline: 1.1em;
 }
 
 .title {
-  margin-top: 56px;
+  margin-top: clamp(24px, 2.6vw, 36px);
   font-size: var(--fs-hero);
   line-height: var(--lh-hero);
   font-weight: 700;
@@ -52,85 +55,60 @@
   margin-top: 24px;
   max-width: 532px;
   font-size: var(--fs-body);
+  line-height: 1.45;
   color: var(--color-text);
 }
 
 .ctas {
   display: flex;
   flex-wrap: wrap;
-  gap: 24px;
-  margin-top: 52px;
+  gap: 16px 24px;
+  margin-top: 40px;
 }
 
 .portrait {
-  position: absolute;
+  position: relative;
   z-index: 1;
-  left: calc(483 / 1440 * 100%);
-  bottom: 53px;
-  width: min(612px, 42.5%);
+  justify-self: center;
+  width: min(560px, 100%);
 }
 .portrait img {
   width: 100%;
   height: auto;
 }
 
+/* Ambient wave: low-contrast and desaturated so it stays in the background. */
 .wave {
   position: absolute;
   z-index: 2;
-  left: -24%;
-  top: 360px;
-  width: 150%;
+  left: -20%;
+  bottom: -18%;
+  width: 140%;
   max-width: none;
   height: auto;
-  opacity: 0.42;
+  opacity: 0.2;
+  filter: saturate(0.55) contrast(0.85) blur(1.5px);
   pointer-events: none;
-}
-
-@media (max-width: 1100px) {
-  .inner {
-    grid-template-columns: minmax(0, 1fr);
-  }
-  .copy {
-    max-width: 560px;
-  }
-  .portrait {
-    left: auto;
-    right: 0;
-    width: 46%;
-  }
-  .wave {
-    top: 420px;
-  }
 }
 
 @media (max-width: 900px) {
   .hero {
-    min-height: 0;
     padding-top: 72px;
   }
   .inner {
-    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
   }
   .copy {
-    padding-top: 56px;
-  }
-  .title {
-    margin-top: 32px;
-  }
-  .ctas {
-    margin-top: 36px;
+    padding-block: 40px 0;
   }
   .portrait {
-    position: relative;
-    inset: auto;
-    width: min(100%, 460px);
-    margin: 40px auto 0;
+    width: min(100%, 440px);
+    margin-top: 40px;
   }
   .wave {
-    top: auto;
-    bottom: -40px;
-    width: 260%;
-    left: -80%;
+    width: 240%;
+    left: -70%;
+    bottom: -6%;
   }
 }
 

@@ -1,31 +1,23 @@
 .section {
   position: relative;
   overflow: hidden;
-  padding-block: 78px 40px;
-  background: radial-gradient(30% 60% at 0% 100%, rgba(74, 122, 245, 0.75), rgba(3, 85, 226, 0.25) 60%, transparent 100%);
-}
-
-.stage {
-  position: relative;
-  min-height: 610px;
+  padding-block: clamp(72px, 8vw, 120px) clamp(56px, 6vw, 96px);
+  background: radial-gradient(30% 60% at 0% 60%, rgba(74, 122, 245, 0.6), rgba(3, 85, 226, 0.2) 60%, transparent 100%);
 }
 
 .heading {
-  position: relative;
-  z-index: 3;
-  max-width: 340px;
+  max-width: 560px;
 }
 
 .title {
-  margin-top: 32px;
+  margin-top: 24px;
 }
 
 .map {
-  position: absolute;
-  top: 0;
-  left: calc(290 / 1240 * 100%);
-  width: calc(1055 / 1240 * 100%);
-  z-index: 1;
+  position: relative;
+  width: 100%;
+  max-width: 1160px;
+  margin: clamp(32px, 4vw, 56px) auto 0;
 }
 
 .svg {
@@ -34,60 +26,36 @@
   overflow: visible;
 }
 
-/* Desktop: figures float over the map, positioned as in the Figma. */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(40px, 5vw, 72px);
+}
 .stats > * {
-  position: absolute;
-  z-index: 3;
-  transform: translateX(-50%);
-  pointer-events: none;
+  padding-inline: 24px;
 }
-.stats > *:nth-child(1) {
-  left: calc(199 / 1240 * 100%);
-  top: 275px;
-}
-.stats > *:nth-child(2) {
-  left: calc(518 / 1240 * 100%);
-  top: 395px;
-}
-.stats > *:nth-child(3) {
-  left: calc(835 / 1240 * 100%);
-  top: 330px;
-}
-.stats > *:nth-child(4) {
-  left: calc(1145 / 1240 * 100%);
-  top: 305px;
+.stats > * + * {
+  border-left: 1px solid rgba(203, 228, 238, 0.14);
 }
 
-@media (max-width: 1024px) {
-  .stage {
-    min-height: 0;
-  }
-  .map {
-    position: relative;
-    top: auto;
-    left: auto;
-    width: 100%;
-    margin-top: 40px;
-  }
+@media (max-width: 960px) {
   .stats {
-    display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 40px 24px;
-    margin-top: 48px;
+    row-gap: 40px;
   }
-  .stats > * {
-    position: static;
-    transform: none;
+  .stats > *:nth-child(odd) {
+    border-left: 0;
   }
 }
 
 @media (max-width: 480px) {
   .stats {
     grid-template-columns: 1fr;
+    row-gap: 32px;
   }
-}
-
-/* An open location card must sit above the floating figures. */
-.map:has([role="dialog"]) {
-  z-index: 4;
+  .stats > * + * {
+    border-left: 0;
+    border-top: 1px solid rgba(203, 228, 238, 0.14);
+    padding-top: 32px;
+  }
 }

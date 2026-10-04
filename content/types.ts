@@ -50,10 +50,18 @@ export type ImpactStat = {
   accent?: Accent;
 };
 
+/**
+ * Area icon. With iconType "lucide" (default), `icon` is a Lucide icon name from the
+ * registry in components/ui/AreaIcon.tsx (e.g. "brain", "lightbulb", "users").
+ * With iconType "image", `icon` is a path in /public (SVG or PNG), e.g. "/images/icons/ai.svg".
+ */
 export type ImpactArea = {
-  icon: "gear" | "bulb" | "people";
   title: string;
   description: string;
+  icon: string;
+  iconType?: "lucide" | "image";
+  /** Optional link; when present the item shows an arrow button. */
+  href?: string;
 };
 
 export type BlogPost = {

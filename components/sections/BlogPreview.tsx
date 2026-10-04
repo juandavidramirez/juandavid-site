@@ -12,10 +12,12 @@ export function BlogPreview() {
     <section id={blog.id} className={styles.section} aria-labelledby="blog-title">
       <div className={`container ${styles.grid}`}>
         <div className={styles.intro}>
-          <Eyebrow>{blog.eyebrow}</Eyebrow>
-          <h2 id="blog-title" className={`h2 ${styles.title}`}>
-            <RichText value={blog.title} />
-          </h2>
+          <div>
+            <Eyebrow>{blog.eyebrow}</Eyebrow>
+            <h2 id="blog-title" className={`h2 ${styles.title}`}>
+              <RichText value={blog.title} />
+            </h2>
+          </div>
           <ButtonLink cta={blog.cta} className={styles.cta} />
         </div>
 
@@ -29,7 +31,7 @@ export function BlogPreview() {
                     alt={post.image.alt}
                     width={post.image.width}
                     height={post.image.height}
-                    sizes="(max-width: 640px) 92vw, (max-width: 1100px) 45vw, 260px"
+                    sizes="(max-width: 700px) 92vw, (max-width: 1100px) 46vw, 400px"
                   />
                 </div>
                 <div className={styles.body}>
@@ -41,14 +43,15 @@ export function BlogPreview() {
                       <span className="visually-hidden"> ({blog.readLabel})</span>
                     </a>
                   </h3>
-                  <div className={styles.meta}>
-                    <time dateTime={post.date} className={styles.date}>
-                      {formatPostDate(post.date)}
-                    </time>
-                    <span aria-hidden="true">·</span>
-                    <span>{post.readingTime}</span>
+                  <div className={styles.footer}>
+                    <p className={styles.meta}>
+                      <time dateTime={post.date} className={styles.date}>
+                        {formatPostDate(post.date)}
+                      </time>
+                      <span className={styles.reading}>{post.readingTime}</span>
+                    </p>
                     <span className={styles.go} aria-hidden="true">
-                      <Icon name="arrow" size={14} />
+                      <Icon name="arrow" size={16} />
                     </span>
                   </div>
                 </div>
