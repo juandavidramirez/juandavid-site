@@ -3,6 +3,7 @@ import { hero } from "@/content/home";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RichText } from "@/components/ui/RichText";
+import { HeroProfiles } from "./HeroProfiles";
 import styles from "./Hero.module.css";
 
 export function Hero() {
@@ -41,6 +42,7 @@ export function Hero() {
             fetchPriority="high"
             quality={80}
           />
+          <HeroProfiles profiles={hero.profiles} />
         </div>
       </div>
       {/* Figma "image 740": light ribbons crossing the hero, behind the portrait. */}

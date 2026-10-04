@@ -1,0 +1,115 @@
+/* Positions are % of the portrait box (option 1B, refined). */
+.orbit {
+  position: absolute;
+  z-index: -1;
+  left: -6%;
+  top: -2.5%;
+  width: 136.7%;
+  height: auto;
+  pointer-events: none;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sat {
+  position: absolute;
+  z-index: 2;
+  width: 0;
+  height: 0;
+}
+.float {
+  position: absolute;
+  animation: float var(--dur, 8s) var(--ease) var(--delay, 0s) infinite;
+}
+@keyframes float {
+  0%, 100% { transform: translateY(-4px); }
+  50% { transform: translateY(4px); }
+}
+
+/* 1 Estratega de IA — top right, grows down/right */
+.sat[data-orbit="1"] { left: 73.3%; top: 8%; --dur: 9s; --delay: -3s; }
+.sat[data-orbit="1"] .float { left: 0; top: -26px; } /* grows down: never under the navbar */
+/* 2 Investigador — right, grows down/right */
+.sat[data-orbit="2"] { left: 82.5%; top: 45%; --dur: 9.5s; --delay: -4s; }
+.sat[data-orbit="2"] .float { left: 0; top: -26px; }
+/* 3 Emprendedor social — bottom right, grows down/right */
+.sat[data-orbit="3"] { left: 76.7%; top: 77%; --dur: 7.5s; --delay: -5s; }
+.sat[data-orbit="3"] .float { left: 0; top: 0; }
+/* 4 Educador — below the photo, grows up/right; slightly smaller for depth */
+.sat[data-orbit="4"] { left: 18.3%; top: 99.1%; --dur: 8.5s; --delay: -6s; }
+.sat[data-orbit="4"] .float { left: 0; bottom: 0; }
+.sat[data-orbit="4"] .body { transform: scale(0.94); transform-origin: left bottom; }
+
+.body {
+  display: block;
+  width: max-content;
+  max-width: 300px;
+  padding: 8px 20px 8px 8px;
+  border-radius: 30px;
+  color: var(--color-text);
+  background: linear-gradient(160deg, rgba(74, 122, 245, 0.3), rgba(3, 85, 226, 0.16) 55%, rgba(1, 17, 40, 0.55));
+  border: 1px solid rgba(113, 192, 253, 0.38);
+  box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.7), 0 0 40px -12px rgba(0, 126, 251, 0.5), inset 0 1px 0 rgba(203, 228, 238, 0.12);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  cursor: default;
+  transition: border-radius 0.5s var(--ease), padding 0.5s var(--ease), box-shadow 0.5s var(--ease), border-color 0.5s var(--ease);
+}
+.head { display: flex; align-items: center; gap: 12px; }
+.icon {
+  display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 50%;
+  background: rgba(25, 53, 83, 0.9); color: var(--color-text); box-shadow: inset 0 0 0 1px rgba(113, 192, 253, 0.25);
+}
+.title { font-size: 16px; font-weight: 700; color: var(--color-white); white-space: nowrap; }
+
+.more {
+  display: grid;
+  grid-template-rows: 0fr;
+  width: 0;
+  opacity: 0;
+  transition: grid-template-rows 0.5s var(--ease), width 0.5s var(--ease), opacity 0.35s var(--ease) 0.1s;
+}
+.description {
+  display: block;
+  overflow: hidden;
+  width: 248px;
+  padding: 0 4px 0 52px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.sat:hover, .sat:focus-within { z-index: 4; }
+.sat:hover .float, .sat:focus-within .float { animation-play-state: paused; }
+.sat:hover .body, .sat:focus-within .body {
+  border-radius: 22px;
+  padding: 12px 18px 16px 12px;
+  border-color: rgba(113, 192, 253, 0.7);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.8), 0 0 50px -10px rgba(0, 126, 251, 0.75), inset 0 1px 0 rgba(203, 228, 238, 0.18);
+}
+.sat:hover .more, .sat:focus-within .more { grid-template-rows: 1fr; width: 248px; opacity: 1; }
+.sat:hover .description, .sat:focus-within .description { padding-top: 6px; }
+.body:focus-visible { outline: 2px solid var(--color-yellow); outline-offset: 4px; }
+
+/* Below 1400px the orbit has no room to expand without collisions:
+   chips under the photo that expand on tap/hover. */
+@media (max-width: 1399px) {
+  .orbit { display: none; }
+  .list {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+  }
+  .sat, .sat[data-orbit] { position: static; width: auto; height: auto; }
+  .float, .sat[data-orbit] .float { position: static; animation: none; }
+  .sat[data-orbit="4"] .body { transform: none; }
+  .body { max-width: 100%; cursor: pointer; }
+  .sat:hover .more, .sat:focus-within .more { width: min(248px, 70vw); }
+  .description { width: min(248px, 70vw); }
+}

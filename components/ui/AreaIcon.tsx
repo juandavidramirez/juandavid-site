@@ -13,6 +13,7 @@ import {
   UserRoundCheck,
   HeartHandshake,
   Globe,
+  Search,
   type LucideIcon,
 } from "lucide-react";
 import Image from "next/image";
@@ -38,6 +39,7 @@ const registry: Record<string, LucideIcon> = {
   "user-round-check": UserRoundCheck,
   "heart-handshake": HeartHandshake,
   globe: Globe,
+  search: Search,
 };
 
 type Props = Pick<ImpactArea, "icon" | "iconType"> & { size?: number };

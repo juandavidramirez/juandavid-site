@@ -1,5 +1,6 @@
 import type {
   BlogPost,
+  HeroProfile,
   CTA,
   ImageAsset,
   ImpactArea,
@@ -20,6 +21,8 @@ export const hero: {
   description: string;
   ctas: CTA[];
   image: ImageAsset;
+  /** Facets orbiting the portrait (order = position: top-right, right, bottom-right, bottom). */
+  profiles: HeroProfile[];
 } = {
   eyebrow: ["Tecnología", "Innovación", "Impacto humano"],
   title: [{ text: "Tecnología\ncon propósito" }],
@@ -35,6 +38,28 @@ export const hero: {
     width: 1264,
     height: 1244,
   },
+  profiles: [
+    {
+      icon: "sparkles",
+      title: "Estratega de IA",
+      description: "Diseño e implemento estrategias de IA que fortalecen a organizaciones y personas.",
+    },
+    {
+      icon: "search",
+      title: "Investigador",
+      description: "Descubro cómo la IA transforma nuestra forma de trabajar, innovar, aprender y enseñar.",
+    },
+    {
+      icon: "rocket",
+      title: "Emprendedor social",
+      description: "Construyo desde cero programas y soluciones que abren oportunidades para quienes menos las tienen.",
+    },
+    {
+      icon: "graduation-cap",
+      title: "Educador",
+      description: "Formo personas y equipos para que lideren su propio cambio, no solo ejecuten el de otros.",
+    },
+  ],
 };
 
 export const purpose: {
