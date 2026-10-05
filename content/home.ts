@@ -299,9 +299,9 @@ export const impactAreas: {
     },
     {
       icon: "users",
-      title: "Desarrollo de talento y liderazgo",
+      title: "Educación y desarrollo de talento",
       description:
-        "Formo a personas y equipos para que usen la tecnología con confianza.",
+        "Diseño e imparto programas de formación y mentoría para que las personas desarrollen sus habilidades en un mundo con IA.",
     },
   ],
 };
