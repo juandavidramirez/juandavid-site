@@ -277,11 +277,10 @@ export const impactAreas: {
   items: ImpactArea[];
 } = {
   id: "areas",
-  eyebrow: "Áreas en las que genero impacto",
+  eyebrow: "Lo que hago",
   title: [
-    { text: "Del conocimiento a la\n" },
-    { text: "acción", accent: "yellow" },
-    { text: " real" },
+    { text: "Las tres áreas en\nlas que " },
+    { text: "trabajo", accent: "yellow" },
   ],
   // Temporal: LinkedIn hasta que exista la subpágina de portafolio.
   cta: { label: "Conoce más", href: externalLinks.linkedin, external: true, variant: "primary" },
@@ -290,19 +289,19 @@ export const impactAreas: {
       icon: "brain-circuit",
       title: "Estrategia de IA",
       description:
-        "Diseño e implemento estrategias de inteligencia artificial realistas y sostenibles — alineadas al propósito y la capacidad real de cada organización, no a la moda del momento.",
+        "Diseño e implemento estrategias de IA para empresas y personas: dónde usarla y cómo llevarla a la práctica.",
     },
     {
       icon: "lightbulb",
       title: "Innovación para impacto",
       description:
-        "Impulso procesos de innovación que resuelven problemas reales de organizaciones y comunidades, conectando tecnología con propósito social.",
+        "Lidero proyectos de innovación que resuelven un problema concreto de una organización o comunidad.",
     },
     {
       icon: "users",
       title: "Desarrollo de talento y liderazgo",
       description:
-        "Formo y acompaño a personas y equipos para que puedan liderar el cambio digital — no solo ejecutarlo.",
+        "Formo a personas y equipos para que usen la tecnología con confianza.",
     },
   ],
 };
