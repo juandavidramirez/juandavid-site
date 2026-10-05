@@ -26,7 +26,7 @@ export default async function OpengraphImage() {
         }}
       >
         <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", padding: "0 0 0 80px", width: 680 }}>
-          <div style={{ fontSize: 22, letterSpacing: 6, textTransform: "uppercase" }}>{hero.eyebrow.join(" · ")}</div>
+          <div style={{ fontSize: 22, letterSpacing: 6, textTransform: "uppercase" }}>{hero.handwritten}</div>
           <div style={{ fontSize: 76, fontWeight: 700, lineHeight: 1.1, marginTop: 28 }}>{richTextToString(hero.title)}</div>
           <div style={{ fontSize: 30, marginTop: 36, color: "#ffffff" }}>{site.name}</div>
           <div style={{ width: 80, height: 6, borderRadius: 3, background: "#ffbd42", marginTop: 20 }} />

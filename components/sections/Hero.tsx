@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { hero } from "@/content/home";
 import { ButtonLink } from "@/components/ui/Button";
-import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RichText } from "@/components/ui/RichText";
 import { HeroProfiles } from "./HeroProfiles";
 import styles from "./Hero.module.css";
@@ -12,14 +11,6 @@ export function Hero() {
       <div className={styles.glow} aria-hidden="true" />
       <div className={`container ${styles.inner}`}>
         <div className={styles.copy}>
-          <Eyebrow className={styles.eyebrow}>
-            {hero.eyebrow.map((word, i) => (
-              <span key={word}>
-                {i > 0 && <span className={styles.dot} aria-hidden="true">·</span>}
-                {word}
-              </span>
-            ))}
-          </Eyebrow>
           <h1 id="hero-title" className={styles.title}>
             <RichText value={hero.title} />
           </h1>
@@ -29,6 +20,7 @@ export function Hero() {
               <ButtonLink key={cta.label} cta={cta} arrow={cta.variant !== "outline"} />
             ))}
           </div>
+          <p className={styles.hand}>{hero.handwritten}</p>
         </div>
 
         <div className={styles.portrait}>

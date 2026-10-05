@@ -61,7 +61,7 @@ export const social: SocialLink[] = [
 ];
 
 export const footer = {
-  brand: { primary: "JuanDa", secondary: "Ramírez" },
+  brand: { primary: "JuanDavid", secondary: "Ramírez" }, // same as the header
   descriptor: "Tecnología · Impacto · Educación",
   links: navigation.items,
   statement: "Un futuro más humano es posible",

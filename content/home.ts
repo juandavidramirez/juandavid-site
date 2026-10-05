@@ -16,16 +16,17 @@ import { externalLinks, internalLinks } from "./links";
  */
 
 export const hero: {
-  eyebrow: string[];
   title: RichText;
+  /** Handwritten line under the CTAs. */
+  handwritten: string;
   description: string;
   ctas: CTA[];
   image: ImageAsset;
   /** Facets around the portrait (order = position: top-right, right, lower-right, lower-middle). */
   profiles: HeroProfile[];
 } = {
-  eyebrow: ["Tecnología", "Innovación", "Impacto humano"],
-  title: [{ text: "Tecnología\ncon propósito" }],
+  title: [{ text: "De la IA\nal impacto" }],
+  handwritten: "Tecnología · Impacto · Educación",
   description:
     "Diseño estrategias de IA, lidero procesos de innovación y formo equipos, para que empresas y personas adopten la tecnología con criterio y la usen a su favor.",
   ctas: [
@@ -73,9 +74,9 @@ export const purpose: {
   id: "proposito",
   eyebrow: "Sobre mí",
   title: [
-    { text: "Creo que la tecnología es un " },
-    { text: "puente", accent: "yellow" },
-    { text: ", no un fin" },
+    { text: "Ayudo a personas y empresas a amplificar su " },
+    { text: "impacto", accent: "yellow" },
+    { text: " con tecnología" },
   ],
   description:
     "Soy ingeniero humanista, con un máster en Tecnología e Innovación Social de Suecia. Por más de 8 años he liderado tecnología e IA en organizaciones de impacto, y formado personas en América Latina y Europa.",

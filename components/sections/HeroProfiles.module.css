@@ -27,9 +27,10 @@
 .card {
   display: grid;
   grid-template-columns: auto 1fr;
+  align-items: center;
   column-gap: clamp(12px, 2.6cqw, 16px);
-  width: clamp(255px, 52cqw, 318px);
-  padding: clamp(18px, 3.9cqw, 24px) clamp(18px, 3.9cqw, 24px) clamp(20px, 4.3cqw, 26px);
+  width: clamp(250px, 50cqw, 300px);
+  padding: clamp(10px, 2.1cqw, 13px) clamp(16px, 3.3cqw, 20px) clamp(10px, 2.1cqw, 13px) clamp(10px, 2.1cqw, 13px);
   border-radius: 24px;
   color: var(--color-text);
   background: linear-gradient(160deg, rgba(3, 85, 226, 0.42), rgba(3, 60, 170, 0.32) 55%, rgba(1, 30, 90, 0.5));
@@ -37,22 +38,39 @@
   box-shadow: 0 24px 48px -18px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(203, 228, 238, 0.1);
   -webkit-backdrop-filter: blur(14px) saturate(1.2);
   backdrop-filter: blur(14px) saturate(1.2);
+  cursor: default;
+  transition: border-color 0.45s var(--ease), box-shadow 0.45s var(--ease);
 }
-.head { display: contents; }
 .icon {
-  grid-row: 1 / span 2;
   display: grid; place-items: center;
   width: clamp(40px, 7.9cqw, 48px); height: clamp(40px, 7.9cqw, 48px); border-radius: 50%;
   background: rgba(25, 53, 83, 0.95); color: var(--color-text);
 }
-.title { align-self: center; font-size: clamp(17px, 3.3cqw, 20px); font-weight: 700; line-height: 1.25; color: var(--color-white); }
-.description {
+.title { font-size: clamp(17px, 3.3cqw, 20px); font-weight: 700; line-height: 1.25; color: var(--color-white); }
+
+/* Description: collapsed by default, revealed on hover / focus (grows downwards). */
+.more {
   grid-column: 2;
-  margin: 8px 0 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.45s var(--ease), opacity 0.3s var(--ease) 0.08s;
+}
+.description {
+  overflow: hidden;
   font-size: clamp(14px, 2.6cqw, 16px);
   line-height: 1.45;
   color: var(--color-text);
 }
+.sat:hover, .sat:focus-within { z-index: 4; }
+.sat:hover .float, .sat:focus-within .float { animation-play-state: paused; }
+.sat:hover .card, .sat:focus-within .card {
+  border-color: rgba(113, 192, 253, 0.85);
+  box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.75), 0 0 46px -10px rgba(0, 126, 251, 0.7), inset 0 1px 0 rgba(203, 228, 238, 0.16);
+}
+.sat:hover .more, .sat:focus-within .more { grid-template-rows: 1fr; opacity: 1; }
+.sat:hover .description, .sat:focus-within .description { padding-top: 6px; }
+.card:focus-visible { outline: 2px solid var(--color-yellow); outline-offset: 4px; }
 
 @media (prefers-reduced-motion: reduce) {
   .float { animation: none; }
@@ -69,10 +87,10 @@
   }
   .sat, .sat[data-orbit] { position: static; }
   .float { animation: none; }
-  .card { width: auto; height: 100%; padding: 14px 16px; column-gap: 12px; }
+  .card { width: auto; padding: 12px 16px; column-gap: 12px; cursor: pointer; align-self: start; }
   .icon { width: 36px; height: 36px; }
   .title { font-size: 15.5px; }
-  .description { font-size: 13.5px; margin-top: 4px; }
+  .description { font-size: 13.5px; }
 }
 @media (max-width: 560px) {
   .list { grid-template-columns: 1fr; }
