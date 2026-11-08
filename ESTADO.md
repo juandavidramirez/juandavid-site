@@ -102,8 +102,8 @@ Este documento resume qué está publicado, las decisiones de diseño que tomamo
 - Selector "En" → futura versión en inglés.
 
 ### Configuración
-- **Formulario de contacto:** cargar en Vercel `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`. Opcional: verificar el dominio en Resend para enviar desde `contacto@juandavidramirez.com`.
-- **`NEXT_PUBLIC_SITE_URL`:** definir `https://www.juandavidramirez.com` en Vercel y redesplegar, para que canonical, sitemap y Open Graph usen el dominio (si aún no se hizo).
+- Variables de Vercel configuradas: `NEXT_PUBLIC_SITE_URL`, `RESEND_API_KEY`, `CONTACT_TO_EMAIL`, `CONTACT_FROM_EMAIL`.
+- Opcional: verificar el dominio en Resend para enviar desde `contacto@juandavidramirez.com` (si aún no se hizo).
 
 ---
 
