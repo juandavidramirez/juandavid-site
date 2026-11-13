@@ -6,7 +6,7 @@
  *   npm run report:pdf                         → usa http://localhost:3000
  *   npm run report:pdf -- http://localhost:3002
  *
- * Salida: public/docs/Reporte_Bridging_the_Skill_Gap_Juan_David_Ramirez.pdf
+ * Salida: public/files/Reporte_Bridging_the_Skill_Gap_Juan_David_Ramirez.pdf
  * Requiere Google Chrome (o Chromium). Ruta configurable con CHROME_PATH.
  */
 import { execFileSync } from "node:child_process";
@@ -17,7 +17,8 @@ import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const base = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
 const url = `${base}/investigacion/pdf`;
-const out = join(root, "public", "docs", "Reporte_Bridging_the_Skill_Gap_Juan_David_Ramirez.pdf");
+// Archivo real; los botones lo enlazan como /docs/... para contar descargas (app/docs/[file]/route.ts).
+const out = join(root, "public", "files", "Reporte_Bridging_the_Skill_Gap_Juan_David_Ramirez.pdf");
 
 const candidates = [
   process.env.CHROME_PATH,

@@ -51,7 +51,8 @@ export const research = {
           // Registro de la tesis en DiVA (Malmö University).
           {
             label: "Leer en DiVA",
-            href: "https://mau.diva-portal.org/smash/record.jsf?pid=diva2:1993589" as string | undefined,
+            // Pasa por /go/diva para contar el clic (lib/downloads.ts) y redirige a DiVA.
+            href: "/go/diva" as string | undefined,
             kind: "external" as const,
           },
         ],
