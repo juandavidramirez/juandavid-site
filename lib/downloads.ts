@@ -23,7 +23,7 @@ export const OUTBOUND: Record<string, TrackedItem & { url: string }> = {
   diva: {
     id: "diva",
     label: "Leer la tesis en DiVA",
-    url: "https://mau.diva-portal.org/smash/record.jsf?pid=diva2:1993589",
+    url: "https://www.diva-portal.org/smash/record.jsf?pid=diva2%3A1993589&dswid=7592",
   },
 };
 
