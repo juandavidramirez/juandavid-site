@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { navigation, site } from "@/content/site";
-import { ButtonLink } from "@/components/ui/Button";
+import { CtaButton } from "@/components/ui/CtaButton";
 import { Icon } from "@/components/ui/Icon";
 import { Wordmark } from "@/components/ui/Wordmark";
 import styles from "./Navbar.module.css";
@@ -15,7 +15,8 @@ export function Navbar() {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      // Si hay un pop-up abierto (p. ej. Hablemos), Esc lo cierra a él y el menú sigue abierto.
+      if (e.key === "Escape" && !document.querySelector("dialog[open]")) {
         setOpen(false);
         toggleRef.current?.focus();
       }
@@ -53,13 +54,13 @@ export function Navbar() {
               </li>
             ))}
             <li className={styles.menuCta}>
-              <ButtonLink cta={navigation.cta} />
+              <CtaButton cta={navigation.cta} />
             </li>
           </ul>
         </nav>
 
         <div className={styles.actions}>
-          <ButtonLink cta={navigation.cta} className={styles.cta} />
+          <CtaButton cta={navigation.cta} className={styles.cta} />
           <p className={styles.langs}>
             {navigation.languages.map((lang, i) => (
               <span key={lang.label}>

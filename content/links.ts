@@ -26,6 +26,8 @@ export const internalLinks = {
   home: "/",
   /** Contact form page (the "Hablemos" CTAs). */
   contactForm: "/contact",
+  /** Reporte de la tesis de maestría. */
+  research: "/investigacion",
   sections: {
     purpose: "/#proposito",
     impact: "/#impacto",

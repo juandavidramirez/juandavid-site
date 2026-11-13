@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { hero } from "@/content/home";
-import { ButtonLink } from "@/components/ui/Button";
+import { CtaButton } from "@/components/ui/CtaButton";
 import { RichText } from "@/components/ui/RichText";
 import { HeroProfiles } from "./HeroProfiles";
 import styles from "./Hero.module.css";
@@ -17,7 +17,7 @@ export function Hero() {
           <p className={styles.description}>{hero.description}</p>
           <div className={styles.ctas}>
             {hero.ctas.map((cta) => (
-              <ButtonLink key={cta.label} cta={cta} arrow={cta.variant !== "outline"} />
+              <CtaButton key={cta.label} cta={cta} arrow={cta.variant !== "outline"} />
             ))}
           </div>
           <p className={styles.hand}>{hero.handwritten}</p>

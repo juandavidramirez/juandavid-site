@@ -41,6 +41,7 @@ export const navigation: {
     { label: "Sobre mí", href: internalLinks.sections.purpose },
     { label: "Mi impacto", href: internalLinks.sections.impact },
     { label: "Mi trabajo", href: internalLinks.sections.areas },
+    { label: "Investigación", href: internalLinks.research },
     { label: "Blog", href: internalLinks.sections.blog },
     { label: "Contacto", href: internalLinks.sections.contact },
   ],
