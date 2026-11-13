@@ -1,11 +1,13 @@
 /**
- * Google Analytics 4 con consentimiento.
+ * Google Analytics 4 y Microsoft Clarity con consentimiento.
  * - GA solo se carga si la persona acepta el aviso de cookies (la elección se guarda en localStorage).
  * - Descargas de PDF y clics a sitios externos (DiVA) los registra GA4 solo ("medición mejorada").
  * - `track()` envía eventos propios (p. ej. abrir el pop-up de contacto). Sin consentimiento no hace nada.
  */
 
 export const GA_ID = "G-3GBVEEYYRG";
+/** Microsoft Clarity (mapas de calor y grabaciones de sesión). Misma regla: solo con consentimiento. */
+export const CLARITY_ID = "zd5vjdswof";
 
 export type Consent = "granted" | "denied";
 const KEY = "jd-analytics-consent";
