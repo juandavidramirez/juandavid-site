@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { X } from "lucide-react";
 import { contactPage } from "@/content/contact";
 import { Button } from "@/components/ui/Button";
+import { track } from "@/lib/analytics";
 import { ContactForm } from "./ContactForm";
 import styles from "./ContactModal.module.css";
 
@@ -46,6 +47,7 @@ export function ContactModal({
   }, [open]);
 
   const show = () => {
+    track("contact_open", { page_path: window.location.pathname });
     setFormKey((k) => k + 1);
     setOpen(true);
     ref.current?.showModal();

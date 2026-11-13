@@ -2,6 +2,7 @@ import Link from "next/link";
 import { footer, navigation, social } from "@/content/site";
 import { Icon } from "@/components/ui/Icon";
 import { Wordmark } from "@/components/ui/Wordmark";
+import { CookieSettingsButton } from "@/components/analytics/Analytics";
 import styles from "./Footer.module.css";
 
 export function Footer() {
@@ -13,6 +14,7 @@ export function Footer() {
             <Wordmark primary={footer.brand.primary} secondary={footer.brand.secondary} />
           </Link>
           <p className={styles.descriptor}>{footer.descriptor}</p>
+          <CookieSettingsButton className={styles.cookies} />
         </div>
 
         <nav aria-label="Pie de página">

@@ -83,3 +83,18 @@
     margin-left: -10px;
   }
 }
+
+.cookies {
+  margin-top: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: rgba(203, 228, 238, 0.6);
+  font-size: 13px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+.cookies:hover {
+  color: var(--color-yellow);
+}

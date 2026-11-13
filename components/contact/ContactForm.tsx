@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from "react";
 import { contactPage as copy } from "@/content/contact";
 import { LIMITS, normalize, validate, type ContactErrors, type ContactInput } from "@/lib/contact";
 import { Button } from "@/components/ui/Button";
+import { track } from "@/lib/analytics";
 import styles from "./ContactForm.module.css";
 
 type Status = "idle" | "sending" | "success" | "error";
@@ -53,6 +54,8 @@ export function ContactForm() {
         return;
       }
       setStatus("success");
+      // Evento recomendado de GA4 para contactos: cuenta mensajes enviados, sin datos personales.
+      track("generate_lead", { form: "contact", page_path: window.location.pathname });
       formRef.current?.reset();
       requestAnimationFrame(() => statusRef.current?.focus());
     } catch {
