@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 import { contactPage as copy } from "@/content/contact";
 import { LIMITS, normalize, validate, type ContactErrors, type ContactInput } from "@/lib/contact";
 import { Button } from "@/components/ui/Button";
@@ -16,6 +16,8 @@ export function ContactForm() {
   const startedAt = useRef(0);
   const formRef = useRef<HTMLFormElement>(null);
   const statusRef = useRef<HTMLDivElement>(null);
+  // Ids únicos: el formulario puede vivir en /contact y también dentro del pop-up.
+  const uid = useId();
 
   useEffect(() => {
     startedAt.current = Date.now();
@@ -80,7 +82,7 @@ export function ContactForm() {
 
   const field = (name: (typeof FIELDS)[number], opts: { type?: string; multiline?: boolean; autoComplete?: string }) => {
     const err = errors[name];
-    const id = `contact-${name}`;
+    const id = `${uid}-${name}`;
     const common = {
       id,
       name,
@@ -118,8 +120,8 @@ export function ContactForm() {
 
       {/* Honeypot: hidden from people and assistive tech; bots tend to fill it. */}
       <div className={styles.hp} aria-hidden="true">
-        <label htmlFor="contact-company">Company</label>
-        <input id="contact-company" name="company" type="text" tabIndex={-1} autoComplete="off" />
+        <label htmlFor={`${uid}-company`}>Company</label>
+        <input id={`${uid}-company`} name="company" type="text" tabIndex={-1} autoComplete="off" />
       </div>
 
       <div className={styles.actions}>

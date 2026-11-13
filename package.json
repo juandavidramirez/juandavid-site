@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "report:pdf": "node scripts/generate-report-pdf.mjs"
   },
   "dependencies": {
     "d3-geo": "^3.1.1",

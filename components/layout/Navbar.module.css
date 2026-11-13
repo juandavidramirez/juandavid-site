@@ -159,6 +159,12 @@
 }
 
 @media (max-width: 420px) {
+  .bar {
+    gap: 12px;
+  }
+  .brand {
+    margin-right: 0;
+  }
   .brand :global(*) {
     font-size: 20px;
   }

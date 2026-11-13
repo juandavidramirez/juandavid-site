@@ -1,0 +1,119 @@
+.chart {
+  margin: 0;
+  overflow-x: clip; /* el tooltip del último segmento no debe ensanchar la página en móvil */
+  padding: clamp(24px, 3vw, 36px);
+  border-radius: var(--radius-card);
+  background: linear-gradient(180deg, rgba(25, 53, 83, 0.95), rgba(31, 64, 112, 0.85));
+}
+
+.head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 17px;
+}
+.total {
+  font-size: var(--fs-stat);
+  line-height: 1;
+  font-weight: 700;
+  color: var(--color-white);
+}
+
+.bar {
+  display: flex;
+  gap: 2px; /* separación entre segmentos */
+  height: 20px;
+  margin-top: 24px;
+}
+.segment {
+  position: relative;
+  flex-basis: 0;
+  cursor: default;
+  outline: none;
+}
+.segment:first-child {
+  border-radius: 4px 0 0 4px;
+}
+.segment:last-child {
+  border-radius: 0 4px 4px 0;
+}
+.bar:hover .segment:not(:hover) {
+  opacity: 0.45;
+}
+.segment:focus-visible {
+  outline: 2px solid var(--color-white);
+  outline-offset: 2px;
+}
+
+.tip {
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%) translateY(4px);
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: var(--color-white);
+  color: var(--color-bg);
+  font-size: 14px;
+  white-space: nowrap;
+  max-width: min(320px, 80vw);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.15s var(--ease), transform 0.15s var(--ease);
+  z-index: 2;
+}
+.segment:hover .tip,
+.segment:focus-visible .tip {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+
+.groups {
+  list-style: none;
+  margin: 28px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 18px;
+}
+.groups li {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  align-items: center;
+  gap: 16px;
+}
+.people {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.person svg {
+  display: block;
+}
+.label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 16px;
+  line-height: 1.35;
+}
+.label b {
+  color: var(--color-white);
+}
+.icon {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: rgba(1, 17, 40, 0.5);
+}
+
+@media (max-width: 480px) {
+  .groups li {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+}

@@ -1,0 +1,43 @@
+.wrap {
+  margin-top: 32px;
+}
+.tabs {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: var(--radius-pill);
+  background: rgba(203, 228, 238, 0.08);
+  border: 1px solid rgba(203, 228, 238, 0.14);
+}
+.tab {
+  min-height: 40px;
+  padding: 8px 20px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: none;
+  color: var(--color-text);
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
+}
+.tab[aria-selected="true"] {
+  background: var(--color-yellow);
+  color: var(--color-on-yellow);
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 16px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.chips[hidden] {
+  display: none;
+}
+.chips li {
+  padding: 7px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(203, 228, 238, 0.35);
+  font-size: 15px;
+}
