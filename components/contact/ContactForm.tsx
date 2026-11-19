@@ -1,16 +1,17 @@
 "use client";
 
 import { useEffect, useId, useRef, useState } from "react";
-import { contactPage as copy } from "@/content/contact";
 import { LIMITS, normalize, validate, type ContactErrors, type ContactInput } from "@/lib/contact";
 import { Button } from "@/components/ui/Button";
 import { track } from "@/lib/analytics";
+import { useLang } from "@/components/i18n/LangProvider";
 import styles from "./ContactForm.module.css";
 
 type Status = "idle" | "sending" | "success" | "error";
 const FIELDS = ["name", "email", "subject", "message"] as const;
 
 export function ContactForm() {
+  const { lang, contactPage: copy } = useLang();
   const [status, setStatus] = useState<Status>("idle");
   const [errors, setErrors] = useState<ContactErrors>({});
   const [serverError, setServerError] = useState<string | null>(null);
@@ -44,7 +45,7 @@ export function ContactForm() {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...input, company: data.company ?? "", startedAt: startedAt.current }),
+        body: JSON.stringify({ ...input, company: data.company ?? "", startedAt: startedAt.current, lang }),
       });
       const json = await res.json().catch(() => ({}));
       if (!res.ok || !json.ok) {

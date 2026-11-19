@@ -7,13 +7,15 @@ type Group = { label: string; value: number; color: string; icon: string };
  * Parte de un todo con pocas categorías: barra segmentada + una figura por persona.
  * Cada segmento lleva etiqueta directa (nombre y número), así la identidad nunca depende solo del color.
  */
-export function ParticipantsChart({ groups, children }: { groups: Group[]; children?: React.ReactNode }) {
+type Labels = { head: string; of: string; caption: string; profile: string; people: string };
+
+export function ParticipantsChart({ groups, t, children }: { groups: Group[]; t: Labels; children?: React.ReactNode }) {
   const total = groups.reduce((s, g) => s + g.value, 0);
   return (
     <figure className={styles.chart}>
       <figcaption className={styles.head}>
         <span className={styles.total}>{total}</span>
-        <span>personas entrevistadas, por perfil</span>
+        <span>{t.head}</span>
       </figcaption>
 
       <div className={styles.bar} role="img" aria-label={groups.map((g) => `${g.label}: ${g.value}`).join(", ")}>
@@ -23,10 +25,10 @@ export function ParticipantsChart({ groups, children }: { groups: Group[]; child
             className={styles.segment}
             style={{ flexGrow: g.value, background: g.color }}
             tabIndex={0}
-            aria-label={`${g.label}: ${g.value} de ${total}`}
+            aria-label={`${g.label}: ${g.value} ${t.of} ${total}`}
           >
             <span className={styles.tip}>
-              {g.label}: <b>{g.value}</b> de {total}
+              {g.label}: <b>{g.value}</b> {t.of} {total}
             </span>
           </span>
         ))}
@@ -60,11 +62,11 @@ export function ParticipantsChart({ groups, children }: { groups: Group[]; child
       {/* El div recorta la tabla: una <table> no respeta width:1px por sí sola. */}
       <div className="visually-hidden">
         <table>
-          <caption>Personas entrevistadas por perfil</caption>
+          <caption>{t.caption}</caption>
           <thead>
             <tr>
-              <th>Perfil</th>
-              <th>Personas</th>
+              <th>{t.profile}</th>
+              <th>{t.people}</th>
             </tr>
           </thead>
           <tbody>

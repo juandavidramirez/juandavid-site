@@ -2,9 +2,9 @@
 
 import { useEffect, useId, useRef, useState } from "react";
 import { X } from "lucide-react";
-import { contactPage } from "@/content/contact";
 import { Button } from "@/components/ui/Button";
 import { track } from "@/lib/analytics";
+import { useLang } from "@/components/i18n/LangProvider";
 import { ContactForm } from "./ContactForm";
 import styles from "./ContactModal.module.css";
 
@@ -23,13 +23,9 @@ type Props = {
  * Usa <dialog> nativo: atrapa el foco, cierra con Esc y devuelve el foco al botón.
  * Reutilizable en cualquier página (reporte, inicio, etc.).
  */
-export function ContactModal({
-  label = "Hablemos",
-  variant = "primary",
-  className,
-  title = "Hablemos",
-  description = contactPage.description,
-}: Props) {
+export function ContactModal({ label, variant = "primary", className, title, description }: Props) {
+  const { ui, contactPage } = useLang();
+  const heading = title ?? contactPage.title.map((t) => t.text).join("");
   const ref = useRef<HTMLDialogElement>(null);
   const [open, setOpen] = useState(false);
   // Se monta el formulario al abrir: así cada apertura empieza limpia y el antispam mide desde ahí.
@@ -57,7 +53,7 @@ export function ContactModal({
   return (
     <>
       <Button type="button" variant={variant} arrow className={className} onClick={show} aria-haspopup="dialog">
-        {label}
+        {label ?? heading}
       </Button>
 
       <dialog
@@ -72,14 +68,14 @@ export function ContactModal({
         }}
       >
         <div className={styles.card}>
-          <button type="button" className={styles.close} onClick={close} aria-label="Cerrar">
+          <button type="button" className={styles.close} onClick={close} aria-label={ui.common.close}>
             <X size={20} strokeWidth={1.8} aria-hidden="true" />
           </button>
           <h2 id={titleId} className={styles.title}>
-            {title}
+            {heading}
           </h2>
           <p id={descId} className={styles.description}>
-            {description}
+            {description ?? contactPage.description}
           </p>
           {open && (
             <div className={styles.form}>

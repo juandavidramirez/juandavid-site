@@ -6,7 +6,7 @@
  *   npm run report:pdf                         → usa http://localhost:3000
  *   npm run report:pdf -- http://localhost:3002
  *
- * Salida: public/files/Reporte_Bridging_the_Skill_Gap_Juan_David_Ramirez.pdf
+ * Salida: public/files/Reporte_…pdf (español) y public/files/Report_…pdf (inglés)
  * Requiere Google Chrome (o Chromium). Ruta configurable con CHROME_PATH.
  */
 import { execFileSync } from "node:child_process";
@@ -16,9 +16,11 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const base = (process.argv[2] ?? "http://localhost:3000").replace(/\/$/, "");
-const url = `${base}/investigacion/pdf`;
-// Archivo real; los botones lo enlazan como /docs/... para contar descargas (app/docs/[file]/route.ts).
-const out = join(root, "public", "files", "Reporte_Bridging_the_Skill_Gap_Juan_David_Ramirez.pdf");
+// Archivos reales; los botones los enlazan como /docs/... para contar descargas (app/docs/[file]/route.ts).
+const jobs = [
+  { url: `${base}/investigacion/pdf`, lang: "es", file: "Reporte_Bridging_the_Skill_Gap_Juan_David_Ramirez.pdf" },
+  { url: `${base}/en/research/pdf`, lang: "en", file: "Report_Bridging_the_Skill_Gap_Juan_David_Ramirez.pdf" },
+];
 
 const candidates = [
   process.env.CHROME_PATH,
@@ -34,29 +36,33 @@ if (!chrome) {
   process.exit(1);
 }
 
-// Comprueba que la página responde antes de imprimir.
-try {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`HTTP ${res.status}`);
-} catch (err) {
-  console.error(`No pude abrir ${url} (${err.message}). ¿Está corriendo el sitio?`);
-  process.exit(1);
+for (const job of jobs) {
+  const out = join(root, "public", "files", job.file);
+  // Comprueba que la página responde antes de imprimir.
+  try {
+    const res = await fetch(job.url, { headers: { "accept-language": job.lang } });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  } catch (err) {
+    console.error(`No pude abrir ${job.url} (${err.message}). ¿Está corriendo el sitio?`);
+    process.exit(1);
+  }
+
+  mkdirSync(dirname(out), { recursive: true });
+  execFileSync(
+    chrome,
+    [
+      "--headless=new",
+      "--disable-gpu",
+      "--no-pdf-header-footer",
+      "--run-all-compositor-stages-before-draw",
+      "--virtual-time-budget=20000",
+      `--accept-lang=${job.lang}`,
+      `--print-to-pdf=${out}`,
+      job.url,
+    ],
+    { stdio: ["ignore", "ignore", "ignore"] },
+  );
+
+  const kb = Math.round(statSync(out).size / 1024);
+  console.log(`PDF generado (${job.lang}): ${out} (${kb} KB)`);
 }
-
-mkdirSync(dirname(out), { recursive: true });
-execFileSync(
-  chrome,
-  [
-    "--headless=new",
-    "--disable-gpu",
-    "--no-pdf-header-footer",
-    "--run-all-compositor-stages-before-draw",
-    "--virtual-time-budget=20000",
-    `--print-to-pdf=${out}`,
-    url,
-  ],
-  { stdio: ["ignore", "ignore", "inherit"] },
-);
-
-const kb = Math.round(statSync(out).size / 1024);
-console.log(`PDF generado: ${out} (${kb} KB)`);

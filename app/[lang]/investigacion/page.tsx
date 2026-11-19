@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { research } from "@/content/research";
+import { getContent } from "@/content";
+import { languageAlternates } from "@/lib/seo";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RichText, richTextToString } from "@/components/ui/RichText";
 import { AreaIcon } from "@/components/ui/AreaIcon";
@@ -12,15 +13,22 @@ import { AudienceTabs } from "@/components/research/AudienceTabs";
 import { ContactModal } from "@/components/contact/ContactModal";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: research.metaTitle,
-  description: research.metaDescription,
-  alternates: { canonical: "/investigacion" },
-  openGraph: { title: research.metaTitle, description: research.metaDescription, url: "/investigacion" },
-};
+export async function generateMetadata({ params }: PageProps<"/[lang]/investigacion">): Promise<Metadata> {
+  const { lang } = await params;
+  const { research } = getContent(lang);
+  const alternates = languageAlternates(lang, "/investigacion");
+  return {
+    title: research.metaTitle,
+    description: research.metaDescription,
+    alternates,
+    openGraph: { title: research.metaTitle, description: research.metaDescription, url: alternates.canonical },
+  };
+}
 
-export default function ResearchPage() {
-  const { hero, why, method, findingsIntro, findings, guide, conclusion, next, collaborate } = research;
+export default async function ResearchPage({ params }: PageProps<"/[lang]/investigacion">) {
+  const { lang } = await params;
+  const { research } = getContent(lang);
+  const { hero, why, method, findingsIntro, findings, guide, conclusion, next, collaborate, ids, labels, visuals } = research;
 
   return (
     <>
@@ -49,7 +57,7 @@ export default function ResearchPage() {
             ))}
           </dl>
         </div>
-        <nav className={`container ${styles.index}`} aria-label="Secciones del reporte">
+        <nav className={`container ${styles.index}`} aria-label={labels.sectionsNav}>
           {hero.index.map((l) => (
             <a key={l.href} href={l.href} className={"cta" in l && l.cta ? styles.indexCta : undefined}>
               {l.label}
@@ -59,7 +67,7 @@ export default function ResearchPage() {
       </header>
 
       {/* ───────── Por qué ───────── */}
-      <section id="por-que" className={styles.section} aria-labelledby="why-title">
+      <section id={ids.why} className={styles.section} aria-labelledby="why-title">
         <div className={`container ${styles.split}`}>
           <div>
             <Eyebrow>{why.eyebrow}</Eyebrow>
@@ -75,7 +83,7 @@ export default function ResearchPage() {
           <div className={styles.media}>
             <Image
               src="/images/Research/Juan_Research_Defense.png"
-              alt="Juan David Ramírez presentando la defensa de su tesis de maestría en Malmö University"
+              alt={labels.photoAlt}
               width={1672}
               height={941}
               sizes="(max-width: 900px) 92vw, 600px"
@@ -86,16 +94,16 @@ export default function ResearchPage() {
 
         <div className={`container ${styles.whyVisual}`}>
           <div className={styles.panel}>
-            <SkillsShift up={why.upskilling} re={why.reskilling} />
+            <SkillsShift up={why.upskilling} re={why.reskilling} t={visuals.skills} />
           </div>
           <div className={styles.promise}>
-            <p className={styles.miniLabel}>La promesa de la IA generativa</p>
+            <p className={styles.miniLabel}>{labels.promise}</p>
             <ul className={styles.pills}>
               {why.promise.map((p) => (
                 <li key={p}>{p}</li>
               ))}
             </ul>
-            <p className={`${styles.miniLabel} ${styles.mtLg}`}>Lo que quise entender en Colombia</p>
+            <p className={`${styles.miniLabel} ${styles.mtLg}`}>{labels.question}</p>
             <ol className={styles.questions}>
               {why.question.map((q, i) => (
                 <li key={q}>
@@ -109,7 +117,7 @@ export default function ResearchPage() {
       </section>
 
       {/* ───────── Cómo ───────── */}
-      <section id="como" className={`${styles.section} ${styles.glowLeft}`} aria-labelledby="method-title">
+      <section id={ids.method} className={`${styles.section} ${styles.glowLeft}`} aria-labelledby="method-title">
         <div className="container">
           <Eyebrow>{method.eyebrow}</Eyebrow>
           <h2 id="method-title" className={`h2 ${styles.title}`}>
@@ -122,9 +130,9 @@ export default function ResearchPage() {
           ))}
 
           <div className={styles.methodGrid}>
-            <ParticipantsChart groups={method.people}>
+            <ParticipantsChart groups={method.people} t={labels.participants}>
               <div className={styles.methodOrgs}>
-                <p className={styles.miniLabel}>7 organizaciones que forman talento tecnológico</p>
+                <p className={styles.miniLabel}>{labels.orgs}</p>
                 <ul className={styles.orgs}>
                   {method.orgs.map((o) => (
                     <li key={o.label}>
@@ -141,7 +149,7 @@ export default function ResearchPage() {
               </div>
             </ParticipantsChart>
             <div className={styles.panel}>
-              <p className={styles.miniLabel}>Tres fuentes contrastadas</p>
+              <p className={styles.miniLabel}>{labels.sources}</p>
               <ol className={styles.sources}>
                 {method.sources.map((s, i) => (
                   <li key={s.label}>
@@ -153,7 +161,7 @@ export default function ResearchPage() {
                   </li>
                 ))}
               </ol>
-              <p className={`${styles.miniLabel} ${styles.mtLg}`}>Análisis temático</p>
+              <p className={`${styles.miniLabel} ${styles.mtLg}`}>{labels.analysis}</p>
               <ol className={styles.funnel}>
                 {method.analysis.map((a) => (
                   <li key={a.label}>
@@ -168,7 +176,7 @@ export default function ResearchPage() {
       </section>
 
       {/* ───────── Hallazgos ───────── */}
-      <section id="hallazgos" className={styles.section} aria-labelledby="findings-title">
+      <section id={ids.findings} className={styles.section} aria-labelledby="findings-title">
         <div className="container">
           <Eyebrow>{findingsIntro.eyebrow}</Eyebrow>
           <h2 id="findings-title" className={`h2 ${styles.title}`}>
@@ -220,7 +228,7 @@ export default function ResearchPage() {
                   )}
                 </div>
                 <div className={styles.findingVisual}>
-                  <FindingVisual kind={f.visual} />
+                  <FindingVisual kind={f.visual} t={visuals} />
                 </div>
               </div>
 
@@ -245,7 +253,7 @@ export default function ResearchPage() {
       </section>
 
       {/* ───────── La guía ───────── */}
-      <section id="guia" className={`${styles.section} ${styles.glowRight}`} aria-labelledby="guide-title">
+      <section id={ids.guide} className={`${styles.section} ${styles.glowRight}`} aria-labelledby="guide-title">
         <div className="container">
           <Eyebrow>{guide.eyebrow}</Eyebrow>
           <h2 id="guide-title" className={`h2 ${styles.title}`}>
@@ -257,7 +265,7 @@ export default function ResearchPage() {
               <ul className={styles.parts}>
                 {guide.parts.map((p) => (
                   <li key={p.label}>
-                    <b>{p.label}</b>, que {p.text}
+                    <b>{p.label}</b>, {labels.partsJoin} {p.text}
                   </li>
                 ))}
               </ul>
@@ -275,12 +283,13 @@ export default function ResearchPage() {
             principlesIntro={guide.principlesIntro}
             principles={guide.principles}
             example={guide.example}
+            labels={labels.guide}
           />
         </div>
       </section>
 
       {/* ───────── Conclusión ───────── */}
-      <section id="conclusion" className={`${styles.section} ${styles.conclusion}`} aria-labelledby="conclusion-title">
+      <section id={ids.conclusion} className={`${styles.section} ${styles.conclusion}`} aria-labelledby="conclusion-title">
         <div className="container">
           <Eyebrow>{conclusion.eyebrow}</Eyebrow>
           <h2 id="conclusion-title" className={`h2 ${styles.title}`}>
@@ -330,7 +339,7 @@ export default function ResearchPage() {
       </section>
 
       {/* ───────── Trabajemos juntos ───────── */}
-      <section id="trabajemos" className={`${styles.section} ${styles.collab}`} aria-labelledby="collab-title">
+      <section id={ids.collaborate} className={`${styles.section} ${styles.collab}`} aria-labelledby="collab-title">
         <div className={`container ${styles.collabGrid}`}>
           <div className={styles.collabLeft}>
             <Eyebrow>{collaborate.eyebrow}</Eyebrow>
@@ -338,7 +347,7 @@ export default function ResearchPage() {
               <RichText value={collaborate.title} />
             </h2>
             <p className={styles.lead}>{collaborate.intro}</p>
-            <AudienceTabs groups={collaborate.audiences} />
+            <AudienceTabs groups={collaborate.audiences} label={labels.audienceTabs} />
 <div className={styles.collabActions}>
               <ContactModal label={collaborate.cta} />
               <HeroActions report={hero.actions.report} thesis={hero.actions.thesis} reportVariant="outline" />
@@ -350,7 +359,7 @@ export default function ResearchPage() {
           </div>
 
           <div>
-            <ol className={styles.ladder} aria-label="Formas de trabajar juntos">
+            <ol className={styles.ladder} aria-label={labels.ladder}>
               {collaborate.options.map((o, i) => (
                 <li key={o.label} className={styles.ladderStep}>
                   <span className={styles.ladderDot} aria-hidden="true">
@@ -377,7 +386,7 @@ export default function ResearchPage() {
             name: richTextToString(hero.title),
             author: { "@type": "Person", name: collaborate.author },
             datePublished: "2025",
-            inLanguage: "es",
+            inLanguage: lang,
             publisher: { "@type": "CollegeOrUniversity", name: "Malmö University" },
           }),
         }}

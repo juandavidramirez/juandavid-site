@@ -1,5 +1,4 @@
-import type { RichText } from "./types";
-import { externalLinks, internalLinks } from "./links";
+import type { RichText } from "../types";
 
 /**
  * Reporte corto de la tesis de maestría (página /investigacion).
@@ -26,6 +25,9 @@ export const research = {
   metaTitle: "IA y formación de talento tech en Colombia",
   metaDescription:
     "Reporte corto de la tesis de maestría de Juan David Ramírez Jaramillo (Malmö University, 2025): seis hallazgos sobre cómo se usa la IA generativa para formar talento tech en Colombia y una guía de cinco pasos y cinco principios.",
+
+  /** Anclas de cada sección (el índice del encabezado apunta a ellas). */
+  ids: { why: "por-que", method: "como", findings: "hallazgos", guide: "guia", conclusion: "conclusion", collaborate: "trabajemos" },
 
   hero: {
     eyebrow: "Investigación · Tesis de maestría",
@@ -388,5 +390,94 @@ export const research = {
     closing: "Más ideas. Más conexiones.",
     author: "Juan David Ramírez Jaramillo",
     cta: "Hablemos",
+  },
+
+  /** Textos de apoyo de la página (antes estaban escritos dentro de los componentes). */
+  labels: {
+    sectionsNav: "Secciones del reporte",
+    photoAlt: "Juan David Ramírez presentando la defensa de su tesis de maestría en Malmö University",
+    promise: "La promesa de la IA generativa",
+    question: "Lo que quise entender en Colombia",
+    orgs: "7 organizaciones que forman talento tecnológico",
+    sources: "Tres fuentes contrastadas",
+    analysis: "Análisis temático",
+    ladder: "Formas de trabajar juntos",
+    audienceTabs: "Para quién es esta invitación",
+    partsJoin: "que",
+    participants: {
+      head: "personas entrevistadas, por perfil",
+      of: "de",
+      caption: "Personas entrevistadas por perfil",
+      profile: "Perfil",
+      people: "Personas",
+    },
+    guide: {
+      what: "En qué consiste",
+      ai: "Qué hacer con la IA",
+      principle: "Principio",
+      matrix: "Pasos × principios",
+      matrixLead:
+        "Cada principio es una pregunta de control en cada uno de los cinco pasos. Elige un paso arriba o mira el ejemplo.",
+      hideExample: "Ocultar el ejemplo",
+      matrixCaption: "Los cinco principios aplican en cada uno de los cinco pasos",
+      applies: "Aplica",
+    },
+    pdf: {
+      title: "(PDF)",
+      toc: "Contenido",
+      webVersion: "Versión web interactiva:",
+      contactTag: "Hablemos",
+      webTag: "Reporte web",
+      footer: "Malmö University · 2025",
+    },
+  },
+
+  /** Textos dentro de las gráficas de cada hallazgo (components/research/Visuals.tsx). */
+  visuals: {
+    skills: { current: "Rol actual", next: "Rol nuevo" },
+    pilots: {
+      aria: "Pilotos sueltos de IA alrededor de la estrategia de formación, sin conectarse con ella",
+      center: ["Estrategia de", "formación"],
+      items: ["Borradores de contenido", "Encuestas de clima", "Rutas en plataformas", "Asistentes de carrera", "Laboratorios internos"],
+      stat: "0 de 7",
+      statText: "organizaciones tenía un marco coherente para usar la IA en la formación",
+    },
+    barriers: {
+      items: [
+        { t: "Talento humano:", d: "ve la IA como \"algo técnico, que no es lo mío\"" },
+        { t: "Docentes:", d: "tienen acceso, pero no entienden bien cómo funciona" },
+        { t: "La moda:", d: "invertir en tecnología sin entender para qué sirve" },
+        { t: "Conectividad:", d: "faltan equipos y datos móviles fuera de las grandes ciudades" },
+      ],
+      paradoxLabel: "La paradoja",
+      paradox: "Quienes deberían liderar la formación en IA son, muchas veces, quienes menos la usan o quienes poco la entienden.",
+    },
+    route: {
+      aria: "Un catálogo de cursos sin orden frente a una ruta de pasos hacia una meta",
+      catalog: "Catálogo",
+      catalogResult: "se apaga",
+      route: "Ruta",
+      goal: "meta",
+      routeResult: "avanza",
+    },
+    profile: {
+      aria: "Perfil híbrido: programar, entender el negocio, analizar datos y liderar y comunicar, alrededor de aprender a aprender",
+      nodes: ["Programar", "Entender el negocio", "Analizar datos", "Liderar y comunicar"],
+      center: ["Aprender", "a aprender"],
+      chips: ["Aprender rápido", "Buscar información", "Verificar si es correcto"],
+    },
+    trust: {
+      concerns: ["Respuestas que suenan bien y están mal", "Sesgos", "Falta de transparencia"],
+      aria: "Lo que produce la IA pasa por una persona que lo revisa antes de una decisión que afecta a personas",
+      ai: "IA",
+      person: ["Una persona", "revisa"],
+      decision: "Decisión",
+    },
+    measure: {
+      zeroText: "planes de evaluación, indicadores o definiciones de éxito entre las empresas participantes",
+      head: "Qué medir",
+      no: "Solo cursos completados",
+      items: ["Mejora en el desempeño", "Brechas específicas cerradas", "Avance en la carrera", "Confianza de los aprendices"],
+    },
   },
 };

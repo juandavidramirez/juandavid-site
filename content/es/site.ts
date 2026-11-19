@@ -1,4 +1,4 @@
-import type { NavItem, SocialLink, CTA } from "./types";
+import type { NavItem, SocialLink, CTA } from "../types";
 import { externalLinks, internalLinks } from "./links";
 
 /**
@@ -32,7 +32,6 @@ export const navigation: {
   home: string;
   items: NavItem[];
   cta: CTA;
-  languages: { label: string; href?: string; active?: boolean }[];
   menuLabel: string;
   closeLabel: string;
 } = {
@@ -46,11 +45,6 @@ export const navigation: {
     { label: "Contacto", href: internalLinks.sections.contact },
   ],
   cta: { label: "Hablemos", href: internalLinks.contactForm, variant: "primary" },
-  // Without an `href` a language is rendered as unavailable (no broken link).
-  languages: [
-    { label: "Es", active: true },
-    { label: "En" },
-  ],
   menuLabel: "Abrir menú",
   closeLabel: "Cerrar menú",
 };

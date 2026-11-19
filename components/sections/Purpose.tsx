@@ -1,11 +1,12 @@
 import Image from "next/image";
-import { purpose } from "@/content/home";
+import { getContent } from "@/content";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RichText } from "@/components/ui/RichText";
 import styles from "./Purpose.module.css";
 
-export function Purpose() {
+export function Purpose({ lang }: { lang: string }) {
+  const { purpose } = getContent(lang);
   return (
     <section id={purpose.id} className={styles.section} aria-labelledby="purpose-title">
       <div className={`container ${styles.grid}`}>

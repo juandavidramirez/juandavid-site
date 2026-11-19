@@ -2,13 +2,18 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { navigation, site } from "@/content/site";
+import type { Content } from "@/content";
 import { CtaButton } from "@/components/ui/CtaButton";
+import { LanguageSwitcher } from "@/components/i18n/LanguageSwitcher";
+import { useLang } from "@/components/i18n/LangProvider";
 import { Icon } from "@/components/ui/Icon";
 import { Wordmark } from "@/components/ui/Wordmark";
 import styles from "./Navbar.module.css";
 
-export function Navbar() {
+type Props = { site: Content["site"]; navigation: Content["navigation"] };
+
+export function Navbar({ site, navigation }: Props) {
+  const { ui } = useLang();
   const [open, setOpen] = useState(false);
   const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -34,11 +39,11 @@ export function Navbar() {
   return (
     <header className={styles.header}>
       <div className={`container ${styles.bar}`}>
-        <Link href={navigation.home} className={styles.brand} aria-label={`${site.name} — inicio`} onClick={close}>
+        <Link href={navigation.home} className={styles.brand} aria-label={ui.nav.homeAria} onClick={close}>
           <Wordmark primary={site.brand.primary} secondary={site.brand.secondary} />
         </Link>
 
-        <nav aria-label="Principal" className={styles.nav}>
+        <nav aria-label={ui.nav.label} className={styles.nav}>
           <ul id="site-menu" className={`${styles.links} ${open ? styles.open : ""}`}>
             {navigation.items.map((item) => (
               <li key={item.label}>
@@ -61,26 +66,8 @@ export function Navbar() {
 
         <div className={styles.actions}>
           <CtaButton cta={navigation.cta} className={styles.cta} />
-          <p className={styles.langs}>
-            {navigation.languages.map((lang, i) => (
-              <span key={lang.label}>
-                {i > 0 && <span aria-hidden="true"> I </span>}
-                {lang.href && !lang.active ? (
-                  <a href={lang.href} hrefLang={lang.label.toLowerCase()}>
-                    {lang.label}
-                  </a>
-                ) : (
-                  <span
-                    aria-current={lang.active ? "true" : undefined}
-                    className={lang.active ? undefined : styles.langOff}
-                    title={lang.active ? undefined : "Próximamente"}
-                  >
-                    {lang.label}
-                  </span>
-                )}
-              </span>
-            ))}
-          </p>
+          <LanguageSwitcher className={styles.langFull} />
+          <LanguageSwitcher className={styles.langCompact} compact />
           <button
             ref={toggleRef}
             type="button"

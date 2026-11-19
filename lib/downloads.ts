@@ -15,6 +15,7 @@ export type TrackedItem = { id: string; label: string };
 /** Archivos descargables: nombre público en /docs → archivo real en /files. */
 export const DOWNLOADS: Record<string, TrackedItem> = {
   "Reporte_Bridging_the_Skill_Gap_Juan_David_Ramirez.pdf": { id: "reporte", label: "Descargar reporte (PDF)" },
+  "Report_Bridging_the_Skill_Gap_Juan_David_Ramirez.pdf": { id: "report-en", label: "Descargar reporte en inglés (PDF)" },
   "Tesis_Bridging_the_Skill_Gap_Juan_David_Ramirez.pdf": { id: "tesis", label: "Descargar tesis (PDF)" },
 };
 

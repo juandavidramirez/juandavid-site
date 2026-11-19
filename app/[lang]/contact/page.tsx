@@ -1,17 +1,24 @@
 import type { Metadata } from "next";
-import { contactPage } from "@/content/contact";
+import { getContent } from "@/content";
+import { languageAlternates } from "@/lib/seo";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RichText } from "@/components/ui/RichText";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = {
-  title: contactPage.metaTitle,
-  description: contactPage.metaDescription,
-  alternates: { canonical: "/contact" },
-};
+export async function generateMetadata({ params }: PageProps<"/[lang]/contact">): Promise<Metadata> {
+  const { lang } = await params;
+  const { contactPage } = getContent(lang);
+  return {
+    title: contactPage.metaTitle,
+    description: contactPage.metaDescription,
+    alternates: languageAlternates(lang, "/contact"),
+  };
+}
 
-export default function ContactPage() {
+export default async function ContactPage({ params }: PageProps<"/[lang]/contact">) {
+  const { lang } = await params;
+  const { contactPage } = getContent(lang);
   return (
     <section className={styles.section} aria-labelledby="contact-page-title">
       <div className={`container ${styles.grid}`}>

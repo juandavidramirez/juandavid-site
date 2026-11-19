@@ -1,4 +1,4 @@
-import type { RichText } from "./types";
+import type { RichText } from "../types";
 
 /** Copy for the /contact page and its form. */
 export const contactPage: {

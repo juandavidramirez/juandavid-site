@@ -53,9 +53,10 @@ export async function POST(request: Request) {
     return Response.json({ ok: false, error: "config" }, { status: 500 });
   }
 
+  const siteLang = body.lang === "en" ? "Inglés" : "Español";
   const subject = input.subject ? `[Web] ${input.subject}` : `[Web] Nuevo mensaje de ${input.name}`;
-  const text = `Nombre: ${input.name}\nEmail: ${input.email}\nAsunto: ${input.subject || "—"}\n\n${input.message}`;
-  const html = `<p><strong>Nombre:</strong> ${escapeHtml(input.name)}<br/><strong>Email:</strong> ${escapeHtml(input.email)}<br/><strong>Asunto:</strong> ${escapeHtml(input.subject || "—")}</p><p style="white-space:pre-wrap">${escapeHtml(input.message)}</p>`;
+  const text = `Nombre: ${input.name}\nEmail: ${input.email}\nAsunto: ${input.subject || "—"}\nIdioma del sitio: ${siteLang}\n\n${input.message}`;
+  const html = `<p><strong>Nombre:</strong> ${escapeHtml(input.name)}<br/><strong>Email:</strong> ${escapeHtml(input.email)}<br/><strong>Asunto:</strong> ${escapeHtml(input.subject || "—")}<br/><strong>Idioma del sitio:</strong> ${siteLang}</p><p style="white-space:pre-wrap">${escapeHtml(input.message)}</p>`;
 
   try {
     const resend = new Resend(RESEND_API_KEY);

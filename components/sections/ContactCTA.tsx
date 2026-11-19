@@ -1,11 +1,12 @@
 import Image from "next/image";
-import { contact } from "@/content/home";
+import { getContent } from "@/content";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RichText } from "@/components/ui/RichText";
 import styles from "./ContactCTA.module.css";
 
-export function ContactCTA() {
+export function ContactCTA({ lang }: { lang: string }) {
+  const { contact } = getContent(lang);
   return (
     <section id={contact.id} className={styles.section} aria-labelledby="contact-title">
       <div className={`container ${styles.grid}`}>

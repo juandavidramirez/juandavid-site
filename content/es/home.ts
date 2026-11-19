@@ -7,7 +7,7 @@ import type {
   ImpactLocation,
   ImpactStat,
   RichText,
-} from "./types";
+} from "../types";
 import { externalLinks, internalLinks } from "./links";
 
 /**

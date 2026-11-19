@@ -6,7 +6,7 @@ import styles from "./AudienceTabs.module.css";
 type Group = { label: string; items: string[] };
 
 /** Selector "Personas / Organizaciones" de la sección Trabajemos juntos. */
-export function AudienceTabs({ groups }: { groups: Group[] }) {
+export function AudienceTabs({ groups, label }: { groups: Group[]; label: string }) {
   const [active, setActive] = useState(0);
   const base = useId();
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
@@ -21,7 +21,7 @@ export function AudienceTabs({ groups }: { groups: Group[] }) {
 
   return (
     <div className={styles.wrap}>
-      <div className={styles.tabs} role="tablist" aria-label="Para quién es esta invitación">
+      <div className={styles.tabs} role="tablist" aria-label={label}>
         {groups.map((g, i) => (
           <button
             key={g.label}

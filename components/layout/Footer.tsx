@@ -1,23 +1,24 @@
 import Link from "next/link";
-import { footer, navigation, social } from "@/content/site";
+import { getContent } from "@/content";
 import { Icon } from "@/components/ui/Icon";
 import { Wordmark } from "@/components/ui/Wordmark";
 import { CookieSettingsButton } from "@/components/analytics/Analytics";
 import styles from "./Footer.module.css";
 
-export function Footer() {
+export function Footer({ lang }: { lang: string }) {
+  const { footer, navigation, social, ui } = getContent(lang);
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
         <div className={styles.brand}>
-          <Link href={navigation.home} aria-label="Inicio">
+          <Link href={navigation.home} aria-label={ui.footer.home}>
             <Wordmark primary={footer.brand.primary} secondary={footer.brand.secondary} />
           </Link>
           <p className={styles.descriptor}>{footer.descriptor}</p>
           <CookieSettingsButton className={styles.cookies} />
         </div>
 
-        <nav aria-label="Pie de página">
+        <nav aria-label={ui.footer.nav}>
           <ul className={styles.links}>
             {footer.links
               .filter((l) => !l.disabled)

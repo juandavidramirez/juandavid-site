@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { research } from "@/content/research";
+import { getContent } from "@/content";
 import { externalLinks } from "@/content/links";
+import { alternatePath } from "@/lib/i18n";
 import { RichText } from "@/components/ui/RichText";
 import { AreaIcon } from "@/components/ui/AreaIcon";
 import { ParticipantsChart } from "@/components/research/ParticipantsChart";
@@ -10,22 +11,27 @@ import styles from "./pdf.module.css";
 
 /**
  * Versión imprimible del reporte (/investigacion). No es para navegar: es la fuente del PDF descargable.
- * Usa el mismo contenido que la página web (content/research.ts), así que si cambia un texto, basta con
+ * Usa el mismo contenido que la página web (content/es|en/research.ts), así que si cambia un texto, basta con
  * regenerar el PDF:  npm run report:pdf  (con el servidor corriendo).
  */
-export const metadata: Metadata = {
-  title: `${research.metaTitle} (PDF)`,
-  robots: { index: false, follow: false },
-};
+export async function generateMetadata({ params }: PageProps<"/[lang]/investigacion/pdf">): Promise<Metadata> {
+  const { lang } = await params;
+  const { research } = getContent(lang);
+  return { title: `${research.metaTitle} ${research.labels.pdf.title}`, robots: { index: false, follow: false } };
+}
 
 // El PDF se comparte fuera del sitio: los enlaces siempre apuntan al dominio público,
 // aunque el PDF se genere desde localhost.
 const PUBLIC_URL = "https://www.juandavidramirez.com";
 const siteHost = "juandavidramirez.com";
-const reportUrl = `${PUBLIC_URL}/investigacion`;
 
-export default function ResearchPdf() {
-  const { hero, why, method, findingsIntro, findings, guide, conclusion, next, collaborate } = research;
+export default async function ResearchPdf({ params }: PageProps<"/[lang]/investigacion/pdf">) {
+  const { lang } = await params;
+  const { research } = getContent(lang);
+  const { hero, why, method, findingsIntro, findings, guide, conclusion, next, collaborate, labels, visuals } = research;
+  const reportPath = alternatePath("/investigacion", lang === "en" ? "en" : "es");
+  const contactPath = alternatePath("/contact", lang === "en" ? "en" : "es");
+  const reportUrl = `${PUBLIC_URL}${reportPath}`;
   const ex = guide.example;
 
   return (
@@ -55,13 +61,13 @@ export default function ResearchPdf() {
           </dl>
         </div>
         <p className={styles.coverFoot}>
-          Versión web interactiva: <a href={reportUrl}>{`${siteHost}/investigacion`}</a>
+          {labels.pdf.webVersion} <a href={reportUrl}>{`${siteHost}${reportPath}`}</a>
         </p>
       </section>
 
       {/* ───────── Contenido ───────── */}
-      <nav className={`${styles.block} ${styles.toc}`} aria-label="Contenido">
-        <p className={styles.eyebrow}>Contenido</p>
+      <nav className={`${styles.block} ${styles.toc}`} aria-label={labels.pdf.toc}>
+        <p className={styles.eyebrow}>{labels.pdf.toc}</p>
         <ol>
           {[
             why.eyebrow,
@@ -97,7 +103,7 @@ export default function ResearchPdf() {
           <Image
             className={styles.photo}
             src="/images/Research/Juan_Research_Defense.png"
-            alt="Juan David Ramírez presentando la defensa de su tesis de maestría en Malmö University"
+            alt={labels.photoAlt}
             width={1672}
             height={941}
             sizes="360px"
@@ -106,16 +112,16 @@ export default function ResearchPdf() {
         </div>
         <div className={`${styles.twoCol} ${styles.block}`}>
           <div className={`${styles.darkCard} ${styles.visual}`}>
-            <SkillsShift up={why.upskilling} re={why.reskilling} />
+            <SkillsShift up={why.upskilling} re={why.reskilling} t={visuals.skills} />
           </div>
           <div className={styles.lightCard}>
-            <p className={styles.mini}>La promesa de la IA generativa</p>
+            <p className={styles.mini}>{labels.promise}</p>
             <ul className={styles.pills}>
               {why.promise.map((p) => (
                 <li key={p}>{p}</li>
               ))}
             </ul>
-            <p className={`${styles.mini} ${styles.mt}`}>Lo que quise entender en Colombia</p>
+            <p className={`${styles.mini} ${styles.mt}`}>{labels.question}</p>
             <ol className={styles.questions}>
               {why.question.map((q, i) => (
                 <li key={q}>
@@ -140,9 +146,9 @@ export default function ResearchPdf() {
           </p>
         ))}
         <div className={`${styles.block} ${styles.chartWide}`}>
-          <ParticipantsChart groups={method.people}>
+          <ParticipantsChart groups={method.people} t={labels.participants}>
             <div className={styles.orgs}>
-              <p className={styles.miniDark}>7 organizaciones que forman talento tecnológico</p>
+              <p className={styles.miniDark}>{labels.orgs}</p>
               <ul>
                 {method.orgs.map((o) => (
                   <li key={o.label}>
@@ -161,7 +167,7 @@ export default function ResearchPdf() {
         </div>
         <div className={`${styles.lightCard} ${styles.block} ${styles.methodCard}`}>
           <div>
-            <p className={styles.mini}>Tres fuentes contrastadas</p>
+            <p className={styles.mini}>{labels.sources}</p>
             <ol className={styles.sources}>
               {method.sources.map((s, i) => (
                 <li key={s.label}>
@@ -176,7 +182,7 @@ export default function ResearchPdf() {
             </ol>
           </div>
           <div>
-            <p className={styles.mini}>Análisis temático</p>
+            <p className={styles.mini}>{labels.analysis}</p>
             <ol className={styles.funnel}>
               {method.analysis.map((a) => (
                 <li key={a.label}>
@@ -232,7 +238,7 @@ export default function ResearchPdf() {
               )}
             </div>
             <div className={`${styles.darkCard} ${styles.visual}`}>
-              <FindingVisual kind={f.visual} />
+              <FindingVisual kind={f.visual} t={visuals} />
             </div>
           </div>
           <div className={styles.takeaways}>
@@ -260,7 +266,7 @@ export default function ResearchPdf() {
             <ul className={styles.parts}>
               {guide.parts.map((p) => (
                 <li key={p.label}>
-                  <b>{p.label}</b>, que {p.text}
+                  <b>{p.label}</b>, {labels.partsJoin} {p.text}
                 </li>
               ))}
             </ul>
@@ -303,7 +309,7 @@ export default function ResearchPdf() {
               </span>
               <div>
                 <p className={styles.pName}>
-                  <span>Principio {i + 1}</span>
+                  <span>{labels.guide.principle} {i + 1}</span>
                   {p.name}
                 </p>
                 <p className={styles.small}>{p.meaning}</p>
@@ -315,7 +321,7 @@ export default function ResearchPdf() {
 
         <div className={`${styles.matrixCard} ${styles.block}`}>
           <div>
-            <p className={styles.miniDark}>Pasos × principios</p>
+            <p className={styles.miniDark}>{labels.guide.matrix}</p>
             <p className={styles.matrixTitle}>{ex.title}</p>
             <p className={styles.smallDark}>{ex.text}</p>
           </div>
@@ -323,7 +329,7 @@ export default function ResearchPdf() {
             <thead>
               <tr>
                 <th scope="col">
-                  <span className={styles.srOnly}>Principio</span>
+                  <span className={styles.srOnly}>{labels.guide.principle}</span>
                 </th>
                 {guide.steps.map((s, si) => (
                   <th key={s.name} scope="col" className={si === ex.step ? styles.colOn : undefined}>
@@ -428,22 +434,22 @@ export default function ResearchPdf() {
         <div className={styles.contact}>
           <p className={styles.contactHand}>{collaborate.closing}</p>
           <p>
-            <span className={styles.tag}>Hablemos</span>
-            <a href={`${PUBLIC_URL}/contact`}>{`${siteHost}/contact`}</a>
+            <span className={styles.tag}>{labels.pdf.contactTag}</span>
+            <a href={`${PUBLIC_URL}${contactPath}`}>{`${siteHost}${contactPath}`}</a>
           </p>
           <p>
             <span className={styles.tag}>LinkedIn</span>
             <a href={externalLinks.linkedin}>linkedin.com/in/juandaramirezj</a>
           </p>
           <p>
-            <span className={styles.tag}>Reporte web</span>
-            <a href={reportUrl}>{`${siteHost}/investigacion`}</a>
+            <span className={styles.tag}>{labels.pdf.webTag}</span>
+            <a href={reportUrl}>{`${siteHost}${reportPath}`}</a>
           </p>
         </div>
         <p className={styles.closingWordmark}>
           <b>JuanDavid</b>
           <span>Ramírez</span>
-          <em>{collaborate.author} · Malmö University · 2025</em>
+          <em>{collaborate.author} · {labels.pdf.footer}</em>
         </p>
       </section>
     </div>

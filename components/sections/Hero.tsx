@@ -1,11 +1,12 @@
 import Image from "next/image";
-import { hero } from "@/content/home";
+import { getContent } from "@/content";
 import { CtaButton } from "@/components/ui/CtaButton";
 import { RichText } from "@/components/ui/RichText";
 import { HeroProfiles } from "./HeroProfiles";
 import styles from "./Hero.module.css";
 
-export function Hero() {
+export function Hero({ lang }: { lang: string }) {
+  const { hero, ui } = getContent(lang);
   return (
     <section className={styles.hero} aria-labelledby="hero-title">
       <div className={styles.glow} aria-hidden="true" />
@@ -34,7 +35,7 @@ export function Hero() {
             fetchPriority="high"
             quality={80}
           />
-          <HeroProfiles profiles={hero.profiles} />
+          <HeroProfiles profiles={hero.profiles} label={ui.common.heroProfiles} />
         </div>
       </div>
       {/* Upper silky ribbons (Figma): thin translucent strands looping from the centre to the right. */}

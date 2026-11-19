@@ -72,15 +72,9 @@
   padding-inline: 30px;
 }
 
-.langs {
-  font-size: 16px;
-  color: var(--color-white);
-  white-space: nowrap;
+.langCompact {
+  display: none;
 }
-.langOff {
-  opacity: 0.6;
-}
-
 .toggle {
   display: none;
   align-items: center;
@@ -107,6 +101,12 @@
 }
 
 @media (max-width: 1200px) {
+  .langFull {
+    display: none;
+  }
+  .langCompact {
+    display: block;
+  }
   .bar {
     height: 72px;
   }

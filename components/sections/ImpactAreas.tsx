@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { impactAreas } from "@/content/home";
+import { getContent } from "@/content";
 import { ButtonLink } from "@/components/ui/Button";
 import { AreaIcon } from "@/components/ui/AreaIcon";
 import { Eyebrow } from "@/components/ui/Eyebrow";
@@ -7,7 +7,8 @@ import { Icon } from "@/components/ui/Icon";
 import { RichText } from "@/components/ui/RichText";
 import styles from "./ImpactAreas.module.css";
 
-export function ImpactAreas() {
+export function ImpactAreas({ lang }: { lang: string }) {
+  const { impactAreas, ui } = getContent(lang);
   return (
     <section id={impactAreas.id} className={styles.section} aria-labelledby="areas-title">
       <div className="container">
@@ -30,7 +31,7 @@ export function ImpactAreas() {
               <h3 className={styles.itemTitle}>{item.title}</h3>
               <p className={styles.itemText}>{item.description}</p>
               {item.href && (
-                <Link href={item.href} className={styles.more} aria-label={`${item.title}: ver más`}>
+                <Link href={item.href} className={styles.more} aria-label={`${item.title}: ${ui.common.seeMore}`}>
                   <Icon name="arrow" size={16} />
                 </Link>
               )}

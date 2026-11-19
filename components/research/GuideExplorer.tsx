@@ -8,7 +8,19 @@ type Step = { letter: string; name: string; what: string; ai: string[] };
 type Principle = { name: string; meaning: string; question: string; icon: string };
 type Example = { title: string; text: string; step: number; principles: number[] };
 
+type Labels = {
+  what: string;
+  ai: string;
+  principle: string;
+  matrix: string;
+  matrixLead: string;
+  hideExample: string;
+  matrixCaption: string;
+  applies: string;
+};
+
 type Props = {
+  labels: Labels;
   stepsTitle: string;
   steps: Step[];
   principlesTitle: string;
@@ -17,7 +29,7 @@ type Props = {
   example: Example;
 };
 
-export function GuideExplorer({ stepsTitle, steps, principlesTitle, principlesIntro, principles, example }: Props) {
+export function GuideExplorer({ stepsTitle, steps, principlesTitle, principlesIntro, principles, example, labels }: Props) {
   const [active, setActive] = useState(0);
   const [showExample, setShowExample] = useState(false);
   const baseId = useId();
@@ -68,11 +80,11 @@ export function GuideExplorer({ stepsTitle, steps, principlesTitle, principlesIn
 
       <div id={`${baseId}-panel`} role="tabpanel" aria-labelledby={`${baseId}-tab-${active}`} className={styles.panel}>
         <div className={styles.panelHead}>
-          <p className={styles.panelLabel}>En qué consiste</p>
+          <p className={styles.panelLabel}>{labels.what}</p>
           <p className={styles.panelWhat}>{step.what}</p>
         </div>
         <div>
-          <p className={styles.panelLabel}>Qué hacer con la IA</p>
+          <p className={styles.panelLabel}>{labels.ai}</p>
           <ul className={styles.aiList}>
             {step.ai.map((a) => (
               <li key={a}>{a}</li>
@@ -90,7 +102,7 @@ export function GuideExplorer({ stepsTitle, steps, principlesTitle, principlesIn
             <span className={styles.pIcon}>
               <AreaIcon icon={p.icon} size={22} />
             </span>
-            <span className={styles.pNum}>Principio {i + 1}</span>
+            <span className={styles.pNum}>{labels.principle} {i + 1}</span>
             <h4 className={styles.pName}>{p.name}</h4>
             <p className={styles.pMeaning}>{p.meaning}</p>
             <p className={styles.pQuestion}>{p.question}</p>
@@ -101,23 +113,23 @@ export function GuideExplorer({ stepsTitle, steps, principlesTitle, principlesIn
       {/* Matriz: los principios aplican en los cinco pasos */}
       <div className={styles.matrixCard}>
         <div className={styles.matrixCopy}>
-          <p className={styles.panelLabel}>Pasos × principios</p>
+          <p className={styles.panelLabel}>{labels.matrix}</p>
           <p className={styles.matrixLead}>
-            Cada principio es una pregunta de control en cada uno de los cinco pasos. Elige un paso arriba o mira el ejemplo.
+            {labels.matrixLead}
           </p>
           <button type="button" className={styles.exampleBtn} aria-pressed={showExample} onClick={() => setShowExample((v) => !v)}>
-            {showExample ? "Ocultar el ejemplo" : example.title}
+            {showExample ? labels.hideExample : example.title}
           </button>
           {showExample && <p className={styles.exampleText}>{example.text}</p>}
         </div>
 
         <div className={styles.matrixScroll}>
           <table className={styles.matrix}>
-            <caption className="visually-hidden">Los cinco principios aplican en cada uno de los cinco pasos</caption>
+            <caption className="visually-hidden">{labels.matrixCaption}</caption>
             <thead>
               <tr>
                 <th scope="col">
-                  <span className="visually-hidden">Principio</span>
+                  <span className="visually-hidden">{labels.principle}</span>
                 </th>
                 {steps.map((s, i) => (
                   <th
@@ -137,7 +149,7 @@ export function GuideExplorer({ stepsTitle, steps, principlesTitle, principlesIn
                   {steps.map((s, si) => (
                     <td key={s.name}>
                       <span className={`${styles.dot} ${isHighlighted(si, pi) ? styles.dotOn : ""}`}>
-                        <span className="visually-hidden">Aplica</span>
+                        <span className="visually-hidden">{labels.applies}</span>
                       </span>
                     </td>
                   ))}

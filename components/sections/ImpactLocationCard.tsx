@@ -4,6 +4,7 @@ import { useState } from "react";
 import Image from "next/image";
 import type { ImpactLocation } from "@/content/types";
 import { Icon } from "@/components/ui/Icon";
+import { useLang } from "@/components/i18n/LangProvider";
 import styles from "./ImpactLocationCard.module.css";
 
 type Props = {
@@ -18,6 +19,7 @@ type Props = {
  * Content comes from `card` in content/home.ts; ‹ › pages through entries at the same city.
  */
 export function ImpactLocationCard({ entries, closeLabel, onClose }: Props) {
+  const { ui } = useLang();
   const [index, setIndex] = useState(0);
   const location = entries[index];
   const { card, city, country } = location;
@@ -39,13 +41,13 @@ export function ImpactLocationCard({ entries, closeLabel, onClose }: Props) {
       </p>
       {many && (
         <div className={styles.pager}>
-          <button type="button" onClick={() => go(-1)} aria-label="Anterior">
+          <button type="button" onClick={() => go(-1)} aria-label={ui.common.previous}>
             <Icon name="arrow" size={14} className={styles.prev} />
           </button>
           <span>
             {index + 1} / {entries.length}
           </span>
-          <button type="button" onClick={() => go(1)} aria-label="Siguiente">
+          <button type="button" onClick={() => go(1)} aria-label={ui.common.next}>
             <Icon name="arrow" size={14} />
           </button>
         </div>

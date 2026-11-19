@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { globalImpact, impactLocations, impactStats } from "@/content/home";
+import { getContent } from "@/content";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { RichText } from "@/components/ui/RichText";
 import { getWorldMap, projectToPercent } from "@/lib/world-map";
@@ -8,7 +8,8 @@ import { ZoomableMap } from "./ZoomableMap";
 import { ImpactStats } from "./ImpactStats";
 import styles from "./GlobalImpact.module.css";
 
-export function GlobalImpact() {
+export function GlobalImpact({ lang }: { lang: string }) {
+  const { globalImpact, impactLocations, impactStats } = getContent(lang);
   const map = getWorldMap();
   // One pin per city: entries sharing city + country are grouped (the card pages through them).
   const placed: PlacedLocation[] = [];

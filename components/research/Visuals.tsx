@@ -1,7 +1,11 @@
+import type { Content } from "@/content";
 import { AreaIcon } from "@/components/ui/AreaIcon";
 import styles from "./Visuals.module.css";
 
-/* Ilustraciones de cada hallazgo. Solo usan datos que están en el texto del reporte. */
+/* Ilustraciones de cada hallazgo. Solo usan datos que están en el texto del reporte.
+   Los textos vienen de research.visuals (content/es|en/research.ts). */
+
+type V = Content["research"]["visuals"];
 
 const GOLD = "#ffbd42";
 const PALE = "#cbe4ee";
@@ -10,7 +14,7 @@ const BLUE_LIGHT = "#71c0fd";
 const MUTED = "#193553";
 
 /** Upskilling (subir en el mismo campo) vs. reskilling (pasar a un rol nuevo). */
-export function SkillsShift({ up, re }: { up: { label: string; text: string }; re: { label: string; text: string } }) {
+export function SkillsShift({ up, re, t }: { up: { label: string; text: string }; re: { label: string; text: string }; t: V["skills"] }) {
   return (
     <figure className={styles.figure}>
       <svg viewBox="0 0 520 300" role="img" aria-label={`${up.label}: ${up.text}. ${re.label}: ${re.text}.`}>
@@ -24,14 +28,14 @@ export function SkillsShift({ up, re }: { up: { label: string; text: string }; r
         </defs>
         {/* Rol actual */}
         <rect x="40" y="70" width="150" height="190" rx="22" fill={MUTED} />
-        <text x="115" y="250" textAnchor="middle" fill={PALE} fontSize="15.5">Rol actual</text>
+        <text x="115" y="250" textAnchor="middle" fill={PALE} fontSize="15.5">{t.current}</text>
         {[0, 1, 2].map((i) => (
           <rect key={i} x="70" y={190 - i * 46} width="90" height="34" rx="17" fill="none" stroke={PALE} strokeOpacity={0.35 + i * 0.25} strokeWidth="1.5" />
         ))}
         <path d="M115 214 V108" stroke={GOLD} strokeWidth="2.5" markerEnd="url(#ar-gold)" fill="none" />
         {/* Rol nuevo */}
         <rect x="330" y="70" width="150" height="190" rx="22" fill="none" stroke={BLUE_LIGHT} strokeDasharray="6 6" strokeWidth="1.5" />
-        <text x="405" y="250" textAnchor="middle" fill={PALE} fontSize="15.5">Rol nuevo</text>
+        <text x="405" y="250" textAnchor="middle" fill={PALE} fontSize="15.5">{t.next}</text>
         <circle cx="405" cy="150" r="30" fill="rgba(113,192,253,.15)" stroke={BLUE_LIGHT} strokeWidth="1.5" />
         <path d="M168 130 C 240 40, 300 60, 368 138" stroke={BLUE_LIGHT} strokeWidth="2.5" fill="none" markerEnd="url(#ar-blue)" />
         <text x="115" y="44" textAnchor="middle" fill={GOLD} fontSize="16" fontWeight="700">{up.label}</text>
@@ -46,23 +50,24 @@ export function SkillsShift({ up, re }: { up: { label: string; text: string }; r
 }
 
 /** Hallazgo 1: pilotos sueltos que no llegan a la estrategia de formación. */
-function Pilots() {
-  const pilots = [
-    { x: 92, y: 62, t: "Borradores de contenido" },
-    { x: 418, y: 56, t: "Encuestas de clima" },
-    { x: 70, y: 232, t: "Rutas en plataformas" },
-    { x: 440, y: 226, t: "Asistentes de carrera" },
-    { x: 258, y: 282, t: "Laboratorios internos" },
+function Pilots({ v }: { v: V["pilots"] }) {
+  const pos = [
+    { x: 92, y: 62 },
+    { x: 418, y: 56 },
+    { x: 70, y: 232 },
+    { x: 440, y: 226 },
+    { x: 258, y: 282 },
   ];
+  const pilots = pos.map((p, i) => ({ ...p, t: v.items[i] }));
   const cx = 258;
   const cy = 148;
   return (
     <figure className={styles.figure}>
-      <svg viewBox="0 0 520 310" role="img" aria-label="Pilotos sueltos de IA alrededor de la estrategia de formación, sin conectarse con ella">
+      <svg viewBox="0 0 520 310" role="img" aria-label={v.aria}>
         <circle cx={cx} cy={cy} r="62" fill="none" stroke={GOLD} strokeDasharray="5 7" strokeWidth="1.6" />
         <circle cx={cx} cy={cy} r="44" fill={MUTED} />
-        <text x={cx} y={cy - 4} textAnchor="middle" fill={PALE} fontSize="14.5">Estrategia de</text>
-        <text x={cx} y={cy + 13} textAnchor="middle" fill={PALE} fontSize="14.5">formación</text>
+        <text x={cx} y={cy - 4} textAnchor="middle" fill={PALE} fontSize="14.5">{v.center[0]}</text>
+        <text x={cx} y={cy + 13} textAnchor="middle" fill={PALE} fontSize="14.5">{v.center[1]}</text>
         {pilots.map((p) => {
           // Línea que sale del piloto y se corta a medio camino.
           const dx = cx - p.x;
@@ -83,21 +88,17 @@ function Pilots() {
         ))}
       </ul>
       <figcaption className={styles.stat}>
-        <strong>0 de 7</strong>
-        <span>organizaciones tenía un marco coherente para usar la IA en la formación</span>
+        <strong>{v.stat}</strong>
+        <span>{v.statText}</span>
       </figcaption>
     </figure>
   );
 }
 
 /** Hallazgo 2: las barreras son humanas y organizacionales. */
-function Barriers() {
-  const items = [
-    { icon: "users", t: "Talento humano:", d: "ve la IA como \"algo técnico, que no es lo mío\"" },
-    { icon: "graduation-cap", t: "Docentes:", d: "tienen acceso, pero no entienden bien cómo funciona" },
-    { icon: "sparkles", t: "La moda:", d: "invertir en tecnología sin entender para qué sirve" },
-    { icon: "globe", t: "Conectividad:", d: "faltan equipos y datos móviles fuera de las grandes ciudades" },
-  ];
+function Barriers({ v }: { v: V["barriers"] }) {
+  const icons = ["users", "graduation-cap", "sparkles", "globe"];
+  const items = v.items.map((b, i) => ({ ...b, icon: icons[i] }));
   return (
     <figure className={styles.figure}>
       <ul className={styles.barriers}>
@@ -109,15 +110,15 @@ function Barriers() {
         ))}
       </ul>
       <figcaption className={styles.paradox}>
-        <span className={styles.paradoxLabel}>La paradoja</span>
-        Quienes deberían liderar la formación en IA son, muchas veces, quienes menos la usan o quienes poco la entienden.
+        <span className={styles.paradoxLabel}>{v.paradoxLabel}</span>
+        {v.paradox}
       </figcaption>
     </figure>
   );
 }
 
 /** Hallazgo 3: catálogo vs. ruta. */
-function Route() {
+function Route({ v }: { v: V["route"] }) {
   const cells = Array.from({ length: 20 }, (_, i) => i);
   const steps = [
     { x: 330, y: 230 },
@@ -127,8 +128,8 @@ function Route() {
   ];
   return (
     <figure className={styles.figure}>
-      <svg viewBox="0 0 520 300" role="img" aria-label="Un catálogo de cursos sin orden frente a una ruta de pasos hacia una meta">
-        <text x="120" y="34" textAnchor="middle" fill={PALE} fontSize="15" fontWeight="700">Catálogo</text>
+      <svg viewBox="0 0 520 300" role="img" aria-label={v.aria}>
+        <text x="120" y="34" textAnchor="middle" fill={PALE} fontSize="15" fontWeight="700">{v.catalog}</text>
         {cells.map((i) => {
           const col = i % 5;
           const row = Math.floor(i / 5);
@@ -138,11 +139,11 @@ function Route() {
               fill="none" stroke={PALE} strokeOpacity={0.18 + ((i * 7) % 5) * 0.06} strokeWidth="1.5" />
           );
         })}
-        <text x="120" y="262" textAnchor="middle" fill={PALE} fillOpacity=".7" fontSize="15.5">se apaga</text>
+        <text x="120" y="262" textAnchor="middle" fill={PALE} fillOpacity=".7" fontSize="15.5">{v.catalogResult}</text>
 
         <line x1="256" y1="50" x2="256" y2="270" stroke={PALE} strokeOpacity=".15" />
 
-        <text x="400" y="34" textAnchor="middle" fill={PALE} fontSize="15" fontWeight="700">Ruta</text>
+        <text x="400" y="34" textAnchor="middle" fill={PALE} fontSize="15" fontWeight="700">{v.route}</text>
         <path d={`M${steps.map((s) => `${s.x} ${s.y}`).join(" L")}`} stroke={GOLD} strokeWidth="2.5" fill="none" strokeDasharray="0" />
         {steps.map((s, i) => (
           <g key={i}>
@@ -152,26 +153,21 @@ function Route() {
             </text>
           </g>
         ))}
-        <text x="468" y="66" textAnchor="middle" fill={GOLD} fontSize="15">meta</text>
-        <text x="400" y="262" textAnchor="middle" fill={PALE} fillOpacity=".7" fontSize="15.5">avanza</text>
+        <text x="468" y="66" textAnchor="middle" fill={GOLD} fontSize="15">{v.goal}</text>
+        <text x="400" y="262" textAnchor="middle" fill={PALE} fillOpacity=".7" fontSize="15.5">{v.routeResult}</text>
       </svg>
     </figure>
   );
 }
 
 /** Hallazgo 4: perfil híbrido alrededor de aprender a aprender. */
-function Profile() {
+function Profile({ v }: { v: V["profile"] }) {
   const cx = 260;
   const cy = 150;
-  const nodes = [
-    { a: -90, t: "Programar" },
-    { a: 0, t: "Entender el negocio" },
-    { a: 90, t: "Analizar datos" },
-    { a: 180, t: "Liderar y comunicar" },
-  ];
+  const nodes = [-90, 0, 90, 180].map((a, i) => ({ a, t: v.nodes[i] }));
   return (
     <figure className={styles.figure}>
-      <svg viewBox="0 0 520 300" role="img" aria-label="Perfil híbrido: programar, entender el negocio, analizar datos y liderar y comunicar, alrededor de aprender a aprender">
+      <svg viewBox="0 0 520 300" role="img" aria-label={v.aria}>
         <circle cx={cx} cy={cy} r="105" fill="none" stroke={PALE} strokeOpacity=".15" />
         {nodes.map((n) => {
           const r = (n.a * Math.PI) / 180;
@@ -184,72 +180,80 @@ function Profile() {
             <g key={n.t}>
               <line x1={cx} y1={cy} x2={x} y2={y} stroke={BLUE_LIGHT} strokeOpacity=".35" strokeWidth="1.5" />
               <circle cx={x} cy={y} r="11" fill={BLUE} />
-              <text className={styles.svgLabel} x={tx} y={ty} textAnchor={anchor} fill={PALE} fontSize="15.5">{n.t}</text>
+              {/* "\n" en el texto parte la etiqueta en dos líneas (las largas, sobre todo en inglés). */}
+              <text className={styles.svgLabel} x={tx} y={ty - (n.t.includes("\n") ? 9 : 0)} textAnchor={anchor} fill={PALE} fontSize="15.5">
+                {n.t.split("\n").map((line, li) => (
+                  <tspan key={li} x={tx} dy={li ? 19 : 0}>
+                    {line}
+                  </tspan>
+                ))}
+              </text>
             </g>
           );
         })}
         <circle cx={cx} cy={cy} r="54" fill={MUTED} stroke={GOLD} strokeWidth="2" />
-        <text x={cx} y={cy - 4} textAnchor="middle" fill={GOLD} fontSize="15" fontWeight="700">Aprender</text>
-        <text x={cx} y={cy + 13} textAnchor="middle" fill={GOLD} fontSize="15" fontWeight="700">a aprender</text>
+        <text x={cx} y={cy - 4} textAnchor="middle" fill={GOLD} fontSize="15" fontWeight="700">{v.center[0]}</text>
+        <text x={cx} y={cy + 13} textAnchor="middle" fill={GOLD} fontSize="15" fontWeight="700">{v.center[1]}</text>
       </svg>
       <ul className={styles.mobileList} aria-hidden="true">
         {nodes.map((n) => (
-          <li key={n.t}>{n.t}</li>
+          <li key={n.t}>{n.t.replace("\n", " ")}</li>
         ))}
       </ul>
       <figcaption className={styles.chips}>
-        <span>Aprender rápido</span><span>Buscar información</span><span>Verificar si es correcto</span>
+        {v.chips.map((c) => (
+          <span key={c}>{c}</span>
+        ))}
       </figcaption>
     </figure>
   );
 }
 
 /** Hallazgo 5: preocupaciones y persona en el circuito. */
-function Trust() {
+function Trust({ v }: { v: V["trust"] }) {
   return (
     <figure className={styles.figure}>
       <ul className={styles.concerns}>
-        <li>Respuestas que suenan bien y están mal</li>
-        <li>Sesgos</li>
-        <li>Falta de transparencia</li>
+        {v.concerns.map((c) => (
+          <li key={c}>{c}</li>
+        ))}
       </ul>
-      <svg viewBox="0 0 520 150" role="img" aria-label="Lo que produce la IA pasa por una persona que lo revisa antes de una decisión que afecta a personas">
+      <svg viewBox="0 0 520 150" role="img" aria-label={v.aria}>
         <defs>
           <marker id="ar-pale" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto">
             <path d="M0 0 10 5 0 10z" fill={PALE} />
           </marker>
         </defs>
         <rect x="20" y="45" width="120" height="60" rx="30" fill={MUTED} />
-        <text x="80" y="80" textAnchor="middle" fill={PALE} fontSize="15.5">IA</text>
+        <text x="80" y="80" textAnchor="middle" fill={PALE} fontSize="15.5">{v.ai}</text>
         <path d="M146 75 H192" stroke={PALE} strokeWidth="1.5" markerEnd="url(#ar-pale)" />
         <rect x="200" y="35" width="130" height="80" rx="40" fill="none" stroke={GOLD} strokeWidth="2" />
-        <text x="265" y="71" textAnchor="middle" fill={GOLD} fontSize="15.5" fontWeight="700">Una persona</text>
-        <text x="265" y="90" textAnchor="middle" fill={GOLD} fontSize="15.5" fontWeight="700">revisa</text>
+        <text x="265" y="71" textAnchor="middle" fill={GOLD} fontSize="15.5" fontWeight="700">{v.person[0]}</text>
+        <text x="265" y="90" textAnchor="middle" fill={GOLD} fontSize="15.5" fontWeight="700">{v.person[1]}</text>
         <path d="M336 75 H382" stroke={PALE} strokeWidth="1.5" markerEnd="url(#ar-pale)" />
         <rect x="390" y="45" width="115" height="60" rx="30" fill={MUTED} />
-        <text x="447" y="80" textAnchor="middle" fill={PALE} fontSize="15.5">Decisión</text>
+        <text x="447" y="80" textAnchor="middle" fill={PALE} fontSize="15.5">{v.decision}</text>
       </svg>
     </figure>
   );
 }
 
 /** Hallazgo 6: nadie mide; qué medir. */
-function Measure() {
+function Measure({ v }: { v: V["measure"] }) {
   return (
     <figure className={styles.figure}>
       <div className={styles.measure}>
         <div className={styles.zero}>
           <strong>0</strong>
-          <span>planes de evaluación, indicadores o definiciones de éxito entre las empresas participantes</span>
+          <span>{v.zeroText}</span>
         </div>
         <div className={styles.measureList}>
-          <p className={styles.measureHead}>Qué medir</p>
+          <p className={styles.measureHead}>{v.head}</p>
           <ul>
-            <li className={styles.no}>Solo cursos completados</li>
-            <li>Mejora en el desempeño</li>
-            <li>Brechas específicas cerradas</li>
-            <li>Avance en la carrera</li>
-            <li>Confianza de los aprendices</li>
+            <li className={styles.no}>{v.no}</li>
+            {v.items.map((m) => (
+              <li key={m}>{m}</li>
+            ))}
           </ul>
         </div>
       </div>
@@ -257,19 +261,19 @@ function Measure() {
   );
 }
 
-export function FindingVisual({ kind }: { kind: "pilots" | "barriers" | "route" | "profile" | "trust" | "measure" }) {
+export function FindingVisual({ kind, t }: { kind: "pilots" | "barriers" | "route" | "profile" | "trust" | "measure"; t: V }) {
   switch (kind) {
     case "pilots":
-      return <Pilots />;
+      return <Pilots v={t.pilots} />;
     case "barriers":
-      return <Barriers />;
+      return <Barriers v={t.barriers} />;
     case "route":
-      return <Route />;
+      return <Route v={t.route} />;
     case "profile":
-      return <Profile />;
+      return <Profile v={t.profile} />;
     case "trust":
-      return <Trust />;
+      return <Trust v={t.trust} />;
     case "measure":
-      return <Measure />;
+      return <Measure v={t.measure} />;
   }
 }

@@ -8,9 +8,9 @@ import styles from "./HeroProfiles.module.css";
  * When the photo moves under the text: a 2-column grid (tablet) or a stack (mobile).
  * Rendered inside the portrait box; sizes scale with it (container units).
  */
-export function HeroProfiles({ profiles }: { profiles: HeroProfile[] }) {
+export function HeroProfiles({ profiles, label }: { profiles: HeroProfile[]; label: string }) {
   return (
-    <ul className={styles.list} aria-label="Facetas profesionales">
+    <ul className={styles.list} aria-label={label}>
       {profiles.map((p, i) => (
         <li key={p.title} className={styles.sat} data-orbit={i + 1}>
           <div className={styles.float}>

@@ -3,6 +3,7 @@
 import Script from "next/script";
 import { useSyncExternalStore } from "react";
 import { CLARITY_ID, GA_ID, getConsent, setConsent, subscribeConsent, type Consent } from "@/lib/analytics";
+import { useLang } from "@/components/i18n/LangProvider";
 import styles from "./Analytics.module.css";
 
 // En el servidor no hay elección todavía: "pending" evita mostrar el aviso antes de leer localStorage.
@@ -12,6 +13,7 @@ const useConsent = () =>
 /** Carga Google Analytics y Microsoft Clarity solo con consentimiento y muestra el aviso de cookies mientras no haya respuesta. */
 export function Analytics() {
   const consent = useConsent();
+  const { lang, ui } = useLang();
 
   return (
     <>
@@ -23,6 +25,8 @@ export function Analytics() {
 function gtag(){dataLayer.push(arguments);}
 window.gtag = gtag;
 gtag('js', new Date());
+// Idioma del sitio en cada visita y evento (filtrable en GA4 como site_language).
+gtag('set', { site_language: '${lang}' });
 // En local no se envían visitas, para no ensuciar los datos.
 if (!/^(localhost|127\\.0\\.0\\.1)$/.test(location.hostname)) gtag('config', '${GA_ID}');`}
           </Script>
@@ -35,23 +39,21 @@ if (!/^(localhost|127\\.0\\.0\\.1)$/.test(location.hostname)) gtag('config', '${
   })(window, document, "clarity", "script", "${CLARITY_ID}");
   // La persona ya aceptó en el aviso: se lo indicamos a Clarity.
   window.clarity("consent");
+  window.clarity("set", "site_language", "${lang}");
 }`}
           </Script>
         </>
       )}
 
       {consent === null && (
-        <div className={styles.banner} role="region" aria-label="Aviso de cookies">
-          <p>
-            Uso cookies de Google Analytics y Microsoft Clarity para entender cómo se usa el sitio y qué
-            recursos son útiles. Solo se activan si aceptas.
-          </p>
+        <div className={styles.banner} role="region" aria-label={ui.cookies.region}>
+          <p>{ui.cookies.text}</p>
           <div className={styles.actions}>
             <button type="button" className={styles.accept} onClick={() => setConsent("granted")}>
-              Aceptar
+              {ui.cookies.accept}
             </button>
             <button type="button" className={styles.reject} onClick={() => setConsent("denied")}>
-              Rechazar
+              {ui.cookies.reject}
             </button>
           </div>
         </div>
@@ -62,6 +64,7 @@ if (!/^(localhost|127\\.0\\.0\\.1)$/.test(location.hostname)) gtag('config', '${
 
 /** Enlace del pie de página para cambiar la elección (vuelve a mostrar el aviso). */
 export function CookieSettingsButton({ className }: { className?: string }) {
+  const { ui } = useLang();
   return (
     <button
       type="button"
@@ -73,7 +76,7 @@ export function CookieSettingsButton({ className }: { className?: string }) {
         if (wasGranted) window.location.reload();
       }}
     >
-      Preferencias de cookies
+      {ui.cookies.settings}
     </button>
   );
 }

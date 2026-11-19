@@ -21,27 +21,9 @@ export const externalLinks = {
   },
 } as const;
 
-/** Internal routes and Home sections (not in Notion: these are the site's own pages). */
-export const internalLinks = {
-  home: "/",
-  /** Contact form page (the "Hablemos" CTAs). */
-  contactForm: "/contact",
-  /** Reporte de la tesis de maestría. */
-  research: "/investigacion",
-  sections: {
-    purpose: "/#proposito",
-    impact: "/#impacto",
-    areas: "/#areas",
-    blog: "/#blog",
-    contact: "/#contacto",
-  },
-} as const;
-
 /*
  * Temporary: "Conoce más" (Áreas de impacto) and "Conoce más de mí" (Sobre mí) → LinkedIn
  * until the portfolio / about pages exist.
  *
- * No destination defined in Notion yet — these CTAs render without navigation
- * (see `href` left out in content/home.ts):
- * - "En" language switch                → future English version
+ * Internal routes (per language) live in content/es/links.ts and content/en/links.ts.
  */

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { blog } from "@/content/home";
+import { getContent } from "@/content";
 import { ButtonLink } from "@/components/ui/Button";
 import { Eyebrow } from "@/components/ui/Eyebrow";
 import { Icon } from "@/components/ui/Icon";
@@ -7,7 +7,8 @@ import { RichText } from "@/components/ui/RichText";
 import { formatPostDate } from "@/lib/format";
 import styles from "./BlogPreview.module.css";
 
-export function BlogPreview() {
+export function BlogPreview({ lang }: { lang: string }) {
+  const { blog, ui } = getContent(lang);
   return (
     <section id={blog.id} className={styles.section} aria-labelledby="blog-title">
       <div className={`container ${styles.grid}`}>
@@ -44,7 +45,7 @@ export function BlogPreview() {
                   <div className={styles.footer}>
                     <p className={styles.meta}>
                       <time dateTime={post.date} className={styles.date}>
-                        {formatPostDate(post.date)}
+                        {formatPostDate(post.date, ui.dateLocale)}
                       </time>
                       <span className={styles.reading}>{post.readingTime}</span>
                     </p>
